@@ -1,0 +1,2 @@
+        This table displays all system settings currently stored in the database. Each setting includes a 
+        name and its corresponding value. Click the edit icon next to any setting to update its value.

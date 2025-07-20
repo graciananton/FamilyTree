@@ -1,0 +1,2 @@
+    You are about to delete a person's record from the system. Please review the details carefully before proceeding. 
+    Once <b>deleted</b>, the person & his dependencies will be permanently removed and cannot be recovered.

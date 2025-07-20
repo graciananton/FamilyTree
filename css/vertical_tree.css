@@ -1,0 +1,169 @@
+#searchDropdown{
+    list-style-type:none;
+    position:absolute;
+    z-index:3;
+    padding:0;
+    margin:0;
+    background-color:#f8f9fa;
+}
+#searchOption{
+    background: none; 
+    border: none; 
+    padding: 8; 
+    cursor: pointer;
+}
+/* Styling for tree search link */
+#treeSearch {
+  color: blue;
+  text-decoration: underline;
+  border-radius: 0px;
+}
+/* Reset default spacing on ul and li */
+#vertical_tree{
+    list-style-type:none;
+    line-height:2em;
+}
+#vertical_tree ul li{
+    text-decoration:none;
+    list-style-type:none;
+}
+#vertical_tree summary{
+    cursor:pointer;
+}
+#vertical_tree summary::marker{
+    display:none;
+}
+#vertical_tree summary::-webkit-details-marker{
+    display:none;
+}
+#vertical_tree li{
+    position:relative;
+}
+
+
+#vertical_tree li::before{
+    content: "";
+    position:absolute;
+    left: -10px;
+    top: 0px;
+    border-bottom:2px solid gray;
+    width:19px;
+    height:1em;
+    
+    border-left:2px solid gray;
+}
+
+
+#vertical_tree ul li details a img {
+  display: inline-block;         /* ensures box-model applies */
+  border: 2px solid transparent; /* placeholder for hover color */
+  opacity: 0.8;                  /* slightly dim to indicate interactivity */
+  filter: grayscale(50%);        /* muted color */
+  cursor: pointer;               /* hand pointer */
+  transition: 
+    transform 0.3s ease, 
+    opacity 0.3s ease, 
+    filter 0.3s ease, 
+    border-color 0.3s ease;
+}
+#vertical_tree ul li details a img:hover {
+  transform: scale(1.3);         /* zoom in */
+  opacity: 1;                    /* full brightness */
+  filter: grayscale(0);          /* full color */
+}
+
+
+
+
+
+
+
+
+#vertical_tree ul li details a:hover {
+  transform: scale(1.3);         /* zoom in */
+  opacity: 1;                    /* full brightness */
+  filter: grayscale(0);          /* full color */
+}
+#vertical_tree ul li details a{
+    color:#06635a;
+}
+#vertical_tree ul li details a:hover{
+    transform: scale(1.3);
+    opacity:0.6;
+}
+
+
+#vertical_tree li{
+    padding-left:10px;
+}
+#vertical_tree li::after{
+    content: "";
+    position:absolute;
+    left: -10px;
+    bottom: 0px;
+    border-left:2px solid gray;
+    width:9px;
+    height:100%;
+    
+}
+#vertical_tree li:last-child::after{
+    display:none;
+}   
+ul #vertical_tree > li:after, ul #vertical_tree > li:before{
+    display:none;
+}
+#vertical_tree summary #duplicate{
+    padding:0;
+    margin:0;
+}
+
+#vertical_tree summary:not(:has(>#duplicate))::before{
+    position:absolute;
+    content:"+";
+    background:#06635a;
+    display:block;
+    width:18px;
+    height:18px;
+    border-radius:50em;
+    left:-19px;
+    top:.5em;
+    z-index:2;
+    text-align:center;
+    line-height:.8em;
+    
+}
+
+#vertical_tree summary{
+    list-style: none;
+}
+#vertical_tree .nav-link{
+    position:relative;
+    color:#06635a;
+    transition:color 0.3s ease;
+}
+#vertical_tree .nav-link::after{
+    content:'';
+    position:absolute;
+    width:0%;
+    height:2px;
+    left:50%;
+    bottom:0;
+    background-color:#06635a;
+    transition: color 0.3s ease;
+    transform: translateX(-50%);
+}
+#vertical_tree .nav-link:hover::after{
+    width:100%;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    
+}
+
+body {
+    background: url("../img/home-bg5.png");
+    background-size:cover;
+    background-attachment:fixed;
+}
