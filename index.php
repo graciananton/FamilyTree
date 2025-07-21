@@ -3,7 +3,7 @@
     <script src="admin/dTree.min.js"></script>
 <?php   
 error_reporting(0);
-echo "HI";
+echo "Index.php";
 /*ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);*/
 include "admin/classes/QueryBuilder.php";
