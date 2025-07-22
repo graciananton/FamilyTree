@@ -216,9 +216,9 @@ class HomeView extends View{
         </section>
         <script src='js/optionList.js'></script>
         <?php if(array_key_exists("display_type",$this->request) || array_key_exists("pageType",$this->request)){?>
-            <section data-stellar-background-ratio="1" id='result' >
+            <section data-stellar-background-ratio="0.5" id='result' >
                 <div class='container'>
-                    <div class='row'><a href='index.php?req=searchForm#home'><img src='img/scrollUp.png' alt=''/></a></div>
+                    <div class='row'><a href='#home'><img src='img/scrollUp.png' alt=''/></a></div>
                 </div>
                 <div class='container'>
                     <div class='row'>
