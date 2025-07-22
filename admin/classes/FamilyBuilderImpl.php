@@ -121,12 +121,12 @@ class FamilyBuilderImpl implements Builder{
                                             
                                                 string = "<p align='center' class='" + textClass + "' id='node'>"
                                                     + name
-                                                    + "<br/><a href='?pid="+extra.pid+"&pageType=page_profile&req=searchForm'/><img id='person_image' src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
-                                                    +     "onerror=\"this.onerror=null; this.src='admin/img/man.png';\" style='margin-bottom:9px;' "
+                                                    + "<br/>"
+                                                    + "<a href='?pid="+extra.pid+"&pageType=page_profile&req=searchForm'/><img id='person_image' src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
+                                                    +     "onerror=\"this.onerror=null; this.src='admin/img/man.png';\" style='margin-bottom:9px;box-shadow: 5px 10px 18px #06635a;' "
                                                     + "/></a>"
                                                     + "</p>";
                                                 return string;
-
                                             }
                                             return "";
                                             }

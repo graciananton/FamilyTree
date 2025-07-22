@@ -58,6 +58,8 @@ class Controller{
             $form = "";
         }   
         $HomeView = new HomeView($this->request,$form);
+
+
         echo "<div id='navbar'>";
             if($this->request['req'] == "termsofuse" || $this->request['req'] == "privacynotice"){
                 $HomeView->setTermsLinksNavMenu();
@@ -66,6 +68,8 @@ class Controller{
                 $HomeView->setMainLinksNavMenu();
             }
         echo "</div>";
+
+        
         $HomeView->render();
         $HomeView->setFooter();
     }
