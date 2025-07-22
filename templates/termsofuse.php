@@ -1,4 +1,5 @@
-  <div class="terms-container m-3">
+<section class=''>
+  <div class="terms-container" style='padding-left:25px;'>
     <h3>Terms of Use</h3>
 
     <p><strong>Owner:</strong> Gracian Anton<br>
@@ -80,5 +81,5 @@
     <h3>Contact Information</h3>
     <p>Gracian Anton<br>Email: basil_anton@yahoo.ca</p>
 
-    <p class="footer-info">© <script>document.write(new Date().getFullYear())</script> Family Tree. All rights reserved.</p>
   </div>
+</section>

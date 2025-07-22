@@ -236,6 +236,18 @@ http://www.tooplate.com/view/2106-soft-landing
     background: #ffffff;
   }
 
+
+
+
+  .navbar-right:last-child{
+    margin-right:0;
+  }
+
+
+
+
+
+
   .custom-navbar .navbar-nav {
     margin-left: 6em;
   }

@@ -14,7 +14,9 @@ class PageService{
     private $personPropertyList = [];
     public function __construct($request,$activeUser){
         $this->request = $request;
-        $this->req = $request['req'];
+        //$this->req = $request['req'];
+        $this->req = $request['pageType'];
+        
         $this->req_name = explode("page_",$this->req,2)[1];
         $this->activeUser = $activeUser;
         $this->DatabaseManager = new DatabaseManager("");
@@ -140,7 +142,7 @@ class PageService{
         if($this->relationPerson->getpsid() != "0"){
             $partner = $this->DatabaseManager->getPerson("pid",$this->relationPerson->getpsid());
             $partner = new Person($partner);
-            $name = "<a href='?req=page_profile&pid=" . $this->relationPerson->getpsid() . "'>" . $partner->getFirstName() . " " . $partner->getLastName() . "</a>";
+            $name = "<a method = 'POST' href='?pid=" . $this->relationPerson->getpsid() . "&pageType=page_profile&req=searchForm'>" . $partner->getFirstName() . " " . $partner->getLastName() . "</a>";
         }
         else{
             $name ="Not Listed";
@@ -151,7 +153,7 @@ class PageService{
         if($this->relationPerson->getmid() != "0"){
             $mother = $this->DatabaseManager->getPerson("pid",$this->relationPerson->getmid());
             $mother = new Person($mother);
-            $name = "<a href='?req=page_profile&pid=" . $this->relationPerson->getmid() . "'>" . $mother->getFirstName() . " " . $mother->getLastName() . "</a>";
+            $name = "<a method = 'POST' href='?pid=" . $this->relationPerson->getmid() . "&pageType=page_profile&req=searchForm'>" . $mother->getFirstName() . " " . $mother->getLastName() . "</a>";
         }
         else{
             $name ="Not Listed";
@@ -162,7 +164,8 @@ class PageService{
         if($this->relationPerson->getfpid() != "0"){
             $father = $this->DatabaseManager->getPerson("pid",$this->relationPerson->getfpid());
             $father = new Person($father);
-            $name = "<a href='?req=page_profile&pid=" . $this->relationPerson->getfpid() . "'>" . $father->getFirstName() . " " . $father->getLastName() . "</a>";
+            $name = "<a method = 'POST' href='?pid=" . $this->relationPerson->getfpid() . "&pageType=page_profile&req=searchForm'>" . $father->getFirstName() . " " . $father->getLastName() . "</a>";
+
         }
         else{
             $name ="Not Listed";

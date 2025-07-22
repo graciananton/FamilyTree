@@ -94,7 +94,7 @@ class FamilyBuilderImpl implements Builder{
 
     public function generateTree(string $pid, string $select, array $request): string {
             $jsonPayload = "[{\n" . $this->build($pid, $select, $request) . "\n}]";
-            $tree = '<div id="graph"></div>';
+            $tree = '<div id="graph" style="transform:scale(1.2,1.2);"></div>';
             ?>
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
@@ -121,7 +121,7 @@ class FamilyBuilderImpl implements Builder{
                                             
                                                 string = "<p align='center' class='" + textClass + "' id='node'>"
                                                     + name
-                                                    + "<br/><a href='?req=page_profile&pid="+extra.pid+"'/><img id='person_image' src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
+                                                    + "<br/><a href='?pid="+extra.pid+"&pageType=page_profile&req=searchForm'/><img id='person_image' src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
                                                     +     "onerror=\"this.onerror=null; this.src='admin/img/man.png';\" style='margin-bottom:9px;' "
                                                     + "/></a>"
                                                     + "</p>";

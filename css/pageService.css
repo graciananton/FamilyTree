@@ -1,27 +1,39 @@
-#pageService{
-    margin-left:20px;
+#pageService {
+    margin-left: 20px;
 }
-#name_intro{
-    margin-bottom:10px;
-}
-#name_intro #name{
-    font-size:30px;
-    color:black;
 
+#name_intro {
+    margin-bottom: 10px;
 }
-#pageService .row div div:first-child{
-    font-size:18px;
-    font-weight:bold;
+
+#name_intro #name {
+    font-size: 30px;
+    color: black;
 }
-#pageService .row div div:last-child{
-    font-size:15px;
+
+/* Applies bold styling to the first inner div within each column */
+#pageService .row > div > div:first-child {
+    font-size: 18px;
+    font-weight: bold;
 }
-#pageService .row div{
-    padding-top:5px;
+
+/* Applies regular font styling to the second inner div */
+#pageService .row > div > div:last-child {
+    font-size: 15px;
 }
-#pageService .row div #link{
-    text-decoration:underline;
+
+/* Adds padding to each column */
+#pageService .row > div {
+    padding-top: 5px;
 }
-#pageSerivice .row div #link:hover{
-    text-decoration-color:green;
+
+/* Styling for links */
+#pageService .row > div #link {
+    text-decoration: underline;
+    color: inherit;
+}
+
+/* Hover effect */
+#pageService .row > div #link:hover {
+    text-decoration-color: green;
 }

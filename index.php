@@ -3,9 +3,8 @@
     <script src="admin/dTree.min.js"></script>
 <?php   
 error_reporting(0);
-echo "hello world";
-/*ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);*/
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 include "admin/classes/QueryBuilder.php";
 //error_reporting(E_ALL);
     include "templates/header.php";  
@@ -17,10 +16,12 @@ include "admin/classes/QueryBuilder.php";
         }
     });
     
-    if (!isset($_REQUEST['req'])) {
+    if (!isset($_REQUEST['req']) || !array_key_exists("req",$_REQUEST)) {
         header("Location: index.php?req=searchForm");
-        exit();
     }  
+    if(array_key_exists("display_type",$_REQUEST) || array_key_exists("pageType",$_REQUEST)){
+                    echo '<script>window.location.hash = "#result";</script>';
+    }
   ?>
   <div style="width: 100%;height:100%">
     <?php   

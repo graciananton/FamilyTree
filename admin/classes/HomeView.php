@@ -158,18 +158,26 @@ class HomeView extends View{
         }
 
         else if($this->request['req'] == "searchForm"){
+            if(array_key_exists('personName',$this->request)){$personName = $this->request['personName'];}
+            else{$personName = "Search for family tree persons";}
+
+            $statistics = new Statistics();
+
+            $individuals = $statistics->findNumberOfIndividuals();
+            $families = ceil(($statistics->findNumberOfFamilies())/2);
         ?>
         <section class="preloader">
           <div class="spinner">
-
                <span class="spinner-rotate"></span>
-               
           </div>
         </section>
-
-        <section data-stellar-background-ratio="0.5" id='home'>
+        <?php 
+        $selected = array_key_exists("display_type", $this->request) ? $this->request['display_type'] : 'horizontal';
+         ?>
+        <section data-stellar-background-ratio="1" id='home' >
           <div class="container">
-               <div class="row">
+               
+               <div class="row" >
                     <div class="col-md-offset-3 col-md-6 col-sm-12">
                          <div class="home-info">
                               <h3>Family Tree</h3>
@@ -179,28 +187,26 @@ class HomeView extends View{
                                         <input 
                                             type="text" 
                                             id="searchdynamic" 
-                                            name="search" 
                                             autocomplete="off" 
-                                            placeholder="Search for family tree persons" 
                                             class="form-control rounded-0" 
                                             style="box-shadow: 0 0 7px 5px #06635a;border-radius:3px;;width:80%;"
+                                            placeholder = "<?php echo $personName; ?>"
                                         />
                                     </div> 
+                                    <div id="searchForm" class='mt-2' style="position:relative;"></div>
 
                                     <div id='options'>
                                         <div class='form-check-inline'> 
-                                            <input type="radio" id="horizontal" name="display_type" value="horizontal" class='form-check-input' checked>
-                                            <label for="horizontal" class='form-check-label'>Standard Format</label>
+                                            <input type="radio" id="horizontal" name="display_type" value="horizontal" class='form-check-input'
+                                                <?= $selected === 'horizontal' ? 'checked' : '' ?>>
+                                            <label for="horizontal" class='form-check-label'>Standard</label>
                                         </div>  
                                         <div class='form-check-inline'>
-                                            <input type="radio" id="vertical" name="display_type" value='vertical' class='form-check-input' />
-                                            <label for="vertical" class='form-check-label'>List Format</label>  
+                                            <input type="radio" id="vertical" name="display_type" value="vertical" class='form-check-input'
+                                                <?= $selected === 'vertical' ? 'checked' : '' ?>>
+                                            <label for="vertical" class='form-check-label'>List (Format)</label>  
                                         </div>
                                     </div>
-                                    <input type="hidden" id="pid" name="pid" value=""/>
-
-                                    <div id="searchForm" class="mt-2" style="position:relative;"></div>
-
                                 </form>
 
                          </div>
@@ -208,23 +214,80 @@ class HomeView extends View{
                </div>
           </div>
         </section>
-
-
-
         <script src='js/optionList.js'></script>
-
-        <section data-stellar-background-ratio="0.5" id='AIFamilyTree' >
+        <?php if(array_key_exists("display_type",$this->request) || array_key_exists("pageType",$this->request)){?>
+            <section data-stellar-background-ratio="1" id='result' >
+                <div class='container'>
+                    <div class='row'><a href='index.php?req=searchForm#home'><img src='img/scrollUp.png' alt=''/></a></div>
+                </div>
+                <div class='container'>
+                    <div class='row'>
+                        <div class='col-md-12 col-sm-12'>
+                            <div class='section-title'>
+                                    <h1>Search Results:</h1>
+                            </div>
+                        </div>
+                        <div class='col-md-12 col-sm-12'>
+                            <?php echo $this->object; ?>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <?php } ?>
+        <section data-stellar-background-ratio="1" id='AIFamilyTree' >
             <div class="container">
                 <div class="row">
 
                         <div class="col-md-12 col-sm-12">
                             <div class="section-title">
-                                <h1>History</h1>
+                                <h1>Tree Search:</h1>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-6" style="font-size:18px;font‑weight: normal;">
-                            The lineage begins with Thomas Carter, born in 1750 in Dublin, Ireland, who devoted his life to agricultural work and died in 1815 at age 65. His son Robert Carter was born in Dublin in 1780; he became a skilled carpenter and passed away in 1852 at 72. Robert’s daughter Elizabeth, originally O’Brien, was welcomed into the world in Cork in 1810 and lived to the age of 70, dying in 1880 after raising a large family. The next generation AIFamilyTrees John Smith, born in London in 1840, who worked in the shipyards and died in 1910 at 70. His daughter Mary, née Carter, emigrated to New York in 1870, where she died in 1942 at 72. Mary’s son William Smith, born in Chicago in 1900, pursued engineering and lived until 1975, passing at age 75. His daughter Margaret was born in 1930 in Chicago and died in 2000 at 70. Margaret’s son David Johnson was born in Vancouver in 1960 and is 65 in 2025. His daughter Sarah was born in 1988 in Vancouver and is 37, while her niece Emily Johnson was born in 2010 in Toronto and is now 15. Their journey reflects broader patterns of migration. 
+                    
+                        <div class="col-md-6 col-sm-6" id='statistics_box' >
+                                <div class='col-md-6' id='individuals'>
+                                        <div id='title'>Number of People: </div>
+                                        <div id='numberOfPeople'></div>
+                                </div>
+                                <div class='col-md-6' id='families'>
+                                        <div id='title'>Number of Families: </div>
+                                        <div id='numberOfFamilies'></div>
+                                </div>
                         </div>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const totalNumberOfPeople = parseInt(<?php echo $individuals; ?>);
+                                let numberOfPeople = 0;
+
+                                function incrementNums(i) {
+                                    numberOfPeople = i + 1;
+                                    document.getElementById('numberOfPeople').innerHTML = numberOfPeople;
+                                }
+
+                                for (let i = 0; i < totalNumberOfPeople; i++) {
+                                    setTimeout(function() {
+                                        incrementNums(i);
+                                    },i* 100); // delay increases with i
+                                }
+                            });
+
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const totalNumberOfFamilies = parseInt(<?php echo $families; ?>);
+                                let numberOfFamilies = 0;
+
+                                function incrementNums(i) {
+                                    numberOfFamilies = i + 1;
+                                    document.getElementById('numberOfFamilies').innerHTML = numberOfFamilies;
+                                }
+
+                                for (let i = 0; i < totalNumberOfFamilies; i++) {
+                                    setTimeout(function() {
+                                        incrementNums(i);
+                                    },i* 500); // delay increases with i
+                                }
+                            });
+
+                        </script>
                         <div class='col-md-1 col-sm-4'></div>
                         <div class="col-md-4 col-sm-4">
                                         <div id='header'>
@@ -286,13 +349,13 @@ class HomeView extends View{
             </div>
         </section>
 
-        <section id="views" data-stellar-background-ratio="0.5">
+        <section id="views" data-stellar-background-ratio="1">
           <div class="container">
                <div class="row">
 
                     <div class=" col-md-12 col-sm-12" >
                          <div class="section-title" >
-                              <h1>Vertical v. Standard Display Types</h1>
+                              <h1>Standard v. List Display Types</h1>
                          </div>
                     </div>
 
@@ -303,6 +366,38 @@ class HomeView extends View{
                </div>
           </div>
         </section>
+
+     <section id="contact" data-stellar-background-ratio="0.5">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-offset-1 col-md-10 col-sm-12">
+                         <form id="contact-form" role="form" action="" method="post">
+                              <div class="section-title">
+                                   <h1>Report Errors In The Family Tree
+                                   </h1>
+                              </div>
+
+                              <div class="col-md-4 col-sm-4">
+                                   <input type="text" class="form-control" placeholder="Full name" name="name" required="">
+                              </div>
+                              <div class="col-md-4 col-sm-4">
+                                   <input type="email" class="form-control" placeholder="Email address" name="email" required="">
+                              </div>
+                              <div class="col-md-4 col-sm-4">
+                                   <input type="submit" class="form-control" name="send message" value="Send Message">
+                              </div>
+                              <div class="col-md-12 col-sm-12">
+                                   <textarea class="form-control" rows="8" placeholder="Your message" name="message" required=""></textarea>
+                              </div>
+                              <input type='hidden' name='req' value='contact'/>
+                         </form>
+                    </div>
+
+               </div>
+          </div>
+     </section>       
+
 
 
 
@@ -508,9 +603,9 @@ class HomeView extends View{
         }
 
     }
-    public function setResultLinksNavMenu(){
-        ?>
-        <section class="navbar custom-navbar" role="navigation">
+    public function setTermsLinksNavMenu(){
+    ?>
+               <section class="navbar custom-navbar navbar-fixed-top" role="navigation" >
                 <div class="container">
 
                     <div class="navbar-header">
@@ -525,17 +620,17 @@ class HomeView extends View{
 
                     <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav">
-                                <li><a href="index.php?req=searchForm#home" style='color:black;' class="smoothScroll">Home</a></li>
-                                <li><a href="index.php?req=searchForm#AIFamilyTree" style='color:black;' class="smoothScroll">Tree Search</a></li>
-                                <li><a href="index.php?req=searchForm#views" style='color:black;' class="smoothScroll"> Display Types</a></li>
+                                <li><a href="?req=searchForm#home" class="smoothScroll" style='color:black;'>Home</a></li>
+                                <li><a href="?req=searchForm#AIFamilyTree" class="smoothScroll" style='color:black;'>Tree Search</a></li>
+                                <li><a href="?req=searchForm#views" class="smoothScroll" style='color:black;'> Display Types</a></li>
+                                <li><a href="?req=searchForm#contact" class="smoothScroll"> Contact Us</a></li>
+
                             </ul>
                     </div>
 
                 </div>
             </section>
-
-
-        <?php
+    <?php
     }
     public function setMainLinksNavMenu(){ 
         ?>
@@ -559,6 +654,10 @@ class HomeView extends View{
                                 <li><a href="#home" class="smoothScroll">Home</a></li>
                                 <li><a href="#AIFamilyTree" class="smoothScroll">Tree Search</a></li>
                                 <li><a href="#views" class="smoothScroll"> Display Types</a></li>
+                                <li><a href="#contact" class="smoothScroll"> Contact Us</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="http://localhost/gracian/familytree/admin/login.php" target = "_blank" class='smoothScroll'>Login</a></li>
                             </ul>
                     </div>
 
@@ -568,6 +667,15 @@ class HomeView extends View{
 
         <?php
     }
-
-
+    public function setFooter(){
+        ?>
+        <div class='container-fluid'>
+            <div class='row' id='footer'>
+                <p style="text-align: center; font-size: 14px; color: black; margin-top: 20px;margin-bottom:20px;">
+                    © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our <a href="?req=termsofuse" style='text-decoration:underline;color:green;'>Terms of Use</a> & <a href="?req=privacynotice" style='color:green;text-decoration:underline;'>Privacy Notice</a>
+                </p>
+            </div>
+        </div>
+        <?php
+    }
 }

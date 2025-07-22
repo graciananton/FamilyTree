@@ -1,4 +1,5 @@
-  <div class="privacy-container m-3">
+<section>
+  <div class="privacy-container" style='padding-left:25px;'>
     <h3>Privacy Notice</h3>
 
     <p><strong>Owner:</strong> Gracian Anton<br>
@@ -57,5 +58,5 @@
     <p>If you have any questions or concerns regarding your privacy or this notice, please contact:</p>
     <p>Gracian Anton<br>Email: basil_anton@yahoo.ca</p>
 
-    <p class="footer-info">© <script>document.write(new Date().getFullYear())</script> Gracian Anton. All rights reserved.</p>
   </div>
+</section>

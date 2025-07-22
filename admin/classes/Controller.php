@@ -29,37 +29,45 @@ class Controller{
 
             $individuals = $statistics->findNumberOfIndividuals();
             $families = ceil(($statistics->findNumberOfFamilies())/2);
+            if(array_key_exists("display_type",$this->request)){
+                if($this->request['display_type'] == "vertical"){
+                    $Builder = new TreeBuilderImpl();
+                }
+                else{
+                    $Builder = new FamilyBuilderImpl();
+                }
 
-            $form = $statistics;
+                $form = $Builder->generateTree($this->pid,$this->select,$this->request);
+            }
+            if($this->request['pageType'] == "page_profile"){
+                    $PageService = new PageService($this->request,"");
+                    $PageService->renderContent();
+                    $form = $PageService->getContentText();
+            }
+        }
+        else if($this->req == "contact"){
+            $Contact = new Contact($this->request);
+            $Contact->process();
         }
         else if(stripos($this->req,"page_") !== false){
             $PageService = new PageService($this->request,"");
             $PageService->renderContent();
             $form = $PageService->getContentText();
         }
-        else if($this->req == "search"){
-            if($this->request['display_type'] == "vertical"){
-                $Builder = new TreeBuilderImpl();
-            }
-            else{
-                $Builder = new FamilyBuilderImpl();
-            }
-           $form = $Builder->generateTree($this->pid,$this->select,$this->request);
-           
-        }
         else if($this->req == "termsofuse" || $this->req == "privacynotice"){
             $form = "";
         }   
         $HomeView = new HomeView($this->request,$form);
         echo "<div id='navbar'>";
-        if($this->req == "searchForm"){
-            $HomeView->setMainLinksNavMenu();
-        }
-        else{
-            $HomeView->setResultLinksNavMenu();
-        }
+            if($this->request['req'] == "termsofuse" || $this->request['req'] == "privacynotice"){
+                $HomeView->setTermsLinksNavMenu();
+            }
+            else{
+                $HomeView->setMainLinksNavMenu();
+            }
         echo "</div>";
         $HomeView->render();
+        $HomeView->setFooter();
     }
 }
 ?>

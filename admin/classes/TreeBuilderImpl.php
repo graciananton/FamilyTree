@@ -42,15 +42,15 @@ class TreeBuilderImpl implements Builder{
                         if($partner->fpid != "0"){
                             $name = $partner->firstName." ".$partner->lastName;
                             if($tracker == true){
-                                $html .= " & <a id='partnerWithFather' target ='_blank' href='?req=search&display_type=".$request['display_type']."&personName=".$name."&select=".$partner->pid."&pid=".$partner->fpid."'>" . $partner->firstName . " " . $partner->lastName."</a> 
+                                $html .= " & <a id='partnerWithFather' href='?req=searchForm&display_type=".$request['display_type']."&personName=".$name."&select=".$partner->pid."&pid=".$partner->fpid."'>" . $partner->firstName . " " . $partner->lastName."</a> 
                                              <mark>(Duplicate)</mark>";
                             }
                             else{
-                                $html .= " & <a id='partnerWithFather' target ='_blank' href='?req=search&display_type=".$request['display_type']."&personName=".$name."&select=".$partner->pid."&pid=".$partner->fpid."'>" . $partner->firstName . " " . $partner->lastName."</a><br/>"; 
+                                $html .= " & <a id='partnerWithFather' href='?req=searchForm&display_type=".$request['display_type']."&personName=".$name."&select=".$partner->pid."&pid=".$partner->fpid."'>" . $partner->firstName . " " . $partner->lastName."</a><br/>"; 
                             
                             }
                             $imagePath = $Setting->getValue();
-                            $html .= "<a href='?req=page_profile&pid=".$person->psid."'><img src='admin/img/people/ph_20/" . $person->psid . ".png' id='treePerson' value='" . $person->psid . "' alt=''></a>";
+                            $html .= "<a href='?pid={$person->pid}&pageType=page_profile&req=searchForm'><img src='admin/img/people/ph_20/" . $person->psid . ".png' id='treePerson' value='" . $person->psid . "' alt=''></a>";
 
                         }
                         else{
@@ -58,7 +58,7 @@ class TreeBuilderImpl implements Builder{
                         }
                     }
                     $html .= <<<HTML
-                    <br/><a href='?req=page_profile&pid={$person->pid}' style='margin-right:6px;'>
+                    <br/><a href='?pid={$person->pid}&pageType=page_profile&req=searchForm' style='margin-right:6px;'>
                         <img 
                             src='admin/img/people/ph_20/{$person->pid}.png' 
                             id='treePerson'  
@@ -69,7 +69,7 @@ class TreeBuilderImpl implements Builder{
                     </a>
                     HTML;
                     $html .= <<<HTML
-                    <a href='?req=page_profile&pid={$partner->pid}'>
+                    <a href='?pid={$partner->pid}&pageType=page_profile&req=searchForm'>
                         <img 
                             src='admin/img/people/ph_20/{$partner->pid}.png' 
                             id='treePerson'  
@@ -96,7 +96,7 @@ class TreeBuilderImpl implements Builder{
             
                     if ($partner) {
                         if($partner->fpid != "0"){
-                            $html .= "& <a id='partnerWithFather'  href='?req=search&display_type=".$request['display_type']."&personName=".$person->firstName."&select=".$partner->pid."&pid=".$partner->fpid."'>" . $partner->firstName . " " . $partner->lastName."</a>";
+                            $html .= "& <a id='partnerWithFather'  href='?req=searchForm&display_type=".$request['display_type']."&personName=".$person->firstName."&select=".$partner->pid."&pid=".$partner->fpid."'>" . $partner->firstName . " " . $partner->lastName."</a>";
                         }
                         else{
                             $html .=  "& ".$partner->firstName . " " . $partner->lastName;
@@ -108,7 +108,7 @@ class TreeBuilderImpl implements Builder{
             }
             if($person->psid == "0"){
                 $html .= <<<HTML
-                <a href='?req=page_profile&pid={$person->pid}'>
+                <a href='?pid={$person->pid}&pageType=page_profile&req=searchForm'>
                     <img 
                         src='admin/img/people/ph_20/{$person->pid}.png' 
                         id='treePerson'  
@@ -136,7 +136,7 @@ class TreeBuilderImpl implements Builder{
         return ""; // Return empty string if person is not found.
     }
     public function generateTree(string $pid, string $select,array $request):string {
-        $tree = "<div id='vertical_tree'>
+        $tree = "<div id='vertical_tree' style='transform:scale(1.7,1.7);transform:translate(50px,25px);'>
                     <ul id='ul_list'>";
         $tree .= $this->build($pid,$select,$request);
         $tree .= "  </ul>

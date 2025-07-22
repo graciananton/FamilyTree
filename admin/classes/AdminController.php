@@ -58,7 +58,7 @@ class AdminController extends Controller{
             $this->AdminView->render();
 
         }
-        else if($this->req == "es-submit"){
+        else if($this->req == "es-submit") {
             $Setting = new Setting($this->request);
             $this->DatabaseManager = new DatabaseManager($Setting);
             $this->SettingService = new SettingServiceImpl($this->DatabaseManager);

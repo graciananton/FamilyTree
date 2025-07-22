@@ -42,8 +42,6 @@ html{
   #person_image{
     display: inline-block;         /* ensures box-model applies */
   border: 2px solid transparent; /* placeholder for hover color */
-  opacity: 0.8;                  /* slightly dim to indicate interactivity */
-  filter: grayscale(50%);        /* muted color */
   cursor: pointer;               /* hand pointer */
   transition: 
     transform 0.3s ease, 
@@ -54,8 +52,8 @@ html{
 #person_image:hover{
       transform: scale(1.3);         /* zoom in */
   opacity: 1;                    /* full brightness */
-  filter: grayscale(0);          /* full color */
-
+  filter: grayscale(50%);        /* muted color */
+    opacity: 0.8;                  /* slightly dim to indicate interactivity */
 }
 
 	.man {
@@ -91,17 +89,23 @@ html{
 }
 
 
-
+/*
 #searchDropdown{
+    width: 80%; 
+    left: 50%; 
+    transform: translateX(-50%);
+
+    border:1px solid red;
     list-style-type:none;
     position:absolute;
     z-index:3;
     padding:0;
     margin:0;
-
+    
     background-color:#f8f9fa;
 
 }
+    */
 #intro_ai_link,#intro_list_and_tree{
   color:#06635a;
   text-decoration-color:#06635a;
@@ -277,12 +281,34 @@ fieldset{
   background-color:white;
   transform:translateX(20px);
 }
+#statistics_box{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:500px;
+}
+#individuals{
+  font-size:30px;
+  transform:translateY(-50px);
+  color:black;
+}
+#individuals div{
+  text-align:center;
+}
+#families div{
+  text-align:center;
+}
+#families{
+  font-size:30px;
+  color:black;
+  transform:translateY(-50px);
 
+}
 
-
-
-
-
+#numberOfPeople,#numberOfFamilies{
+  padding-top:15px;
+  font-weight:bold;
+}
 
 #option{
   display:flex;
@@ -290,7 +316,7 @@ fieldset{
   align-items:flex-start;
   width: 100%;               /* or whatever length you want the border to be */
   background: url('img/home-bg5.png') center/cover no-repeat;
-  border-bottom: 1px solid #06635a;
+  border-bottom: 2px solid #06635a;
 }
 #option:last-child{
     border-bottom:0px solid #06635a;
