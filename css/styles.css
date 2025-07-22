@@ -114,22 +114,10 @@ html{
   padding-top:60px;
 }
 
-#profile tr th{
-  padding:20px;
-  border:1px solid black;
-  white-space:nowrap;
-}
-#profile tr td{ 
-  text-align:center;
-  margin:auto; 
-  padding:15px;
-  border:1px solid black;
-  white-space:nowrap;
-}
 
-#profile tr > td:nth-last-child(-n+3){
-  text-decoration:underline
-}
+
+
+
 
 
 fieldset{
