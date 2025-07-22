@@ -111,7 +111,7 @@ class PageService{
     }
     public function setImage(){
         $this->SettingService = new SettingServiceImpl($this->DatabaseManager);
-        $personImagePath = $this->SettingService->getSettingValueByName("homeTreeImagePath");
+        $personImagePath = $this->SettingService->getSettingValueByName("profile_pic");
         $personImagePath = new Setting($personImagePath);
         $personImagePath = $personImagePath->getValue().$this->person->getPid().".png";
         return $personImagePath;
@@ -119,11 +119,9 @@ class PageService{
     public function setBirthDate(){
         return $this->person->getBirthDate();
     }
-    
     public function setDeathDate(){
         return $this->person->getDeathDate();
     }
-
     public function setGender(){
         return $this->person->getGender();
     }
