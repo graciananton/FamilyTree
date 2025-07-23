@@ -29,7 +29,13 @@ class Controller{
 
             $individuals = $statistics->findNumberOfIndividuals();
             $families = ceil(($statistics->findNumberOfFamilies())/2);
-            if(array_key_exists("display_type",$this->request)){
+            if($this->request['pageType'] == "page_profile"){
+                    $PageService = new PageService($this->request,"");
+                    $PageService->renderContent();
+                    $form = $PageService->getContentText();
+            }
+
+            else if(array_key_exists("display_type",$this->request)){
                 if($this->request['display_type'] == "vertical"){
                     $Builder = new TreeBuilderImpl();
                 }
@@ -38,11 +44,6 @@ class Controller{
                 }
 
                 $form = $Builder->generateTree($this->pid,$this->select,$this->request);
-            }
-            if($this->request['pageType'] == "page_profile"){
-                    $PageService = new PageService($this->request,"");
-                    $PageService->renderContent();
-                    $form = $PageService->getContentText();
             }
         }
         else if($this->req == "contact"){

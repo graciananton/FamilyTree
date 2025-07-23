@@ -141,31 +141,55 @@ class PageService{
         return $this->person->getAddress();
     }
 
-    public function setPsid(){
-        print_r($this->request);
 
-        
+
+
+    public function setPsid(){
         if($this->relationPerson->getpsid() != "0"){
             $partner = $this->DatabaseManager->getPerson("pid", $this->relationPerson->getpsid());
             $partner = new Person($partner);
-            $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
-                    . $partner->getFirstName() . " " . $partner->getLastName() 
-                    . "&select=" . $partner->getPid() . "&pid=" . $partner->getPid() 
-                    . "'>" . $partner->getFirstName() . "</a>";
+
+            if($this->request['display_type'] == "horizontal"){
+                $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
+                        . $partner->getFirstName() . " " . $partner->getLastName() 
+                        . "&select=" . $partner->getPid() . "&pid=" . $partner->getPid() 
+                        . "'>" . $partner->getFirstName() . "</a>";
+            }
+            else{
+                $name = "<a href='?req=searchForm&display_type=vertical&personName=" 
+                        . $partner->getFirstName() . " " . $partner->getLastName() 
+                        . "&select=" . $partner->getPid() . "&pid=" . $partner->getPid() 
+                        . "'>" . $partner->getFirstName() . "</a>";
+
+            }
+
         } else {
             $name = "N/A";
         }
         return $name;
     }
 
+
+
+
     public function setMid(){
     if($this->relationPerson->getmid() != "0"){
         $mother = $this->DatabaseManager->getPerson("pid", $this->relationPerson->getmid());
         $mother = new Person($mother);
-        $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
-                . $mother->getFirstName() . " " . $mother->getLastName() 
-                . "&select=" . $mother->getPid() . "&pid=" . $mother->getPid() 
-                . "'>" . $mother->getFirstName() . "</a>";
+        if($this->request['display_type'] == "horizontal"){
+
+            $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
+                    . $mother->getFirstName() . " " . $mother->getLastName() 
+                    . "&select=" . $mother->getPid() . "&pid=" . $mother->getPid() 
+                    . "'>" . $mother->getFirstName() . "</a>";
+        }
+        else{
+            $name = "<a href='?req=searchForm&display_type=vertical&personName=" 
+                    . $mother->getFirstName() . " " . $mother->getLastName() 
+                    . "&select=" . $mother->getPid() . "&pid=" . $mother->getPid() 
+                    . "'>" . $mother->getFirstName() . "</a>";
+
+        }
     } else {
         $name = "N/A";
     }
@@ -176,10 +200,19 @@ public function setFpid(){
     if($this->relationPerson->getfpid() != "0"){
         $father = $this->DatabaseManager->getPerson("pid", $this->relationPerson->getfpid());
         $father = new Person($father);
-        $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
-                . $father->getFirstName() . " " . $father->getLastName() 
-                . "&select=" . $father->getPid() . "&pid=" . $father->getPid()
-                . "'>" . $father->getFirstName() . "</a>";
+
+        if($this->request['display_type'] == "horizontal"){ 
+            $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
+                    . $father->getFirstName() . " " . $father->getLastName() 
+                    . "&select=" . $father->getPid() . "&pid=" . $father->getPid()
+                    . "'>" . $father->getFirstName() . "</a>";
+        }
+        else{
+            $name = "<a href='?req=searchForm&display_type=vertical&personName=" 
+                    . $father->getFirstName() . " " . $father->getLastName() 
+                    . "&select=" . $father->getPid() . "&pid=" . $father->getPid()
+                    . "'>" . $father->getFirstName() . "</a>";
+        }
     } else {
         $name = "N/A";
     }

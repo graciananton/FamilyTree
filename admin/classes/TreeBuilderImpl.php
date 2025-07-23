@@ -50,7 +50,14 @@ class TreeBuilderImpl implements Builder{
                             
                             }
                             $imagePath = $Setting->getValue();
-                            $html .= "<a href='?pid={$person->pid}&pageType=page_profile&req=searchForm'><img style='box-shadow: 5px 10px 18px #7F4444;' src='admin/img/people/ph_20/" . $person->psid . ".png' id='treePerson' value='" . $person->psid . "' alt=''></a>";
+
+
+
+
+                            $html .= "<a href='?pid={$person->pid}&pageType=page_profile&display_type=vertical&req=searchForm'><img style='box-shadow: 5px 10px 18px #7F4444;' src='admin/img/people/ph_20/" . $person->psid . ".png' id='treePerson' value='" . $person->psid . "' alt=''></a>";
+
+
+
 
                         }
                         else{
@@ -58,7 +65,7 @@ class TreeBuilderImpl implements Builder{
                         }
                     }
                     $html .= <<<HTML
-                    <br/><a href='?pid={$person->pid}&pageType=page_profile&req=searchForm' style='margin-right:6px;'>
+                    <br/><a href='?pid={$person->pid}&pageType=page_profile&display_type=vertical&req=searchForm' style='margin-right:6px;'>
                         <img 
                             src='admin/img/people/ph_20/{$person->pid}.png' 
                             id='treePerson'  
@@ -70,7 +77,7 @@ class TreeBuilderImpl implements Builder{
                     </a>
                     HTML;
                     $html .= <<<HTML
-                    <a href='?pid={$partner->pid}&pageType=page_profile&req=searchForm'>
+                    <a href='?pid={$partner->pid}&pageType=page_profile&display_type=vertical&req=searchForm'>
                         <img 
                             src='admin/img/people/ph_20/{$partner->pid}.png' 
                             id='treePerson'  
@@ -110,7 +117,7 @@ class TreeBuilderImpl implements Builder{
             }
             if($person->psid == "0"){
                 $html .= <<<HTML
-                <a href='?pid={$person->pid}&pageType=page_profile&req=searchForm'>
+                <a href='?pid={$person->pid}&pageType=page_profile&display_type=vertical&req=searchForm'>
                     <img 
                         src='admin/img/people/ph_20/{$person->pid}.png' 
                         id='treePerson'  

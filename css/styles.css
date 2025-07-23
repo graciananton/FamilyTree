@@ -28,14 +28,14 @@ html{
 	}
 	.linage {
 	    fill: none;
-	    stroke: black;
+	    stroke: #7F4444;
 	}
 	.marriage {
 	    fill: none;
-	    stroke: black;
+	    stroke: #7F4444;
 	}
 	.marriageNode {
-			background-color: black;
+			background-color: #7F4444;
 			border-radius: 50%;
 	}
   
