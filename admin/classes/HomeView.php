@@ -189,7 +189,7 @@ class HomeView extends View{
                                             id="searchdynamic" 
                                             autocomplete="off" 
                                             class="form-control rounded-0" 
-                                            style="box-shadow: 0 0 7px 5px #06635a;border-radius:3px;;width:80%;"
+                                            style="box-shadow: 0 0 7px 5px #7F4444;border-radius:3px;;width:80%;"
                                             placeholder = "<?php echo $personName; ?>"
                                         />
                                     </div> 
@@ -476,7 +476,7 @@ class HomeView extends View{
                         History:
                     </div>
                 </div>
-                <div class='row' id='content'>
+                <div class='row' id='content'>/*
                     <div class='col-md-8'></div>
                     <div class='col-md-4'><img src='img/history_background.png' alt=''/></div>
                 </div>
@@ -672,7 +672,7 @@ class HomeView extends View{
         <div class='container-fluid'>
             <div class='row' id='footer'>
                 <p style="text-align: center; font-size: 14px; color: black; margin-top: 20px;margin-bottom:20px;">
-                    © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our <a href="?req=termsofuse" style='text-decoration:underline;color:green;'>Terms of Use</a> & <a href="?req=privacynotice" style='color:green;text-decoration:underline;'>Privacy Notice</a>
+                    © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our <a href="?req=termsofuse" style='text-decoration:underline;color:#7F4444;'>Terms of Use</a> & <a href="?req=privacynotice" style='color:#7F4444;text-decoration:underline;'>Privacy Notice</a>
                 </p>
             </div>
         </div>

@@ -85,7 +85,7 @@
   filter: grayscale(0);          /* full color */
 }
 #vertical_tree ul li details a{
-    color:#06635a;
+    color:#7F4444;
 }
 #vertical_tree ul li details a:hover{
     transform: scale(1.3);
@@ -120,7 +120,7 @@ ul #vertical_tree > li:after, ul #vertical_tree > li:before{
 #vertical_tree summary:not(:has(>#duplicate))::before{
     position:absolute;
     content:"+";
-    background:#06635a;
+    background:#7F4444;
     display:block;
     width:18px;
     height:18px;
@@ -138,7 +138,7 @@ ul #vertical_tree > li:after, ul #vertical_tree > li:before{
 }
 #vertical_tree .nav-link{
     position:relative;
-    color:#06635a;
+    color:#7F4444;
     transition:color 0.3s ease;
 }
 #vertical_tree .nav-link::after{
@@ -148,7 +148,7 @@ ul #vertical_tree > li:after, ul #vertical_tree > li:before{
     height:2px;
     left:50%;
     bottom:0;
-    background-color:#06635a;
+    background-color:#7F4444;
     transition: color 0.3s ease;
     transform: translateX(-50%);
 }

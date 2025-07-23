@@ -118,15 +118,28 @@ class FamilyBuilderImpl implements Builder{
                                             },*/
                                             textRenderer: function(name, extra, textClass) {
                                             if (extra && extra.pid) {
-                                            
-                                                string = "<p align='center' class='" + textClass + "' id='node'>"
+                                                if(extra.pid == "<?php echo $select; ?>"){
+                                                    string = "<p align='center' class='" + textClass + "' id='node' style='background-color: rgba(255, 0, 0, 0.2); '>"
                                                     + name
                                                     + "<br/>"
-                                                    + "<a href='?pid="+extra.pid+"&pageType=page_profile&req=searchForm'/><img id='person_image' src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
-                                                    +     "onerror=\"this.onerror=null; this.src='admin/img/man.png';\" style='margin-bottom:9px;box-shadow: 5px 10px 18px #06635a;' "
-                                                    + "/></a>"
+                                                    + "<a href='?pid=" + extra.pid + "&pageType=page_profile&req=searchForm'>"
+                                                    + "<img id='person_image' src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
+                                                    + "onerror=\"this.onerror=null; this.src='admin/img/man.png';\" style='padding-bottom:9px;' />"
+                                                    + "</a>"
                                                     + "</p>";
-                                                return string;
+
+                                                    return string;
+                                                }
+                                                else{
+                                                    string = "<p align='center' class='" + textClass + "' id='node'>"
+                                                            + name
+                                                            + "<br/>"
+                                                            + "<a href='?pid="+extra.pid+"&pageType=page_profile&req=searchForm'/><img id='person_image'  src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
+                                                            +     "onerror=\"this.onerror=null; this.src='admin/img/man.png';\" style='padding-bottom:9px;' "
+                                                            + "/></a>"
+                                                        + "</p>";
+                                                    return string;
+                                                }
                                             }
                                             return "";
                                             }

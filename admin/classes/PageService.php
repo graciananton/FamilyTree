@@ -120,6 +120,9 @@ class PageService{
         return $this->person->getBirthDate();
     }
     public function setDeathDate(){
+        if($this->person->getDeathDate() == ""){
+            return "?";
+        }
         return $this->person->getDeathDate();
     }
     public function setGender(){
@@ -137,40 +140,51 @@ class PageService{
     public function setAddress(){
         return $this->person->getAddress();
     }
-    public function setPsid(){
-        if($this->relationPerson->getpsid() != "0"){
-            $partner = $this->DatabaseManager->getPerson("pid",$this->relationPerson->getpsid());
-            $partner = new Person($partner);
-            $name = "<a method = 'POST' href='?pid=" . $this->relationPerson->getpsid() . "&pageType=page_profile&req=searchForm'>" . $partner->getFirstName() ."</a>";
-        }
-        else{
-            $name ="N/A";
-        }
-        return $name;
-    }
-    public function setMid(){
-        if($this->relationPerson->getmid() != "0"){
-            $mother = $this->DatabaseManager->getPerson("pid",$this->relationPerson->getmid());
-            $mother = new Person($mother);
-            $name = "<a method = 'POST' href='?pid=" . $this->relationPerson->getmid() . "&pageType=page_profile&req=searchForm'>" . $mother->getFirstName() . "</a>";
-        }
-        else{
-            $name ="N/A";
-        }
-        return $name;
-    }
-    public function setFpid(){
-        if($this->relationPerson->getfpid() != "0"){
-            $father = $this->DatabaseManager->getPerson("pid",$this->relationPerson->getfpid());
-            $father = new Person($father);
-            $name = "<a method = 'POST' href='?pid=" . $this->relationPerson->getfpid() . "&pageType=page_profile&req=searchForm'>" . $father->getFirstName() ."</a>";
 
-        }
-        else{
-            $name ="N/A";
+    public function setPsid(){
+        print_r($this->request);
+
+        
+        if($this->relationPerson->getpsid() != "0"){
+            $partner = $this->DatabaseManager->getPerson("pid", $this->relationPerson->getpsid());
+            $partner = new Person($partner);
+            $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
+                    . $partner->getFirstName() . " " . $partner->getLastName() 
+                    . "&select=" . $partner->getPid() . "&pid=" . $partner->getPid() 
+                    . "'>" . $partner->getFirstName() . "</a>";
+        } else {
+            $name = "N/A";
         }
         return $name;
     }
+
+    public function setMid(){
+    if($this->relationPerson->getmid() != "0"){
+        $mother = $this->DatabaseManager->getPerson("pid", $this->relationPerson->getmid());
+        $mother = new Person($mother);
+        $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
+                . $mother->getFirstName() . " " . $mother->getLastName() 
+                . "&select=" . $mother->getPid() . "&pid=" . $mother->getPid() 
+                . "'>" . $mother->getFirstName() . "</a>";
+    } else {
+        $name = "N/A";
+    }
+    return $name;
+}
+
+public function setFpid(){
+    if($this->relationPerson->getfpid() != "0"){
+        $father = $this->DatabaseManager->getPerson("pid", $this->relationPerson->getfpid());
+        $father = new Person($father);
+        $name = "<a href='?req=searchForm&display_type=horizontal&personName=" 
+                . $father->getFirstName() . " " . $father->getLastName() 
+                . "&select=" . $father->getPid() . "&pid=" . $father->getPid()
+                . "'>" . $father->getFirstName() . "</a>";
+    } else {
+        $name = "N/A";
+    }
+    return $name;
+}
 
     public function setEditableIndividuals(){
         $html = "";

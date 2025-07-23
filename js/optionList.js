@@ -16,10 +16,13 @@
                                 for (var i = 0; i < persons.length; i++) {
                                     var person = persons[i];
                                     var name = person['firstName'] + " " + person['lastName'];
-                                    dropdown += '<li id="option" style="border:1px solid #06635a;">';
+                                    dropdown += '<li id="option" style="border:1px solid #7F4444;">';
                                     dropdown += '<form method="GET" action="index.php">';
-                                        dropdown += '<input type="hidden" name="select" value="">';
+                                    
+                                        dropdown += '<input type="hidden" name="select" value="'+person['pid'] +'">';
+
                                         dropdown += '<input type="hidden" name="pid" value="' + person['pid'] + '"/>';
+
                                         dropdown += '<input type="hidden" name="personName" value="' + name + '"/>';
                                         dropdown += '<input type="hidden" name="req" value="searchForm">';
 

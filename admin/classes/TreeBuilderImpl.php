@@ -50,7 +50,7 @@ class TreeBuilderImpl implements Builder{
                             
                             }
                             $imagePath = $Setting->getValue();
-                            $html .= "<a href='?pid={$person->pid}&pageType=page_profile&req=searchForm'><img style='box-shadow: 5px 10px 18px #06635a;' src='admin/img/people/ph_20/" . $person->psid . ".png' id='treePerson' value='" . $person->psid . "' alt=''></a>";
+                            $html .= "<a href='?pid={$person->pid}&pageType=page_profile&req=searchForm'><img style='box-shadow: 5px 10px 18px #7F4444;' src='admin/img/people/ph_20/" . $person->psid . ".png' id='treePerson' value='" . $person->psid . "' alt=''></a>";
 
                         }
                         else{
@@ -62,7 +62,7 @@ class TreeBuilderImpl implements Builder{
                         <img 
                             src='admin/img/people/ph_20/{$person->pid}.png' 
                             id='treePerson'  
-                            style='box-shadow: 5px 10px 18px #06635a;'
+                            style='box-shadow: 5px 10px 18px #7F4444;'
                             onerror='this.onerror=null; this.src="admin/img/man.png";'  
                             value='{$person->pid}' 
                             alt=''
@@ -74,7 +74,7 @@ class TreeBuilderImpl implements Builder{
                         <img 
                             src='admin/img/people/ph_20/{$partner->pid}.png' 
                             id='treePerson'  
-                            style='box-shadow: 5px 10px 18px #06635a;'
+                            style='box-shadow: 5px 10px 18px #7F4444;'
                             onerror='this.onerror=null; this.src="admin/img/man.png";'  
                             value='{$partner->pid}' 
                             alt=''
@@ -116,7 +116,7 @@ class TreeBuilderImpl implements Builder{
                         id='treePerson'  
                         onerror='this.onerror=null; this.src="admin/img/man.png";'  
                         value='{$person->pid}' 
-                        style='box-shadow: 5px 10px 18px #06635a;'
+                        style='box-shadow: 5px 10px 18px #7F4444;'
                         alt=''
                     >
                 </a>
