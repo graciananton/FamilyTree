@@ -1,7 +1,11 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="admin/dTree.min.js"></script>
-<?php   
+<?php
+if(!array_key_exists("req",$_REQUEST)){
+    $_REQUEST['req'] = "searchForm";
+}
+
 error_reporting(0);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
