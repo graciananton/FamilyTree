@@ -152,26 +152,29 @@ class DatabaseManager{
     public function saveHistory($req,$activeUser){
         $query = $this->queryBuilder->buildQuery("saveHistory", "", "");
         $stmt = $this->con->prepare($query);
+        $UAPID = $activeUser->getUAPID();
+
         if ($req == "sf_insert_person_details") {
             $lastInsertedPid = $this->con->insert_id;
             $history = "i:" . $lastInsertedPid . "," . date("F j y") . "|";
-            $stmt->bind_param("si", $history, $activeUser->getUAPID());
+            $stmt->bind_param("si", $history, $UAPID);
+
         }
         else if($req == "sf_update_person_details"){
             $updatedPid = $this->aPerson->getPid();
             $history = "ep: ". $updatedPid . ",". date("F j y"). "|";
-            $stmt->bind_param("si",$history,$activeUser->getUAPID());
+            $stmt->bind_param("si",$history,$UAPID);
         }
         else if($req == "sf_insert_person_relationship"){
                 $Pid = $this->aPerson->getPid();
                 $history = "ir: ". $Pid .",". date("F j y") ."|";
-                $stmt->bind_param("si",$history,$activeUser->getUAPID());
+                $stmt->bind_param("si",$history,$UAPID);
 
         }
         else if($req == "sf_edit_person_relationship"){
             $Pid = $this->list['pid'];
             $history = 'er: '. $Pid . ",". date("F j y") ."|";
-            $stmt->bind_param("si",$history,$activeUser->getUAPID());
+            $stmt->bind_param("si",$history,$UAPID);
 
         }
         $stmt->execute();

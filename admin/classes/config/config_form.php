@@ -20,16 +20,16 @@ uploadDefaultLocation = "img/people/default"
 imagePrefix = ph
 
 [navLinksMenuUser]
-navLinksMenuOptionsUser = "Home=>page_home,Add Member=>pf-insert_person,Edit Members=>pf-display_persons"
+navLinksMenuOptionsUser = "Add Member=>pf-insert_person,Edit Members=>pf-display_persons"
 [navLinksMenuAdmin]
-navLinksMenuOptionsAdmin = "Home=>page_home,Add Member=>pf-insert_person,Edit Members=>pf-display_persons,Add User=>uf-table,Edit User Table=>ut-table,Edit Settings=>es-table,Generate Images=>generateImages"
+navLinksMenuOptionsAdmin = "Add Member=>pf-insert_person,Edit Members=>pf-display_persons,Add User=>uf-table,Edit User Table=>ut-table,Edit Settings=>es-table,Generate Images=>generateImages"
 
 
 [RelationshipForm]
 selectRelationShipOptions= firstName, lastName, birthDate,pid
 
 [PersonForm]
-selectPersonForm = firstName,lastName,birthDate,gender,email,phoneNumber,address,image,biography,deathDate
+selectPersonForm = firstName,lastName,birthDate,gender,email,phoneNumber,address,biography,deathDate
 
 [RelationForm]
 selectRelationForm = fpid,mid,psid,pid

@@ -38,19 +38,12 @@ ini_set('display_errors', 1);
 
 $request = $_REQUEST;
 
-$validation = new Validation($request);
-if($validation->validate()){
-    if (array_key_exists('image', $_FILES)) {
+
+if (array_key_exists('image', $_FILES)) {
     $request['image'] = $_FILES['image'];
-    }
-    $activeUser = new ActiveUser($_SESSION);
-    $activeUser->verify();
 }
-else{
-    $activeUser = new ActiveUser($_SESSION);
-    $activeUser->verify();
-    $request['req'] = "page_error";
-}
+$activeUser = new ActiveUser($_SESSION);
+$activeUser->verify();
 
 $AdminView = new AdminView("", $activeUser);
 $AdminView->setMenu();

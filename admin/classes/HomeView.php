@@ -68,6 +68,7 @@ class HomeView extends View{
                                             <label for="vertical" class='form-check-label'>List (Format)</label>  
                                         </div>
                                     </div>
+
                                 </form>
 
                          </div>

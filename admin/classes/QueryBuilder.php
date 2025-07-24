@@ -11,6 +11,7 @@ class queryBuilder{
             
             $columns = Config::getPersonForm();
             $columns = explode(",",$columns);
+
             $values = [];
             for($i=0;$i<count($columns);$i++){
                     $values[] = "'".$this->propertyList[$columns[$i]]."'";

@@ -142,6 +142,7 @@ class AdminController extends Controller{
         }
         if($this->req == "sf_insert_person_details" || $this->req == "sf_update_person_details"){
             $pid = $this->DatabaseManager->save();
+            
             $this->DatabaseManager->saveHistory($this->req,$this->activeUser);
             if(!empty($this->request['image']['name'])){
                 $ImageHandler = new ImageHandler($this->aPerson->getImage(),$pid);
