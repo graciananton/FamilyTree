@@ -7,6 +7,8 @@
      <meta name="team" content="">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+     <link rel='icon' href='favicon.png' type='image/png'/>
+
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">

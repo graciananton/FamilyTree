@@ -16,7 +16,7 @@
                                 for (var i = 0; i < persons.length; i++) {
                                     var person = persons[i];
                                     var name = person['firstName'] + " " + person['lastName'];
-                                    dropdown += '<li id="option" style="border:1px solid #7F4444;">';
+                                    dropdown += '<li id="option" style="border:2px solid #7F4444;">';
                                     dropdown += '<form method="GET" action="index.php">';
                                     
                                         dropdown += '<input type="hidden" name="select" value="'+person['pid'] +'">';

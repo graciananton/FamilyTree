@@ -13,7 +13,7 @@ class Validation{
         )
         {
             foreach($this->request as $key=>$value){
-                if(preg_match('/^[A-Za-z0-9_-]+$/', $key) && preg_match('/^[A-Za-z0-9_-]+$/', $value)){
+                if(preg_match('/^[A-Za-z0-9_\-\+\s]+$/', $key) && preg_match('/^[A-Za-z0-9_\-\+\s]+$/', $value)){
                     // don't return anything
                 }
                 else{

@@ -29,10 +29,17 @@ class Controller{
 
             $individuals = $statistics->findNumberOfIndividuals();
             $families = ceil(($statistics->findNumberOfFamilies())/2);
-            if($this->request['pageType'] == "page_profile"){
+            if(stripos($this->request['pageType'],"page_") !== false){
+                $PageService = new PageService($this->request,"");
+                $PageService->renderContent();
+                $form = $PageService->getContentText();
+            }
+
+            else if($this->request['pageType'] == "page_profile"){
                     $PageService = new PageService($this->request,"");
                     $PageService->renderContent();
                     $form = $PageService->getContentText();
+
             }
 
             else if(array_key_exists("display_type",$this->request)){
