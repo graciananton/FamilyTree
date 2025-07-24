@@ -131,13 +131,14 @@ class FamilyBuilderImpl implements Builder{
                                                     return string;
                                                 }
                                                 else{
-                                                    string = "<p align='center' class='" + textClass + "' id='node'>"
+                                                    string = "<a href='?pid="+extra.pid+"&pageType=page_profile&display_type=horizontal&req=searchForm'><p align='center' class='" + textClass + "' id='node'>"
                                                             + name
                                                             + "<br/>"
-                                                            + "<a href='?pid="+extra.pid+"&pageType=page_profile&display_type=horizontal&req=searchForm'/><img id='person_image'  src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
+                                                            + "<img id='person_image'  src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
                                                             +     "onerror=\"this.onerror=null; this.src='admin/img/man.png';\" style='padding-bottom:9px;' "
-                                                            + "/></a>"
-                                                        + "</p>";
+                                                            + "/>"
+                                                            +""
+                                                        + "</p></a>";
                                                     return string;
                                                 }
                                             }
