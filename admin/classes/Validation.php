@@ -12,6 +12,14 @@ class Validation{
            isset($this->request['req'])
         )
         {
+            foreach($this->request as $key=>$value){
+                if(preg_match('/^[A-Za-z0-9_-]+$/', $key) && preg_match('/^[A-Za-z0-9_-]+$/', $value)){
+                    // don't return anything
+                }
+                else{
+                    return false;
+                }
+            }
             return true;
         }
         else{

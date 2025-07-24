@@ -1,10 +1,14 @@
 <?php
 class HomeView extends View{
     public function render(){
+
         $homeDropdownImagePath = $this->SettingService->getSettingValueByName("homeDropdownImagePath");
         $homeDropdownImagePath = new Setting($homeDropdownImagePath);
         $homeErrorImagePath = $this->SettingService->getSettingValueByName("homeErrorImagePath");
         $homeErrorImagePath = new Setting($homeErrorImagePath);
+        if($this->request['pageType'] == "page_error"){
+            echo $this->object;
+        }
         if($this->request['req'] == "search"){
             ?>
                 <section id='searchResult' data-stellar-background-ratio='0.5'>
@@ -367,40 +371,6 @@ class HomeView extends View{
           </div>
         </section>
 
-     <section id="contact" data-stellar-background-ratio="0.5">
-          <div class="container">
-               <div class="row">
-
-                    <div class="col-md-offset-1 col-md-10 col-sm-12">
-                         <form id="contact-form" role="form" action="" method="post">
-                              <div class="section-title">
-                                   <h1>Report Errors In The Family Tree
-                                   </h1>
-                              </div>
-
-                              <div class="col-md-4 col-sm-4">
-                                   <input type="text" class="form-control" placeholder="Full name" name="name" required="">
-                              </div>
-                              <div class="col-md-4 col-sm-4">
-                                   <input type="email" class="form-control" placeholder="Email address" name="email" required="">
-                              </div>
-                              <div class="col-md-4 col-sm-4">
-                                   <input type="submit" class="form-control" name="send message" value="Send Message">
-                              </div>
-                              <div class="col-md-12 col-sm-12">
-                                   <textarea class="form-control" rows="8" placeholder="Your message" name="message" required=""></textarea>
-                              </div>
-                              <input type='hidden' name='req' value='contact'/>
-                         </form>
-                    </div>
-
-               </div>
-          </div>
-     </section>       
-
-
-
-
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.stellar.min.js"></script>
@@ -623,9 +593,12 @@ class HomeView extends View{
                                 <li><a href="?req=searchForm#home" class="smoothScroll" style='color:black;'>Home</a></li>
                                 <li><a href="?req=searchForm#AIFamilyTree" class="smoothScroll" style='color:black;'>Tree Search</a></li>
                                 <li><a href="?req=searchForm#views" class="smoothScroll" style='color:black;'> Display Types</a></li>
-                                <li><a href="?req=searchForm#contact" class="smoothScroll"> Contact Us</a></li>
 
                             </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="http://localhost/gracian/familytree/admin/login.php" style='color:black;' target = "_blank" class='smoothScroll'>Login</a></li>
+                            </ul>
+
                     </div>
 
                 </div>
@@ -654,7 +627,6 @@ class HomeView extends View{
                                 <li><a href="#home" class="smoothScroll">Home</a></li>
                                 <li><a href="#AIFamilyTree" class="smoothScroll">Tree Search</a></li>
                                 <li><a href="#views" class="smoothScroll"> Display Types</a></li>
-                                <li><a href="#contact" class="smoothScroll"> Contact Us</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="http://localhost/gracian/familytree/admin/login.php" target = "_blank" class='smoothScroll'>Login</a></li>
@@ -669,8 +641,8 @@ class HomeView extends View{
     }
     public function setFooter(){
         ?>
-        <div class='container-fluid'>
-            <div class='row' id='footer'>
+        <div class='container-fluid' style='box-shadow: 0 -5px 10px -5px #7F4444;'>
+            <div class='row' id='footer' style='height:100px;'>
                 <p style="text-align: center; font-size: 14px; color: black; margin-top: 20px;margin-bottom:20px;">
                     © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our <a href="?req=termsofuse" style='text-decoration:underline;color:#7F4444;'>Terms of Use</a> & <a href="?req=privacynotice" style='color:#7F4444;text-decoration:underline;'>Privacy Notice</a>
                 </p>

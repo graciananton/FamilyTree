@@ -46,23 +46,21 @@ class Controller{
                 $form = $Builder->generateTree($this->pid,$this->select,$this->request);
             }
         }
-        else if($this->req == "contact"){
-            $Contact = new Contact($this->request);
-            $Contact->process();
-        }
-        else if(stripos($this->req,"page_") !== false){
+        else if(stripos($this->request['pageType'],"page_") !== false){
             $PageService = new PageService($this->request,"");
             $PageService->renderContent();
             $form = $PageService->getContentText();
+
         }
         else if($this->req == "termsofuse" || $this->req == "privacynotice"){
             $form = "";
-        }   
+        } 
+
         $HomeView = new HomeView($this->request,$form);
 
 
         echo "<div id='navbar'>";
-            if($this->request['req'] == "termsofuse" || $this->request['req'] == "privacynotice"){
+            if($this->request['req'] == "termsofuse" || $this->request['pageType'] == "page_error" || $this->request['req'] == "privacynotice"){
                 $HomeView->setTermsLinksNavMenu();
             }
             else{

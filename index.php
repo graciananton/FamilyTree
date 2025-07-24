@@ -27,14 +27,18 @@ include "admin/classes/QueryBuilder.php";
     <?php   
       $request = $_REQUEST;
 
-      $validation = new Validation($request);
-    if(!$validation->validate()){
-        $request['req'] = "page_error";
-    }
-    $Controller = new Controller($request);
-    $Controller->process();
 
-    include "templates/footer.php";
+        $validation = new Validation($request);
+        if(!$validation->validate()){
+            $request['pageType'] = "page_error";
+        }
+
+
+
+        $Controller = new Controller($request);
+        $Controller->process();
+
+        include "templates/footer.php";
     ?>
   </div>
   <script src="js/script.js" type="text/javascript"></script>
