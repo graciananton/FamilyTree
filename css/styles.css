@@ -90,6 +90,10 @@ html{
 		margin:0;
 	}
 
+#headerLinks ul li a:hover{
+  color:#7F4444;
+}
+
 #searchdynamic{
   margin:0 auto;
   width:450px;

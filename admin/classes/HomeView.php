@@ -238,7 +238,8 @@ class HomeView extends View{
         }
     }
     public function setTermsLinksNavMenu(){
-    ?>
+    ?>  
+            
                <section class="navbar custom-navbar navbar-fixed-top" role="navigation" >
                 <div class="container">
 
@@ -252,26 +253,22 @@ class HomeView extends View{
                             <a href="index.php?req=searchForm" class="navbar-brand" style='color:black;'>Family Tree</a>
                     </div>
 
-                    <div class="collapse navbar-collapse">
+                    <div class="collapse navbar-collapse" id='headerLinks'>
                             <ul class="nav navbar-nav">
                                 <li><a href="?req=searchForm#home" class="smoothScroll" style='color:black;'>Home</a></li>
                                 <li><a href="?req=searchForm#AIFamilyTree" class="smoothScroll" style='color:black;'>Tree Search</a></li>
                                 <li><a href="?req=searchForm#views" class="smoothScroll" style='color:black;'> Display Types</a></li>
-
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="http://localhost/gracian/familytree/admin/login.php" style='color:black;' target = "_blank" class='smoothScroll'>Login</a></li>
+                                <li><a href="admin/login.php" style='color:black;' target = "_blank" class='smoothScroll'>Login</a></li>
                             </ul>
-
                     </div>
-
                 </div>
             </section>
     <?php
     }
     public function setMainLinksNavMenu(){ 
         ?>
-
 
             <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
                 <div class="container">
@@ -286,14 +283,14 @@ class HomeView extends View{
                             <a href="index.php?req=searchForm" class="navbar-brand">Family Tree</a>
                     </div>
 
-                    <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav">
-                                <li><a href="#home" class="smoothScroll">Home</a></li>
+                    <div class="collapse navbar-collapse" id='headerLinks'>
+                            <ul class="nav navbar-nav" >
+                                <li><a href="#home" class="smoothScroll" >Home</a></li>
                                 <li><a href="#AIFamilyTree" class="smoothScroll">Tree Search</a></li>
                                 <li><a href="#views" class="smoothScroll"> Display Types</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="http://localhost/gracian/familytree/admin/login.php" target = "_blank" class='smoothScroll'>Login</a></li>
+                                <li><a href="admin/login.php" target = "_blank" class='smoothScroll'>Login</a></li>
                             </ul>
                     </div>
 
