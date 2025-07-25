@@ -302,7 +302,7 @@ fieldset{
   align-items:flex-start;
   width:40%;
   background:url("img/home-bg5.png") center/cover no-repeat;
-  border-bottom:1px solid #06635a;
+  border-bottom:1px solid #7F4444;
   background-color:white;
   transform:translateX(20px);
 }
@@ -409,6 +409,11 @@ fieldset{
   animation: dot-pulse 1.5s infinite linear;
   animation-delay: 0.1s;
 }
+#brand:hover{
+  color:#7F4444;
+}
+
+
 .dot-pulse::before, .dot-pulse::after {
   content: "";
   display: inline-block;

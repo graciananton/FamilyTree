@@ -1,5 +1,5 @@
 <div class='container-fluid' id='loginNavMenu'>
-    <div class='row p-1' style='background-color: #06635a'>
+    <div class='row p-1' style='background-color: #7F4444'>
         <div class='col-md-9'></div>
         <div class='col-md-3 text-white '>
             <div class='row'>

@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $_SESSION['username'] = $request['username'];
         $activeUser = new ActiveUser($request);
         if($activeUser->verify()){
-            echo '<meta http-equiv="refresh" content="0;url=index.php?req=page_home">';          
+            echo '<meta http-equiv="refresh" content="0;url=index.php?req=pf-insert_person">';          
         }
         else{
             echo "Password or Username is incorrect";

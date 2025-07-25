@@ -1,1 +1,1 @@
-Fields marked with <span style="color:#06635a;font-weight:bold;">*</span> are required.
+Fields marked with <span style="color:#7F4444;font-weight:bold;">*</span> are required.

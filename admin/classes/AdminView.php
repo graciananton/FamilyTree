@@ -38,11 +38,11 @@ class AdminView extends View{
                   <div class='row'>
                     <div class='form-group col-md-3'>
                         
-                        <label for='firstName' class='form-label'>First Name:<span style='color:#06635a;font-weight:bold;'>*</span></label>
+                        <label for='firstName' class='form-label'>First Name:<span style='color:#7F4444;font-weight:bold;'>*</span></label>
                         <input type='text' class='form-control' id='firstName' name='firstName' value="<?php echo isset($firstName) ? htmlspecialchars($firstName): "" ;?>" required/>
                     </div>
                     <div class='form-group col-md-3'>
-                        <label for='lastName' class='form-label'>Last Name:<span style='color:#06635a;font-weight:bold;'>*</span></label>
+                        <label for='lastName' class='form-label'>Last Name:<span style='color:#7F4444;font-weight:bold;'>*</span></label>
                         <input type='text' class='form-control' id='lastName' name='lastName' value='<?php echo isset($lastName) ? htmlspecialchars($lastName):"";?>' required/>
                     </div>
                   </div>
@@ -67,7 +67,7 @@ class AdminView extends View{
                     </div>
                   </div>
                   <div class='form-group'>
-                            <label for='role' class='fs-5'>Role:<span style='color:#06635a;font-weight:bold;'>*</span></label>
+                            <label for='role' class='fs-5'>Role:<span style='color:#7F4444;font-weight:bold;'>*</span></label>
                             <div class='form-check form-check-inline'>
                                 <label for='user' class='form-check-label'>User</label>
                                 <input type='radio' id='user' class='form-check-input' name='role' value='user' <?php echo (isset($role) && $role == "user") ? "checked": ""; ?> required/>
@@ -80,7 +80,7 @@ class AdminView extends View{
 
                   <div class='row'>
                     <div class='form-group col-md-4'>
-                        <label for='UAPID' class='form-label'>UAPID:<span style='color:#06635a;font-weight:bold;'>*</span></label>
+                        <label for='UAPID' class='form-label'>UAPID:<span style='color:#7F4444;font-weight:bold;'>*</span></label>
                         <input type='text' class='form-control' id='UAPID' name='UAPID' value='<?php echo isset($UAPID) ? htmlspecialchars($UAPID) : ""; ?>' required/>
                     </div>
                   </div>
@@ -183,7 +183,7 @@ class AdminView extends View{
                    <div class='col-11'>
                     <table class='table table-bordered border mt-4'>
                         <thead>
-                            <tr class='text-center'><th style='color:#06635a'>Name</th><th style='color:#06635a'>Value</th><th style='color:#06635a'>Edit</th></tr>
+                            <tr class='text-center'><th style='color:#7F4444'>Name</th><th style='color:#7F4444'>Value</th><th style='color:#7F4444'>Edit</th></tr>
                         </thead>
                         <tbody>
                             <?php
@@ -214,8 +214,8 @@ class AdminView extends View{
                 <form enctype = 'multipart/form-data' action='' method = "GET" >
                     <div class='row'>
                         <div class='form-group col-md-3'>
-                            <label for='name' class='form-label'>Name:<span style='color:#06635a;'>*</span></label>
-                            <input type='text' name='name' id='name' class='form-control'  value='<?php echo $this->object->getName(); ?>' readonly disabled/>
+                            <label for='name' class='form-label'>Name:<span style='color:#7F4444;'>*</span></label>
+                            <input type='text' name='name' id='name' class='form-control'  value='<?php echo $this->object->getName(); ?>' readonly/>
                         </div>
                     </div>
                     <div class='row'>
@@ -224,6 +224,7 @@ class AdminView extends View{
                             <input type='text' class='form-control' name='value' value='<?php echo $this->object->getValue(); ?>'/>
                         </div>
                     </div>
+                    <input type='hidden' name='pid' value='<?php echo $this->object->getPid(); ?>'/>
                     <input type='submit' value='Save' name='req'/>
                     <input type='hidden' name='req' value='es-submit'/>
                 </form>
@@ -242,13 +243,13 @@ class AdminView extends View{
                     if(count($this->object) > 0){
                     ?>
                     <tr class='text-center'>
-                        <th scope = 'col' style='color: #06635a;'>First Name</th>
-                        <th scope = 'col' style='color: #06635a;'>Last Name</th>
-                        <th scope = 'col' style='color: #06635a;'>Email Address</th>
-                        <th scope = 'col' style='color: #06635a;'>UAPID</th>
-                        <th scope = 'col' style='color: #06635a;'>Role </th>
-                        <th scope = 'col' style='color: #06635a;'>Edit </th>
-                        <th scope = 'col' style='color: #06635a;'> Delete </th>
+                        <th scope = 'col' style='color: #7F4444;'>First Name</th>
+                        <th scope = 'col' style='color: #7F4444;'>Last Name</th>
+                        <th scope = 'col' style='color: #7F4444;'>Email Address</th>
+                        <th scope = 'col' style='color: #7F4444;'>UAPID</th>
+                        <th scope = 'col' style='color: #7F4444;'>Role </th>
+                        <th scope = 'col' style='color: #7F4444;'>Edit </th>
+                        <th scope = 'col' style='color: #7F4444;'> Delete </th>
                     </tr>
                     <?php
                     }
@@ -320,11 +321,11 @@ class AdminView extends View{
                         <form enctype='multipart/form-data' action='index.php' method="post" id='insert_first_person'>
                             <div class='row'>
                                 <div class='col-sm-6'>
-                                    <label for='firstName' class='form-label'>First Name:<span style='color:#06635a;font-weight:bold;'>*</span></label>
+                                    <label for='firstName' class='form-label'>First Name:<span style='color:#7F4444;font-weight:bold;'>*</span></label>
                                     <input type='text' class='form-control' id='firstName' name='firstName' value="<?php echo $firstName; ?>" required />
                                 </div> 
                                 <div class='col-sm-6'> 
-                                    <label for='lastName' class='form-label'>Last Name:<span style='color:#06635a;font-weight:bold;'>*</span></label>
+                                    <label for='lastName' class='form-label'>Last Name:<span style='color:#7F4444;font-weight:bold;'>*</span></label>
                                     <input type='text' class='form-control' id='lastName' name='lastName' value='<?php echo $lastName; ?>' required />
                                 </div>
                             </div>
@@ -341,7 +342,7 @@ class AdminView extends View{
                             </div>
 
                             <div class="form-group">
-                                <label for='gender' class='form-label d-block'>Gender:<span style='color:#06635a;font-weight:bold;'>*</span></label>
+                                <label for='gender' class='form-label d-block'>Gender:<span style='color:#7F4444;font-weight:bold;'>*</span></label>
                                 <div class='form-check form-check-inline'>
                                     <input type="radio" id="male" class='form-check-input' name="gender" value="M" <?php if (isset($gender) && $gender == 'M') echo 'checked'; ?> required>
                                     <label for="male" class='form-check-label'>Male</label>
@@ -520,15 +521,18 @@ class AdminView extends View{
                                     html="";
                                     if(persons.length > 0){
                                         html = "<table class='table table-bordered table-hover ms-0'><thead><tr class='text-center'>";
-                                        html += "<th style='color:#06635a;'> FirstName </th> <th style='color:#06635a;'>Last Name</th> <th style='color:#06635a;'>Birth Date</th><th style='color:#06635a;'>Gender</th><th style='color:#06635a;'>Image</th><th style='color:#06635a;'>Action</th></tr></thead>";
+                                        html += "<th style='color:#7F4444;'>UAPID:</th><th style='color:#7F4444;'> FirstName </th> <th style='color:#7F4444;'>Last Name</th> <th style='color:#7F4444;'>Birth Date</th><th style='color:#7F4444;'>Gender</th><th style='color:#7F4444;'>Image</th><th style='color:#7F4444;'>Action</th></tr></thead>";
                                     
                                         for(i=0;i<persons.length;i++){
                                             person = persons[i];
                                             image = person.pid+".png";
+
+                                            console.log(person.pid);
+
                                             html +="<tbody><tr>";
                                             
                                             var imagePath = "<?php echo $personImagePath->getValue(); ?>"; // PHP executes on server
-                                            html += "<td class='text-center'>" + person.firstName + "</td>" +
+                                            html += "<td class='text-center'>"+person.pid+"</td><td class='text-center'>" + person.firstName + "</td>" +
                                                     "<td class='text-center'>" + person.lastName + "</td>" +
                                                     "<td class='text-center'>" + person.birthDate + "</td>" +
                                                     "<td class='text-center'>" + person.gender + "</td>" +
@@ -748,8 +752,8 @@ class AdminView extends View{
             <div class='container-fluid pl-3 pt-0'>
                 <?php
                 echo "<table cellpadding='5' style='text-align:center;'>";
-                echo "<caption style='caption-side: top; font-weight:bold;color:#06635a;text-align:center;borde:1px solid black;'>Dependencies:</caption>";
-                echo "<tr style='border:1px solid black;'><th style='border:1px solid black;text-align:center;color:#06635a;'>Relation Type:</th><th style='border:1px solid black;text-align:center;color:#06635a;'>Person:</th>";
+                echo "<caption style='caption-side: top; font-weight:bold;color:#7F4444;text-align:center;borde:1px solid black;'>Dependencies:</caption>";
+                echo "<tr style='border:1px solid black;'><th style='border:1px solid black;text-align:center;color:#7F4444;'>Relation Type:</th><th style='border:1px solid black;text-align:center;color:#7F4444;'>Person:</th>";
                 
                 foreach($relationsMatch as $relation){
                     $relation_person = $this->DatabaseManager->getPerson("pid",$relation['pid']);
@@ -760,7 +764,7 @@ class AdminView extends View{
                 echo "</table>";
                 $pid = $person['pid'];
                 $name = $person['firstName']." ".$person['lastName'];
-                echo "<br/><b style='color:#06635a;'>".$name."'s</b> information:";
+                echo "<br/><b style='color:#7F4444;'>".$name."'s</b> information:";
                 echo '<br/>';
                 foreach($person as $key=>$value){
                     if($key != "pid"){
@@ -768,7 +772,7 @@ class AdminView extends View{
                     }
                 }
                 echo "<br/>";
-                echo "<a href='?req=sf-delete_person&pid=$pid' style='color:#06635a;'>By clicking this link, ".$name."'s information will be permanently deleted</a><br/><br/>";
+                echo "<a href='?req=sf-delete_person&pid=$pid' style='color:#7F4444;'>By clicking this link, ".$name."'s information will be permanently deleted</a><br/><br/>";
                 ?>
             </div>
             <?php
@@ -780,7 +784,7 @@ class AdminView extends View{
         <div class='container-fluid pt-2'>
                 <div class='row pl-1 pt-2 pb-0'>
                     <div class='col-md-6'>
-                        <h3 style = 'display:inline-block;color:06635a;' class='font-weight-bold'>
+                        <h3 style = 'display:inline-block;color:#7F4444;' class='font-weight-bold'>
                             <?php echo  $title; ?>
                         </h3>
                     </div>

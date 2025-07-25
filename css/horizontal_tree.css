@@ -79,7 +79,7 @@
     border:1px solid white;
 }
 fieldset{
-    border: 3px solid #06635a;      /* Show border */
+    border: 3px solid #7F4444;      /* Show border */
     padding: 1rem;               /* Add spacing inside */
 }
 #horizontal_tree ul li ul > li::before{
@@ -110,7 +110,7 @@ fieldset{
   filter: grayscale(0);          /* full color */
 }
 #treeCanvas #treeWrapper #horizontal_tree a{
-    color:#06635a;
+    color:#7F4444;
 }
 #treeCanvas #treeWrapper #horizontal_tree a:hover{
     transform: scale(1.3);

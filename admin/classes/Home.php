@@ -43,7 +43,7 @@ class Home extends View{
         <div class='container-fluid pt-2'>
             <div class='row'>
                 <div class='col-12 mb-5'>
-                <?php echo "<div class='fw-bold' style='color:#06635a;font-size:30px;'>".$introduction."</div>"; ?>
+                <?php echo "<div class='fw-bold' style='color:#7F4444;font-size:30px;'>".$introduction."</div>"; ?>
                 </div>
             </div>
             <div class='row justify-content-center '>

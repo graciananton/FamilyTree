@@ -55,6 +55,7 @@ class HomeView extends View{
                                         />
                                     </div> 
                                     <div id="searchForm" class='mt-2' style="position:relative;"></div>
+                                    <script src='js/optionList.js'></script>
 
                                     <div id='options'>
                                         <div class='form-check-inline'> 
@@ -76,7 +77,6 @@ class HomeView extends View{
                </div>
           </div>
         </section>
-        <script src='js/optionList.js'></script>
         <?php if(array_key_exists("display_type",$this->request) || array_key_exists("pageType",$this->request)){?>
             <section data-stellar-background-ratio="0.5" id='result' >
                 <div class='container'>
@@ -251,7 +251,7 @@ class HomeView extends View{
                                 <span class="icon icon-bar"></span>
                             </button>
 
-                            <a href="index.php?req=searchForm" class="navbar-brand" style='color:black;'>Family Tree</a>
+                            <a href="index.php?req=searchForm" class="navbar-brand" style='color:black;' id='brand'>Family Tree</a>
                     </div>
 
                     <div class="collapse navbar-collapse" id='headerLinks'>
@@ -281,7 +281,7 @@ class HomeView extends View{
                                 <span class="icon icon-bar"></span>
                             </button>
 
-                            <a href="index.php?req=searchForm" class="navbar-brand">Family Tree</a>
+                            <a href="index.php?req=searchForm" class="navbar-brand" id='brand'>Family Tree</a>
                     </div>
 
                     <div class="collapse navbar-collapse" id='headerLinks'>

@@ -1,12 +1,12 @@
 html{
-    scrollbar-color:#06635a white;
+    scrollbar-color:#7F4444 white;
 }
 #duringDropdown{
     display:none;
 }
 .nav-link {
     position: relative;
-    color: #06635a;
+    color: #7F4444;
     transition: color 0.1s ease;
 }
 .nav-link::after {
@@ -16,7 +16,7 @@ html{
     height: 3px;
     left: 50%;
     bottom: 0;
-    background-color: #06635a;
+    background-color: #7F4444;
     transition: 0.1s ease;
     transform: translateX(-50%);
 }
@@ -27,11 +27,11 @@ html{
 
 
 div table thead tr th{
-    color:#06635a;
+    color:#7F4444;
 }
 #hint{
   background-color:#ddffdd;
-  border-left: 6px solid #06635a;
+  border-left: 6px solid #7F4444;
   padding-top:10px;
   padding-bottom:10px;
   padding-left:10px;
@@ -39,7 +39,7 @@ div table thead tr th{
 }
 input:hover,
 input:focus{
-  box-shadow: 5px 5px 7px 5px #06635a !important;
+  box-shadow: 5px 5px 7px 5px #7F4444!important;
   outline: none !important;
 }
 td,tr,th,table{

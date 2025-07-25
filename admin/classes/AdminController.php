@@ -60,8 +60,11 @@ class AdminController extends Controller{
         }
         else if($this->req == "es-submit") {
             $Setting = new Setting($this->request);
+
             $this->DatabaseManager = new DatabaseManager($Setting);
+
             $this->SettingService = new SettingServiceImpl($this->DatabaseManager);
+
             $this->SettingService->updateRecord($Setting);
         }
         else if($this->req == "ut-edit"){

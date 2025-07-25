@@ -1,5 +1,5 @@
 <div class='col-6 '>
-    <div class='fw-bold fs-2  pt-5 pl-5' style="color:#06635a">
+    <div class='fw-bold fs-2  pt-5 pl-5' style="color:#7F4444">
         Enrich your genealogy knowledge anytime, anywhere
     </div>
     <div class='p-3 fs-4'>

@@ -1,7 +1,7 @@
 <div class='container-fluid pt-2'>
     <div class='row'>
         <div class='col-12 mb-5'>
-            <div class='fw-bold' style='color:#06635a;font-size:30px;'>#FT_introduction</div>
+            <div class='fw-bold' style='color:#7F4444;font-size:30px;'>#FT_introduction</div>
         </div>
     </div>
     <div class='row pl-2'>

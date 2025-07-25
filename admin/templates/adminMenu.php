@@ -2,7 +2,7 @@
             $navLinksMenuAdmin = explode(",",Config::getNavLinksMenuAdmin());
         ?>
         <div class='container-fluid mt-1'>
-            <div class='row fw-bold shadow-lg' style='color:#06635a;background-color:#ffffff;'>
+            <div class='row fw-bold shadow-lg' style='color:#7F4444;background-color:#ffffff;'>
                 <nav class='navbar navbar-expand-lg navbar-light '>
                     <div class='container-fluid'>
                         <a href='../index.php?req=searchForm' target='_blank'><img src='../../familyTree/img/linksNavMenu.png'/></a>
@@ -22,7 +22,7 @@
                                   
                                 ?>
                                     <li class='nav-item'>
-                                        <a class='nav-link' href='?req=<?= $navLinkMenuAdminReq; ?>' style='color:#06635a'>
+                                        <a class='nav-link' href='?req=<?= $navLinkMenuAdminReq; ?>' style='color:#7F4444'>
                                             <?= $navLinkMenuAdminName; ?>
                                         </a>
                                     </li>
@@ -30,7 +30,7 @@
                                 }
                                 ?>
                                 <li class='nav-item'>
-                                    <a class='nav-link' href='logout.php' style='color:#06635a'>Logout</a>
+                                    <a class='nav-link' href='logout.php' style='color:#7F4444'>Logout</a>
                                 </li>
                             </ul>
                         </div>
