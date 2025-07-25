@@ -11,6 +11,12 @@
                             success: function(persons) {
                                 console.log(persons);
                                 persons = JSON.parse(persons);
+
+                                var selectedDisplayType = $("input[name='display_type']:checked").val(); // <-- get selected type
+
+                                console.log("This is the dropdown"+ selectedDisplayType);
+
+
                                 var dropdown = '<ul id="searchDropdown" style="background-color:#f8f9fa;list-style: none; position: absolute; padding: 0; width: 80%; left: 50%; transform: translateX(-50%);">';
                                 
 
@@ -25,6 +31,9 @@
                                         dropdown +=     '<input type="hidden" name="pid" value="' + person['pid'] + '"/>';
 
                                         dropdown +=     '<input type="hidden" name="personName" value="' + name + '"/>';
+
+                                        dropdown +=     '<input type="hidden" name="display_type" value="' +selectedDisplayType + '"/>';
+                                        
                                         dropdown +=     '<input type="hidden" name="req" value="searchForm">';
 
 

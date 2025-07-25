@@ -110,7 +110,9 @@ class AdminController extends Controller{
             $this->AdminView->render();
         }
         if($this->req == "pf-delete_person"){
-            
+
+
+
             $person = $this->DatabaseManager->getPerson("pid",$this->request['pid']);
             $this->AdminView = new AdminView($this->request,$person);
             $this->AdminView->render();
@@ -135,6 +137,10 @@ class AdminController extends Controller{
             $this->AdminView->render();
         }
         if($this->req == "sf-delete_person"){
+            $ImageHandler = new ImageHandler("",$this->request['pid']);
+
+            $ImageHandler->unlinkImages();  
+            
             $this->DatabaseManager->deletePerson();
             $this->DatabaseManager->saveHistory($this->req,$this->activeUser);
         }

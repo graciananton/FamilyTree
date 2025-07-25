@@ -550,7 +550,11 @@ class AdminView extends View{
                                             if(!relationshipExists){
                                                 html+="<td class='text-center'><a href='?req=pf-insert_relationship&pid="+person.pid+"' id='relative' class='me-3'/><img src='<?php echo $add->getValue();?>' alt=''/></a>";
                                             }
+
+
                                             html += "<a href='?req=pf-edit_person&pid="+person.pid+"' id='edit' class='me-3'><img src='<?php echo $edit->getValue();?>' alt=''/></a><a href='?req=pf-delete_person&pid="+person.pid+"' id='delete'><img src='<?php echo $delete->getValue(); ?>' alt=''/></a></td>";
+                                            
+                                            
                                             html+="</tr></tbody>";
                                             console.log(html);
                                         }

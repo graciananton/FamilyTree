@@ -25,7 +25,11 @@ class HomeView extends View{
             $statistics = new Statistics();
 
             $individuals = $statistics->findNumberOfIndividuals();
-            $families = ceil(($statistics->findNumberOfFamilies())/2);
+            $families = ceil(($statistics->findNumberOfFamilies()));
+
+            /*echo "<pre>";
+            print_r($this->request);
+            echo "</pre>";*/
         ?>
         <section class="preloader">
           <div class="spinner">
@@ -50,7 +54,7 @@ class HomeView extends View{
                                             id="searchdynamic" 
                                             autocomplete="off" 
                                             class="form-control rounded-0" 
-                                            style="box-shadow: 0 0 7px 5px #7F4444;border-radius:3px;;width:80%;"
+                                            style="box-shadow: 0 0 7px 5px #7F4444;border-radius:3px;width:80%;"
                                             placeholder = "<?php echo $personName; ?>"
                                         />
                                     </div> 
@@ -77,7 +81,8 @@ class HomeView extends View{
                </div>
           </div>
         </section>
-        <?php if(array_key_exists("display_type",$this->request) || array_key_exists("pageType",$this->request)){?>
+        <?php if(array_key_exists("display_type",$this->request) || array_key_exists("pageType",$this->request)){
+            ?>
             <section data-stellar-background-ratio="0.5" id='result' >
                 <div class='container'>
                     <div class='row'><a href='#home'><img src='img/scrollUp.png' alt=''/></a></div>
@@ -86,7 +91,7 @@ class HomeView extends View{
                     <div class='row'>
                         <div class='col-md-12 col-sm-12'>
                             <div class='section-title'>
-                                    <h1>Search Results:</h1>
+                                    <h2 style='color:#7F4444;font-weight:bold;'>Search Value: <?php echo $this->request['personName']; ?></h2>
                             </div>
                         </div>
                         <div class='col-md-12 col-sm-12'>
@@ -145,7 +150,7 @@ class HomeView extends View{
                                 for (let i = 0; i < totalNumberOfFamilies; i++) {
                                     setTimeout(function() {
                                         incrementNums(i);
-                                    },i* 500); // delay increases with i
+                                    },i* 300); // delay increases with i
                                 }
                             });
 

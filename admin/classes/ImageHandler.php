@@ -7,6 +7,33 @@ class ImageHandler{
         $this->pid = $pid;
     }
 
+    public function unlinkImages(){
+        $folders = $this->getFoldersFromDirectory("img/people");
+        for($i=0;$i<count($folders);$i++){
+            $folder = $folders[$i];
+            $file = "img/people/".$folder."/".$this->pid.".png";
+            
+            
+            if(file_exists($file)){
+                if(unlink($file)){
+                    echo $file." deleted successfully<br/>";
+                }
+                else{
+                    echo $file." not delted succesfully";
+                }
+            }
+            else{
+                echo $file." does not exists";
+            }
+            $file = "img/people/default/".$this->pid.".png";
+
+            if(file_exists($file)){
+                unlink($file);
+            }
+            
+
+        }
+    }
     public function getFoldersFromDirectory($targetDir){
         $folders = [];
         $items = scandir($targetDir);
