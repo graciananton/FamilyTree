@@ -22,7 +22,7 @@ imagePrefix = ph
 [navLinksMenuUser]
 navLinksMenuOptionsUser = "Add Member=>pf-insert_person,Edit Members=>pf-display_persons"
 [navLinksMenuAdmin]
-navLinksMenuOptionsAdmin = "Add Member=>pf-insert_person,Edit Members=>pf-display_persons,Add User=>uf-table,Edit User Table=>ut-table,Edit Settings=>es-table,Generate Images=>generateImages"
+navLinksMenuOptionsAdmin = "Add Member=>pf-insert_person,Edit Members=>pf-display_persons,Add User=>uf-table,Edit Users =>ut-table,Edit Settings=>es-table,Generate Images=>generateImages"
 
 
 [RelationshipForm]

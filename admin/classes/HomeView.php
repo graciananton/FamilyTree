@@ -27,9 +27,7 @@ class HomeView extends View{
             $individuals = $statistics->findNumberOfIndividuals();
             $families = ceil(($statistics->findNumberOfFamilies()));
 
-            /*echo "<pre>";
-            print_r($this->request);
-            echo "</pre>";*/
+            
         ?>
         <section class="preloader">
           <div class="spinner">
@@ -233,6 +231,10 @@ class HomeView extends View{
                </div>
           </div>
         </section>
+        <div id="statusBar" style=" margin-bottom:30px; height:2rem; line-height:2rem; font-size:1.8rem; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div>Modified Date Time: <?php echo $statistics->getLatestDate(); ?></div>
+            <div>v.1.0.0</div>
+        </div>
 
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>

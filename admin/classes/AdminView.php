@@ -1,5 +1,42 @@
 <?php 
 class AdminView extends View{
+    public function renderSuccessMessage(){
+        ?>
+        <div class='container'>
+            <div class='row' style='display:flex;justify-content:flex-start;align-items:flex-start;margin-top:50px;height:100vh;'>
+                <div class='col-md-8 col-sm-8' style='border:3px solid #7F4444;'>
+                    <div class='col-md-9 col-sm-9' style='font-size:25px;font-weight:bold;color:#7F4444;'>
+                        Message:
+                    </div>
+                    <div class='col-md-9 col-sm-9'>
+                        The update was successful!
+                        <br/>Updated By: <?php echo $this->object->getName(); ?>
+                        <br/>Date Updated: <?php echo date("Y/m/d"); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+    public function renderErrorMessage(){
+                ?>
+        <div class='container'>
+            <div class='row' style='display:flex;justify-content:flex-start;align-items:flex-start;margin-top:50px;height:100vh;'>
+                <div class='col-md-8 col-sm-8' style='border:3px solid #7F4444;'>
+                    <div class='col-md-9 col-sm-9' style='font-size:25px;font-weight:bold;color:#7F4444;'>
+                        Message:
+                    </div>
+                    <div class='col-md-9 col-sm-9'>
+                        The update was not successful
+                        <br/>By: <?php echo $this->object->getName(); ?>
+                        <br/>Date: <?php echo date("Y/m/d"); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+
+    }
     public function render(){
         $personImagePath = $this->SettingService->getSettingValueByName("personImagePath");
         $personImagePath = new Setting($personImagePath);
@@ -167,6 +204,8 @@ class AdminView extends View{
                         data: $(this).serialize(),
                         success: function(response){
                             document.getElementById("response").innerHTML = "Files successfully resized and moved to folders";
+                        
+
                         }
                     })
                 });

@@ -17,7 +17,12 @@ class queryBuilder{
                     $values[] = "'".$this->propertyList[$columns[$i]]."'";
             }
             $columns_string = implode(",",$columns);
+            $columns_string .= ", createdDate";
+
             $values_string = implode(",",$values);
+            
+            $values_string .= ",'".date("Y/m/d")."'";
+
             $sql = "INSERT INTO person($columns_string) VALUES($values_string)";
         }   
         else if($queryName == "updateRecord"){
@@ -95,11 +100,12 @@ class queryBuilder{
                     $sql .= $columns[$i]."="."'".$this->propertyList[$columns[$i]]."',";
                 }
                 else{
-                    $sql .= " ".$columns[$i]."="."'".$this->propertyList[$columns[$i]]."'";
+                    $sql .= " ".$columns[$i]."="."'".$this->propertyList[$columns[$i]]."',";
                 }
             }
+            $sql .= "modifiedDate "."="."'".date("Y/m/d")."' ";
             $sql .= "WHERE pid = ".$this->propertyList['pid'];
-        
+
         }
         else if($queryName == "updateActive"){
             $sql = "UPDATE user SET active = ".$param. " WHERE UAPID = ".$criterion;
@@ -125,6 +131,15 @@ class queryBuilder{
 
             $sql = "INSERT INTO user($columns) VALUES($values)";
         }
+        else if($queryName == "dates"){
+            $sql = "SELECT createdDate, modifiedDate FROM person";
+        }
+        else if($queryName == "updateCreatedDate"){
+            $sql = "UPDATE person SET createdDate = '".date('Y/m/d')."' WHERE pid =". $param;
+        }
+        else if($queryName == "updateModifiedDate"){
+            $sql = "UPDATE person SET modifiedDate = '".date('Y/m/d')."' WHERE pid = ".$param;
+        }
         else if($queryName == "insertRelation"){
             $values = [];
             $columns = Config::getRelationForm();
@@ -132,6 +147,7 @@ class queryBuilder{
             for($i=0;$i<count($columns);$i++){
                     $values[] = "'". $this->propertyList[$columns[$i]]."'";    
             }
+
             $columns = implode(",",$columns);
             $values = implode(",",$values);
             $sql = "INSERT INTO relation($columns) VALUES($values)";

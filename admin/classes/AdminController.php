@@ -65,7 +65,15 @@ class AdminController extends Controller{
 
             $this->SettingService = new SettingServiceImpl($this->DatabaseManager);
 
-            $this->SettingService->updateRecord($Setting);
+            $this->AdminView = new AdminView("",$this->activeUser);
+
+            if($this->SettingService->updateRecord($Setting)){
+                $this->AdminView->renderSuccessMessage();
+            }
+            else{
+                $this->AdminView->renderErrorMessage();
+
+            }
         }
         else if($this->req == "ut-edit"){
             /// this is the one
@@ -78,11 +86,26 @@ class AdminController extends Controller{
         }
 
         else if($this->req == "ut-delete"){
-            $this->DatabaseManager->deleteUser($this->request['pid']);
+            $this->AdminView = new AdminView("",$this->activeUser);
+            if($this->DatabaseManager->deleteUser($this->request['pid'])){
+                    $this->AdminView->renderSuccessMessage();
+            }
+            else{
+                $this->AdminView->renderErrorMessage();
+            }
+
         }
         else if($this->req == "ufe-table"){
             $this->DatabaseManager->addModifiedDate($this->user);
-            $this->DatabaseManager->updateUser($this->user);
+
+            $this->AdminView = new AdminView("",$this->activeUser);
+            if($this->DatabaseManager->updateUser($this->user)){
+                $this->AdminView->renderSuccessMessage();
+            }
+            else{
+                $this->AdminView->renderErrorMessage();
+            }
+
 
         }
         else if($this->req == "generateImages"){
@@ -95,7 +118,13 @@ class AdminController extends Controller{
           */
         }
         else if($this->req == "ufs-table" && $this->role == "admin"){
-            $this->DatabaseManager->saveUser();
+            $this->AdminView = new AdminView("",$this->activeUser);
+            if($this->DatabaseManager->saveUser()){
+                $this->AdminView->renderSuccessMessage();
+            }
+            else{
+                $this->AdminView->renderErrorMessage();
+            }
         }
         else if(stripos($this->req,"page_") !== false){
             $PageService = new PageService($this->request,$this->activeUser);
@@ -140,24 +169,56 @@ class AdminController extends Controller{
             $ImageHandler = new ImageHandler("",$this->request['pid']);
 
             $ImageHandler->unlinkImages();  
+
+            $this->AdminView = new AdminView("",$this->activeUser);
+
             
-            $this->DatabaseManager->deletePerson();
+            if($this->DatabaseManager->deletePerson()){
+                $this->AdminView->renderSuccessMessage();
+            }
+            else{
+                $this->AdminView->renderErrorMessage();
+            }
+
+
             $this->DatabaseManager->saveHistory($this->req,$this->activeUser);
         }
         if($this->req == "sf_insert_person_relationship" || $this->req == "sf_edit_person_relationship"){
-            print_r($this->request);
-            $this->DatabaseManager->saveRelationship();
+            if($this->req == "sf_insert_person_relationship"){
+                            $this->DatabaseManager->updateCreatedDate();
+            }
+            else{
+                            $this->DatabaseManager->updateModifiedDate();
+            }
+            $this->AdminView = new AdminView("",$this->activeUser);
+
+            if($this->DatabaseManager->saveRelationship()){
+
+                $this->AdminView->renderSuccessMessage();
+            }
+            else{
+                $this->AdminView->renderErrorMessage();
+            }
             $this->DatabaseManager->saveHistory($this->req,$this->activeUser);
+        
+        
         }
         if($this->req == "sf_insert_person_details" || $this->req == "sf_update_person_details"){
             $pid = $this->DatabaseManager->save();
-            
+            $this->AdminView = new AdminView("",$this->activeUser);
+            if(isset($pid)){
+
+                $this->AdminView->renderSuccessMessage();
+            }
+            else{
+                $this->AdminView->renderErrorMessage();
+            }
             $this->DatabaseManager->saveHistory($this->req,$this->activeUser);
             if(!empty($this->request['image']['name'])){
                 $ImageHandler = new ImageHandler($this->aPerson->getImage(),$pid);
                 $originalTargetFile = $ImageHandler->moveImageToDefault(); 
-                echo "<br/>moving file by dimension";
                 $ImageHandler->moveFilesByDimensions($originalTargetFile);   
+
             }   
         }
     }

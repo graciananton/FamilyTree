@@ -21,6 +21,23 @@ class Statistics{
     public function getNumberOfFamilies(){
         return $this->numberOfFamilies;
     }
+    public function getLatestDate(){
+        $dates = $this->DatabaseManager->getDates();
+        $combinedDates = [];
+        for($i=0;$i<count($dates);$i++){
+            $date = $dates[$i];
+            if(preg_match('/^\d{4}\/\d{2}\/\d{2}$/', $date['createdDate'])){
+                array_push($combinedDates,$date['createdDate']);
+            }
+            if(preg_match('/^\d{4}\/\d{2}\/\d{2}$/', $date['modifiedDate'])){
+                array_push($combinedDates,$date['modifiedDate']);
+
+            }
+        }
+        $latestDate = str_replace("/","-",max($combinedDates));
+        return $latestDate;
+
+    }
     public function findHour(){
         date_default_timezone_set("America/Toronto");
         $this->hour = (int) date("H");

@@ -102,7 +102,7 @@ class DatabaseManager{
         $this->list['modifiedDateTime'] = date("F y j");
         $query = $this->queryBuilder->buildQuery('updateUser',"",$this->list);
         $command = mysqli_query($this->con,$query);
-        if($command){echo "  Successfuly Updated";}else{echo "  Not Successfully Updated";}
+        if($command){return true;}else{return false;}
     }
     public function getPersonsByLetter($param,$criterion){
         $query = $this->queryBuilder->buildQuery("getPersonsByLetter", $criterion, $param);
@@ -278,24 +278,41 @@ class DatabaseManager{
             $command = mysqli_query($this->con,$query);
             
             if($command){
-                echo "  Person Successfully Saved";
+                return $this->list['pid'];
             }
             else{
-                echo " Person Not Successfully Saved";
+                return false;
             }
-            return $this->list['pid'];
         }
         else if (isset($this->list) && !empty($this->list)){
             $query = $this->queryBuilder->buildQuery('insertPerson','',''); 
             $command = mysqli_query($this->con,$query);
             if($command){
-                echo "  Person Successfully Saved";
+                return $this->con->insert_id;
             }
             else{
-                echo " Person Not Successfully Saved";
+                return false;
             }
-            return $this->con->insert_id;
         }
+    }
+    public function updateCreatedDate(){
+
+        $query = $this->queryBuilder->buildQuery('updateCreatedDate','pid',$this->list['pid']);
+        $command = mysqli_query($this->con,$query);
+    }
+    public function getDates(){
+        $query = $this->queryBuilder->buildQuery("dates","","");
+        $result = mysqli_query($this->con,$query);
+        $persons = array();
+        while($row = mysqli_fetch_assoc($result)){
+                $persons[] = $row;
+        }
+        return $persons;
+
+    }
+    public function updateModifiedDate(){
+        $query = $this->queryBuilder->buildQuery('updateModifiedDate','pid',$this->list['pid']);
+        $command = mysqli_query($this->con,$query);
     }
     public function saveRelationship(){
         if($this->list['req'] == "sf_edit_person_relationship"){
@@ -307,10 +324,10 @@ class DatabaseManager{
         }
         $command = mysqli_query($this->con,$query);
         if($command){
-            echo " Successfully Saved";
+            return true;
         }
         else{
-            echo " Not Successfully Saved";
+            return false;
         }
     }
     public function getUser($criterion,$param){
@@ -327,9 +344,9 @@ class DatabaseManager{
         $query = $this->queryBuilder->buildQuery('sf-userTable','','');
         $command = mysqli_query($this->con,$query);
         if($command){
-            echo " User Successfully Saved";
+            return true;
         }
-        else{echo mysqli_error($this->con);}
+        else{return false;}
     }
     public function getUserInfo(){
         $query = $this->queryBuilder->buildQuery('getUserInfo','','');
@@ -352,7 +369,12 @@ class DatabaseManager{
     public function deleteUser($Pid){
         $query = $this->queryBuilder->buildQuery("deleteUser","pid",$Pid);
         $command = mysqli_query($this->con,$query);
-        if($command){echo " User Successfully Deleted";}else{echo " User Not Successfully Deleted";}
+        if($command){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public function deletePerson(){
@@ -373,7 +395,10 @@ class DatabaseManager{
             
             $command4 = mysqli_query($this->con,$query2);
             if($command4){
-                echo "command4 worked successfully";
+                return true;
+            }
+            else{
+                return false;
             }
         }
 
@@ -398,7 +423,12 @@ class DatabaseManager{
         
         $query = $this->queryBuilder->buildQuery('updateRecord','',$Setting);
         $result = mysqli_query($this->con,$query);
-        return $result;
+        if($result){
+            return true;
+        }
+        else{
+          return false;  
+        }
     }
     public function getPersonsAndRelationships(){
         

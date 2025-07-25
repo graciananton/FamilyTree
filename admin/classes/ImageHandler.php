@@ -16,14 +16,11 @@ class ImageHandler{
             
             if(file_exists($file)){
                 if(unlink($file)){
-                    echo $file." deleted successfully<br/>";
                 }
                 else{
-                    echo $file." not delted succesfully";
                 }
             }
             else{
-                echo $file." does not exists";
             }
             $file = "img/people/default/".$this->pid.".png";
 
@@ -55,7 +52,6 @@ class ImageHandler{
         $pythonBridge = new pythonBridge("resizeImages.py",$defaultFiles);
         $output = $pythonBridge->process();
         if ($output === null) {
-            echo "Command failed to execute.";
         } else {
             var_dump($output);
         }
@@ -71,10 +67,8 @@ class ImageHandler{
         $defaultDir = $targetBaseDir ."/default/";
         $originalTargetFile = $defaultDir . $pid. ".png";
         if(move_uploaded_file($tmp_file_path,$originalTargetFile)){
-            echo "successfully moved the file";
         }
         else{
-            echo "not moved";
         }
         return $originalTargetFile;
     }
