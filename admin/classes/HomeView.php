@@ -35,14 +35,57 @@ class HomeView extends View{
           </div>
         </section>
         <?php 
-        $selected = array_key_exists("display_type", $this->request) ? $this->request['display_type'] : 'horizontal';
-         ?>
-        <section data-stellar-background-ratio="1" id='home' >
-          <div class="container">
-               
-               <div class="row" >
-                    <div class="col-md-offset-3 col-md-6 col-sm-12">
-                         <div class="home-info">
+            $selected = array_key_exists("display_type", $this->request) ? $this->request['display_type'] : 'horizontal';
+        ?>
+        <section data-stellar-background-ratio="1" id='home'>
+                <div style='width:25%;'></div>
+                <div style='width:50%;'>
+                        <div>
+                                    <div  id='statistics_box'>
+                                        <div id='individuals'>
+                                            <div id='title' style='color:white;'><span id='numberOfPeople'></span> People </div>
+                                        </div>
+                                        <div id='families'>
+                                            <div id='title' style='color:white;padding-left:10px;'><span id='numberOfFamilies'></span> Families </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            const totalNumberOfPeople = parseInt(<?php echo $individuals; ?>);
+                                            let numberOfPeople = 0;
+
+                                            function incrementNums(i) {
+                                                numberOfPeople = i + 1;
+                                                document.getElementById('numberOfPeople').innerHTML = numberOfPeople;
+                                            }
+
+                                            for (let i = 0; i < totalNumberOfPeople; i++) {
+                                                setTimeout(function() {
+                                                    incrementNums(i);
+                                                },i* 150); // delay increases with i
+                                            }
+                                        });
+
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            const totalNumberOfFamilies = parseInt(<?php echo $families; ?>);
+                                            let numberOfFamilies = 0;
+
+                                            function incrementNums(i) {
+                                                numberOfFamilies = i + 1;
+                                                document.getElementById('numberOfFamilies').innerHTML = numberOfFamilies;
+                                            }
+
+                                            for (let i = 0; i < totalNumberOfFamilies; i++) {
+                                                setTimeout(function() {
+                                                    incrementNums(i);
+                                                },i* 100); // delay increases with i
+                                            }
+                                        });
+
+                                    </script>
+                        </div>
+
+                         <div class='home-info'>
                               <h3>Family Tree</h3>
                               <h1>We help you view your family heritage!</h1>
                               <form enctype="multipart/form-data"  action="" method="GET" style='padding-top:1px;'>
@@ -73,91 +116,14 @@ class HomeView extends View{
                                     </div>
 
                                 </form>
-
-                         </div>
-                    </div>
-               </div>
-          </div>
-        </section>
-        <?php if(array_key_exists("display_type",$this->request) || array_key_exists("pageType",$this->request)){
-            ?>
-            <section data-stellar-background-ratio="0.5" id='result' >
-                <div class='container'>
-                    <div class='row'><a href='#home'><img src='img/scrollUp.png' alt=''/></a></div>
-                </div>
-                <div class='container'>
-                    <div class='row'>
-                        <div class='col-md-12 col-sm-12'>
-                            <div class='section-title'>
-                                    <h2 style='color:#7F4444;font-weight:bold;'>Search Value: <?php echo $this->request['personName']; ?></h2>
-                            </div>
                         </div>
-                        <div class='col-md-12 col-sm-12'>
-                            <?php echo $this->object; ?>
-                        </div>
-                    </div>
                 </div>
-            </section>
-        <?php } ?>
-        <section data-stellar-background-ratio="1" id='AIFamilyTree' >
-            <div class="container">
-                <div class="row">
-
+                <div style='width:25%;margin-top:80px;'>
+                    <div class='container-fluid'>
                         <div class="col-md-12 col-sm-12">
-                            <div class="section-title">
-                                <h1>Tree Search:</h1>
-                            </div>
-                        </div>
-                    
-                        <div class="col-md-6 col-sm-6" id='statistics_box' >
-                                <div class='col-md-6' id='individuals'>
-                                        <div id='title'>Number of People: </div>
-                                        <div id='numberOfPeople'></div>
-                                </div>
-                                <div class='col-md-6' id='families'>
-                                        <div id='title'>Number of Families: </div>
-                                        <div id='numberOfFamilies'></div>
-                                </div>
-                        </div>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                const totalNumberOfPeople = parseInt(<?php echo $individuals; ?>);
-                                let numberOfPeople = 0;
-
-                                function incrementNums(i) {
-                                    numberOfPeople = i + 1;
-                                    document.getElementById('numberOfPeople').innerHTML = numberOfPeople;
-                                }
-
-                                for (let i = 0; i < totalNumberOfPeople; i++) {
-                                    setTimeout(function() {
-                                        incrementNums(i);
-                                    },i* 100); // delay increases with i
-                                }
-                            });
-
-                            document.addEventListener("DOMContentLoaded", function() {
-                                const totalNumberOfFamilies = parseInt(<?php echo $families; ?>);
-                                let numberOfFamilies = 0;
-
-                                function incrementNums(i) {
-                                    numberOfFamilies = i + 1;
-                                    document.getElementById('numberOfFamilies').innerHTML = numberOfFamilies;
-                                }
-
-                                for (let i = 0; i < totalNumberOfFamilies; i++) {
-                                    setTimeout(function() {
-                                        incrementNums(i);
-                                    },i* 300); // delay increases with i
-                                }
-                            });
-
-                        </script>
-                        <div class='col-md-1 col-sm-4'></div>
-                        <div class="col-md-4 col-sm-4">
                                         <div id='header'>
                                             <div id='image'><img src='img/person.png' alt=''/></div>
-                                            <div id='text'>
+                                            <div id='text' style='text-align:left;'>
                                                 <div id='message'>Have a question?</div>
                                                 <div id='quickness'>🟢 We'll be happy to help!</div>
                                             </div>
@@ -186,7 +152,7 @@ class HomeView extends View{
 
                                             
 
-                                            chatBox.innerHTML += `<div class="message user" id='user_message'>You: ${message}</div>`;
+                                            chatBox.innerHTML += `<div class="message user" id='user_message' style='width:100%;text-align:left;'>You: ${message}</div>`;
                                             chatBox.scrollTop = chatBox.scrollHeight;
 
                                             input.value = "";
@@ -209,30 +175,51 @@ class HomeView extends View{
                                             }
                                         </script>
                         </div>
-                        <div class='col-md-1 col-sm-1'></div>
+                    </div>
                 </div>
-            </div>
         </section>
 
-        <section id="views" data-stellar-background-ratio="1">
-          <div class="container">
-               <div class="row">
-
-                    <div class=" col-md-12 col-sm-12" >
-                         <div class="section-title" >
-                              <h1>Standard v. List Display Types</h1>
-                         </div>
+        <?php if(array_key_exists("display_type",$this->request) || array_key_exists("pageType",$this->request)){
+            ?>
+            <section data-stellar-background-ratio="0.5" id='result' >
+                <div class='container'>
+                    <div class='row'><a href='#home'><img src='img/scrollUp.png' alt=''/></a></div>
+                </div>
+                <div class='container'>
+                    <div class='row'>
+                        <div class='col-md-12 col-sm-12'>
+                            <div class='section-title'>
+                                    <h2 style='color:#7F4444;font-weight:bold;'>Search Value: <?php echo $this->request['personName']; ?></h2>
+                            </div>
+                        </div>
+                        <div class='col-md-12 col-sm-12'>
+                            <?php echo $this->object; ?>
+                        </div>
                     </div>
+                </div>
+            </section>
 
-                    <div class="col-md-12 col-sm-12">
-                         <img src="img/views.png" alt="" id='display_types_img' style='height:auto;width:100%;'/>
+        <?php } ?>
+                <section id="views" data-stellar-background-ratio="1">
+                <div class="container">
+                    <div class="row">
+
+                            <div class=" col-md-12 col-sm-12" >
+                                <div class="section-title" >
+                                    <h1>Standard v. List Display Types</h1>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                                <img src="img/views.png" alt="" id='display_types_img' style='height:auto;width:100%;'/>
+                            </div>
+                            
                     </div>
-                    
-               </div>
-          </div>
-        </section>
+                </div>
+            </section>
+
         <div id="statusBar" style=" margin-bottom:30px; height:2rem; line-height:2rem; font-size:1.8rem; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
-            <div>Modified Date Time: <?php echo $statistics->getLatestDate(); ?></div>
+            <div>Last Modified: <?php echo $statistics->getLatestDate(); ?></div>
             <div>v.1.0.0</div>
         </div>
 

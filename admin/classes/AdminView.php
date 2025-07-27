@@ -70,7 +70,7 @@ class AdminView extends View{
 
             }
             ?>
-            <div id='userTable' class='container-fluid m-3 col-md-8'> 
+            <div id='userTable' class='container-fluid m-3 col-md-6'> 
                 <form enctype = 'multipart/form-data' action='' method="POST">
                   <div class='row'>
                     <div class='form-group col-md-3'>
@@ -219,7 +219,7 @@ class AdminView extends View{
             ?>
             <div class='container-fluid mt-3'>
                 <div class='row justify-content-center'>
-                   <div class='col-11'>
+                   <div class='col-8'>
                     <table class='table table-bordered border mt-4'>
                         <thead>
                             <tr class='text-center'><th style='color:#7F4444'>Name</th><th style='color:#7F4444'>Value</th><th style='color:#7F4444'>Edit</th></tr>
@@ -356,7 +356,7 @@ class AdminView extends View{
 
             <div class='container-fluid'>
                 <div class="row pl-3 pt-0">
-                    <div class='col-md-4'>
+                    <div class='col-md-3'>
                         <form enctype='multipart/form-data' action='index.php' method="post" id='insert_first_person'>
                             <div class='row'>
                                 <div class='col-sm-6'>
@@ -520,10 +520,9 @@ class AdminView extends View{
                         <div id="searchForm"></div>
                 </div>
             </form>
-            <div id='table'></div>
+            <div id='table' style='width:70%;margin:auto;'></div>
             </div>
         </div>
-        <div id='table'></div>
             <script>
                 
                 document.getElementById('category').addEventListener('change',function(event){
@@ -825,14 +824,14 @@ class AdminView extends View{
     public function renderHeadingInfo(string $path, string $title):void{
     ?>
         <div class='container-fluid pt-2'>
-                <div class='row pl-1 pt-2 pb-0'>
+                <div class='row pl-3 pt-4 pb-0'>
                     <div class='col-md-6'>
                         <h3 style = 'display:inline-block;color:#7F4444;' class='font-weight-bold'>
                             <?php echo  $title; ?>
                         </h3>
                     </div>
                     <div class='col-md-6'></div>
-                    <div class='col-md-6 pb-3'>
+                    <div class='col-md-6 pb-3' style='font-size:15px;'>
                         <?php $this->renderTemplate($path); ?>              
                     </div>
                 </div>

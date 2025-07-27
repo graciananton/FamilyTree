@@ -158,9 +158,10 @@ fieldset{
       width: 100%;
       max-width: 350px;
       overflow-y:auto;
-      height: 375px;
+      height: 300px;
       padding: 10px;
       cursor:grab;
+      background-color:white;
       border-top:1px solid #ccc;
       border-left:1px solid #ccc;
       border-right:1px solid #ccc;
@@ -221,7 +222,7 @@ fieldset{
 
 #chatbox-bottom{
   max-width:350px;
-  
+  background-color:white;
   padding-bottom:3px;
   border-right:1px solid #ccc;
   border-left:1px solid #ccc;
@@ -266,7 +267,7 @@ fieldset{
   border-left:1px solid #ccc;
   border-right:1px solid #ccc;
   border-bottom:1px solid #ccc;
-  padding-left:80px;
+  background-color:white;
   font-size:10px;
   color:#808080;
   font-weight:bold;
@@ -310,7 +311,7 @@ fieldset{
   display:flex;
   justify-content:center;
   align-items:center;
-  height:500px;
+  
 }
 #individuals{
   font-size:30px;
@@ -329,12 +330,13 @@ fieldset{
   transform:translateY(-50px);
 
 }
-
 #numberOfPeople,#numberOfFamilies{
   padding-top:15px;
   font-weight:bold;
   color:#7F4444;
 }
+
+
 
 #option{
   display:flex;
@@ -382,7 +384,7 @@ fieldset{
   font-weight: bold; color: #7F4444; 
 }
 
-/* end of chatbox */
+/* end of box */
 
 
 

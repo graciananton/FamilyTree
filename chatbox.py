@@ -23,15 +23,15 @@ if __name__ == "__main__":
 
     llm = init_chat_model("gemini-2.0-flash", model_provider="google_genai")
 
-    #servername = "localhost"
-    #username   = "root"
-    #password   = ""
-    #dbname     = "familytree"
+    servername = "localhost"
+    username   = "root"
+    password   = ""
+    dbname     = "familytree"
 
-    servername = "db5017690433.hosting-data.io"
-    username = "dbu5691915"
-    password = "FamilyTree123#"
-    dbname = "dbs14144770"
+    #servername = "db5017690433.hosting-data.io"
+    #username = "dbu5691915"
+    #password = "FamilyTree123#"
+    #dbname = "dbs14144770"
 
 
     uri = f"mysql+mysqlconnector://{username}:{password}@{servername}/{dbname}"
