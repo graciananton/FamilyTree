@@ -42,8 +42,8 @@ class AdminView extends View{
         $personImagePath = new Setting($personImagePath);
         $adminErrorImagePath = $this->SettingService->getSettingValueByName("adminErrorImagePath");
         $adminErrorImagePath = new Setting($adminErrorImagePath);
-        $add = $this->SettingService->getSettingValueByName('add');
-        $add = new Setting($add);
+        //$add = $this->SettingService->getSettingValueByName('add');
+        //$add = new Setting($add);
         $edit = $this->SettingService->getSettingValueByName('edit');
         $edit = new Setting($edit);
         $delete = $this->SettingService->getSettingValueByName('delete');
@@ -218,9 +218,9 @@ class AdminView extends View{
 
             ?>
             <div class='container-fluid mt-3'>
-                <div class='row justify-content-center'>
-                   <div class='col-8'>
-                    <table class='table table-bordered border mt-4'>
+                <div class='row'>
+                   <div class='col-6 ml-3'>
+                    <table class='table table-bordered table-hover border mt-4'>
                         <thead>
                             <tr class='text-center'><th style='color:#7F4444'>Name</th><th style='color:#7F4444'>Value</th><th style='color:#7F4444'>Edit</th></tr>
                         </thead>
@@ -232,7 +232,7 @@ class AdminView extends View{
                                     <tr class='text-center'>
                                             <td><?php echo $row['name']; ?></td>
                                             <td><?php echo $row['value']; ?></td>
-                                            <td><a href='?req=es-form&pid=<?php echo $row['pid']; ?>'><img src='<?php echo $edit->getValue(); ?>' alt=''/></a></td>
+                                            <td><a href='?req=es-form&pid=<?php echo $row['pid']; ?>' class='btn a-btn-slide-text'><span><strong>Edit</strong></span></a></td>
                                     </tr>
                                     <?php
                                 }
@@ -275,8 +275,8 @@ class AdminView extends View{
             $this->renderHeadingInfo("editUsersHeading",$title); 
 
         ?>
-        <div class='col-12 d-flex justify-content-center'>
-            <table class='table table-bordered mt-4' style='width:99%;'>
+        <div class='col-12 ml-3'>
+            <table class='table table-bordered table-hover mt-4 ' style='width:50%;'>
                 <thead>
                     <?php
                     if(count($this->object) > 0){
@@ -310,8 +310,8 @@ class AdminView extends View{
                                       <td>".$user->emailAddress."</td>
                                       <td>".$user->UAPID."</td>
                                       <td>".$user->role."</td>
-                                      <td><a class='nav-link text-primary' href='?req=ut-edit&pid=$user->pid'>Edit User</a></td>
-                                      <td><a class='nav-link text-primary' href='?req=ut-delete&pid=$user->pid'>Delete User</a></td>
+                                      <td><a class='btn a-btn-slide-text' href='?req=ut-edit&pid=$user->pid'><span><strong>Edit</strong></span></a></td>
+                                      <td><a class='btn a-btn-slide-text' href='?req=ut-delete&pid=$user->pid'><span><strong>Delete</strong></span></a></td>
                                       ";
                                 echo "</tr>";
                             }
@@ -504,7 +504,7 @@ class AdminView extends View{
             print_r($relationships);
             echo "</pre>";*/
             $title ="Edit Members:";
-            $this->renderHeadingInfo("editMembersHeading",$title); 
+            $this->renderHeadingInfo("editMembersHeading",$title);
         ?>
         <div>
         <div class="container-fluid">   
@@ -520,7 +520,7 @@ class AdminView extends View{
                         <div id="searchForm"></div>
                 </div>
             </form>
-            <div id='table' style='width:70%;margin:auto;'></div>
+            <div id='table' class='pl-3' style='width:50%;'></div>
             </div>
         </div>
             <script>
@@ -539,7 +539,6 @@ class AdminView extends View{
                         var category = document.querySelector('#category').value;   
                         var trimmedSValue=sValue.trim();
 
-                        console.log(sId)
                         if(sValue.length > 0 || trimmedSValue== "-"){
                             if(trimmedSValue == "-"){
                                 sValue ="";
@@ -554,49 +553,50 @@ class AdminView extends View{
                                     activeUser: activeUser
                                 },
                                 success: function(persons){
-                                    console.log(persons);
                                     persons = JSON.parse(persons);
                                     html="";
                                     if(persons.length > 0){
-                                        html = "<table class='table table-bordered table-hover ms-0'><thead><tr class='text-center'>";
-                                        html += "<th style='color:#7F4444;'>UAPID:</th><th style='color:#7F4444;'> FirstName </th> <th style='color:#7F4444;'>Last Name</th> <th style='color:#7F4444;'>Birth Date</th><th style='color:#7F4444;'>Gender</th><th style='color:#7F4444;'>Image</th><th style='color:#7F4444;'>Action</th></tr></thead>";
-                                    
+                                        html = "<table class='table table-bordered table-hover ms-0'>";
+                                        html +=     "<thead><tr class='text-center'>";
+                                        html +=         "<th>ID</th><th> First Name </th> <th>Last Name</th> <th>BirthDate</th><th>Gender</th><th></th><th>Action</th>";
+                                        html +=     "</tr></thead><tbody>";
+                                        
                                         for(i=0;i<persons.length;i++){
                                             person = persons[i];
                                             image = person.pid+".png";
 
-                                            console.log(person.pid);
 
-                                            html +="<tbody><tr>";
+                                            html +="<tr>";
                                             
                                             var imagePath = "<?php echo $personImagePath->getValue(); ?>"; // PHP executes on server
                                             html += "<td class='text-center'>"+person.pid+"</td><td class='text-center'>" + person.firstName + "</td>" +
                                                     "<td class='text-center'>" + person.lastName + "</td>" +
                                                     "<td class='text-center'>" + person.birthDate + "</td>" +
                                                     "<td class='text-center'>" + person.gender + "</td>" +
-                                                    "<td class='text-center d-flex justify-content-center align-items-center'>" +
-                                                    "<img src='" + imagePath + person.pid  + "' onerror=\"this.onerror=null; this.src='<?php echo  $adminErrorImagePath->getValue(); ?>';\" /></td>";
+                                                    "<td class='text-center d-flex justify-content-center align-items-center' id='img'>" +
+                                                        "<img src='" + imagePath + person.pid  + "' onerror=\"this.onerror=null; this.src='<?php echo  $adminErrorImagePath->getValue(); ?>';\" />"
+                                            html += "</td>";
                                             relationshipExists = false;
                                             for(j=0;j<relationships.length;j++){
                                                 relationship = relationships[j];
                                                 if(person.pid == relationship.pid){
-                                                    html+="<td class='text-center'><a href='?req=pf-edit_relationship&pid="+person.pid+"' id='relative' class='me-3'><img src='<?php echo $add->getValue();?>' alt=''/></a>";
+                                                    html+="<td class='text-center'><a href='?req=pf-edit_relationship&pid="+person.pid+"' id='relative' class='btn a-btn-slide-text'><span><strong>Add</strong></span></a>";
                                                     relationshipExists = true;
                                                     break;
                                                 }
                                             }
                                             if(!relationshipExists){
-                                                html+="<td class='text-center'><a href='?req=pf-insert_relationship&pid="+person.pid+"' id='relative' class='me-3'/><img src='<?php echo $add->getValue();?>' alt=''/></a>";
+                                                html+="<td class='text-center'><a href='?req=pf-insert_relationship&pid="+person.pid+"' id='relative' class='btn a-btn-slide-text'/><span><strong>Add</strong></span></a>";
                                             }
 
 
-                                            html += "<a href='?req=pf-edit_person&pid="+person.pid+"' id='edit' class='me-3'><img src='<?php echo $edit->getValue();?>' alt=''/></a><a href='?req=pf-delete_person&pid="+person.pid+"' id='delete'><img src='<?php echo $delete->getValue(); ?>' alt=''/></a></td>";
+                                            html += "<a href='?req=pf-edit_person&pid="+person.pid+"' id='edit' class='btn a-btn-slide-text'><span><strong>Edit</strong></span></a><a href='?req=pf-delete_person&pid="+person.pid+"' id='delete' class='btn a-btn-slide-text'><span><strong>Delete</strong></span> </a></td>";
                                             
                                             
-                                            html+="</tr></tbody>";
-                                            console.log(html);
+                                            html+="</tr>";
                                         }
                                     }
+                                    html += "</tbody>";
                                     document.getElementById('table').innerHTML=html;
                                    
                                 },

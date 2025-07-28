@@ -1,3 +1,42 @@
+a.btn:hover {
+     -webkit-transform: scale(0.9);
+     -moz-transform: scale(0.9);
+     -o-transform: scale(0.9);
+    color:white;
+     background-color:#7F4444;
+
+ }
+ a.btn {
+     -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+     -o-transform: scale(0.8);
+     -webkit-transition-duration: 5.0s;
+     -moz-transition-duration: 5.0s;
+     -o-transition-duration: 5.0s;
+     color:white;
+     background-color:#7F4444;
+ }
+
+
+
+
+.table.table-bordered.table-hover thead th {
+    color: #7F4444 !important;
+}
+
+
+
+#table{
+    width:70%;
+    margin:left;
+}
+
+
+table thead tr th{
+    color:#978888 !important;
+}
+
+
 html{
     scrollbar-color:#7F4444 white;
 }

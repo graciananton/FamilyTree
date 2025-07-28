@@ -155,7 +155,7 @@ fieldset{
 
 
 #chat-box {
-      width: 100%;
+      width: 99%;
       max-width: 350px;
       overflow-y:auto;
       height: 300px;
@@ -399,7 +399,7 @@ fieldset{
 
 /* dot pulse */
 .dot-pulse {
-  margin-left:300px;
+  margin-left:265px;
   position: relative;
   left: -9999px;
   width: 10px;

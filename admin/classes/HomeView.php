@@ -251,7 +251,6 @@ class HomeView extends View{
                     <div class="collapse navbar-collapse" id='headerLinks'>
                             <ul class="nav navbar-nav">
                                 <li><a href="?req=searchForm#home" class="smoothScroll" style='color:black;'>Home</a></li>
-                                <li><a href="?req=searchForm#AIFamilyTree" class="smoothScroll" style='color:black;'>Tree Search</a></li>
                                 <li><a href="?req=searchForm#views" class="smoothScroll" style='color:black;'> Display Types</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
@@ -281,7 +280,6 @@ class HomeView extends View{
                     <div class="collapse navbar-collapse" id='headerLinks'>
                             <ul class="nav navbar-nav" >
                                 <li><a href="#home" class="smoothScroll" >Home</a></li>
-                                <li><a href="#AIFamilyTree" class="smoothScroll">Tree Search</a></li>
                                 <li><a href="#views" class="smoothScroll"> Display Types</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
