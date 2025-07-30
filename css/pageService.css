@@ -32,7 +32,6 @@
     text-decoration: underline;
     color: inherit;
 }
-
 /* Hover effect */
 #pageService .row > div #link:hover {
     text-decoration-color: green;

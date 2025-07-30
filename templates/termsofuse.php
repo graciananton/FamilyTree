@@ -3,7 +3,8 @@
     <h3>Terms of Use</h3>
 
     <p><strong>Owner:</strong> Gracian Anton<br>
-    <strong>Website:</strong> <a href="https://www.gracian.ca/familyTree" target="_blank">www.gracian.ca/familyTree</a></p>
+    <strong>Website:</strong> <a href="https://family.gracian.ca" target="_blank">family.gracian.ca</a></p>
+</p>
 
     <p>Please read these Terms of Use ("Terms", "Terms of Use") carefully before using the family tree website operated by Gracian Anton ("us", "we", or "our"). These Terms govern your access to and use of the website and its services.</p>
 
@@ -79,7 +80,7 @@
     <p>We may update these Terms of Use from time to time. We will post the updated version on this page with the new effective date. Your continued use of the site after any changes indicates your acceptance of the new Terms.</p>
 
     <h3>Contact Information</h3>
-    <p>Gracian Anton<br>Email: basil_anton@yahoo.ca</p>
+    <p>Gracian Anton<br>Email: gracian.anton@gmail.com</p>
 
   </div>
 </section>

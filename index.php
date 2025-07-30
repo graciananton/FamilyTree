@@ -27,17 +27,15 @@ include "admin/classes/QueryBuilder.php";
                     echo '<script>window.location.hash = "#result";</script>';
     }
   ?>
-  <div style="width: 100%;height:100%">
+  <div style="width: 100%;height:100%;">
     <?php   
-      $request = $_REQUEST;
+        $request = $_REQUEST;
 
 
         $validation = new Validation($request);
         if(!$validation->validate()){
             $request['pageType'] = "page_error";
         }
-
-
 
         $Controller = new Controller($request);
         $Controller->process();

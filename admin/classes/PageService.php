@@ -97,7 +97,6 @@ class PageService{
             }
         }
         else if($this->req_name == "error"){
-            
             $this->contentText = $this->DatabaseManager->getPage("error")['content'];
         }
     }

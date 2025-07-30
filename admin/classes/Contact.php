@@ -1,25 +1,31 @@
+
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class Contact{
     private $request;
     public function __construct($request){
         $this->request = $request;
     }   
-    public function process(){
-        $to = "basil_anton@yahoo.ca";
+    public function send(){
+
+        $to = "gracian.anton@gmail.com";
         $subject = "Error in Family Tree";
-        $txt = "errros";
 
-
+        $txt = $this->request['message'];
 
         $email = $this->request['email'];
 
-        $headers = "From: $email";
 
+        $headers = "From: $email";
+        
         if(mail($to,$subject,$txt,$headers)){
-            echo "Mailed";
+            return true;
         }
         else{
-            echo "Not mailed";
+            return false;
         }
     }
 }

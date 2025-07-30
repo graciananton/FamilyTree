@@ -173,7 +173,7 @@ class AdminView extends View{
                             <div class='form-group'>
                                 <label for='folder' class='form-label'>Folder:</label>
                                 <select name='folder' id='folder' class='form-control'>
-                                    <option value='Choose an option'>Select option</option>
+                                    <option value='Choose an option' disabled readonly>Select option</option>
                                 <?php 
                                     $folders = $this->ImageHandler->getFoldersFromDirectory("img/people"); 
                                     for($i=0;$i<count($folders);$i++){
@@ -182,10 +182,10 @@ class AdminView extends View{
                                         <?php
                                     }
                                 ?>
-                                <option value="all">All Listed</option>
+                                <option value="all" selected>All Listed</option>
                             </div>
-                            <div class='form-group'>
-                                <input type='submit' name='resize' value='Resize Files'/>
+                            <div class='form-group' >
+                                <input type='submit' name='resize' style='margin-top:10px;' value='Resize Files'/>
                                 <input type='hidden' value='sf-generateImages' name='req'/>
                             </div>
                             <div id='response'></div>
@@ -558,7 +558,7 @@ class AdminView extends View{
                                     if(persons.length > 0){
                                         html = "<table class='table table-bordered table-hover ms-0'>";
                                         html +=     "<thead><tr class='text-center'>";
-                                        html +=         "<th>ID</th><th> First Name </th> <th>Last Name</th> <th>BirthDate</th><th>Gender</th><th></th><th>Action</th>";
+                                        html +=         "<th>#</th><th> First Name </th> <th>Last Name</th> <th>BirthDate</th><th>Gender</th><th></th><th>Action</th>";
                                         html +=     "</tr></thead><tbody>";
                                         
                                         for(i=0;i<persons.length;i++){
@@ -569,7 +569,7 @@ class AdminView extends View{
                                             html +="<tr>";
                                             
                                             var imagePath = "<?php echo $personImagePath->getValue(); ?>"; // PHP executes on server
-                                            html += "<td class='text-center'>"+person.pid+"</td><td class='text-center'>" + person.firstName + "</td>" +
+                                            html += "<td class='text-center' >"+(i)+"</td><td class='text-center'>" + person.firstName + "</td>" +
                                                     "<td class='text-center'>" + person.lastName + "</td>" +
                                                     "<td class='text-center'>" + person.birthDate + "</td>" +
                                                     "<td class='text-center'>" + person.gender + "</td>" +

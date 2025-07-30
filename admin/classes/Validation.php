@@ -14,7 +14,7 @@ class Validation{
         {
             foreach($this->request as $key=>$value){
                 if($key != "visit_counter" && $key != "chtl_cus_7996758795"){
-                    if(preg_match('/^[A-Za-z0-9_\-\+\s]+$/', $key) && preg_match('/^[A-Za-z0-9_\-\+\s]+$/', $value)){
+                    if(preg_match('/^[A-Za-z0-9_\-\+\s@]+$/', $key) && preg_match('/^[A-Za-z0-9_\-\+\s@]+$/', $value)){
                     // don't return anything
                     }
                     else{

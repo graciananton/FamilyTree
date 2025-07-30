@@ -53,16 +53,32 @@ class Controller{
                 $form = $Builder->generateTree($this->pid,$this->select,$this->request);
             }
         }
+
+        else if($this->req == "contact"){
+            $contact = new Contact($this->request);
+            $errorMessage = "";
+            if($contact->send()){
+                $this->request['successMessage'] = true;
+            }
+            else{
+                $this->request['successMessage'] = false;
+                $Validation = new Validation($this->request);
+
+            }
+            $form = "";
+        }
+
         else if(stripos($this->request['pageType'],"page_") !== false){
             $PageService = new PageService($this->request,"");
             $PageService->renderContent();
             $form = $PageService->getContentText();
 
         }
+
         else if($this->req == "termsofuse" || $this->req == "privacynotice"){
             $form = "";
         } 
-
+        
         $HomeView = new HomeView($this->request,$form);
 
 
@@ -75,7 +91,7 @@ class Controller{
             }
         echo "</div>";
 
-        
+
         $HomeView->render();
         $HomeView->setFooter();
     }

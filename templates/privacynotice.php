@@ -3,7 +3,7 @@
     <h3>Privacy Notice</h3>
 
     <p><strong>Owner:</strong> Gracian Anton<br>
-    <strong>Website:</strong> <a href="https://www.gracian.ca/familyTree" target="_blank">www.gracian.ca/familyTree</a></p>
+    <strong>Website:</strong> <a href="https://family.gracian.ca" target="_blank">family.gracian.ca</a></p>
 
     <p>This Privacy Notice describes how your personal information is collected, used, and protected when you use our family tree website.</p>
 
@@ -56,7 +56,7 @@
 
     <h3>Contact</h3>
     <p>If you have any questions or concerns regarding your privacy or this notice, please contact:</p>
-    <p>Gracian Anton<br>Email: basil_anton@yahoo.ca</p>
+    <p>Gracian Anton<br>Email: gracian.anton@gmail.com</p>
 
   </div>
 </section>
