@@ -1,6 +1,7 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="admin/dTree.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 <?php
 if(!array_key_exists("req",$_REQUEST)){
     $_REQUEST['req'] = "searchForm";
@@ -30,7 +31,6 @@ include "admin/classes/QueryBuilder.php";
   <div style="width: 100%;height:100%;">
     <?php   
         $request = $_REQUEST;
-
 
         $validation = new Validation($request);
         if(!$validation->validate()){

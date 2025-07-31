@@ -148,6 +148,51 @@ class AdminView extends View{
             </div>
         <?php
         }
+        else if($this->req == "home"){
+        ?>
+            <div class ='container-fluid' style='padding-left:25px;'>
+                <div class='row'>
+                    <div class='col-md-6 col-sm-6'>
+                        <div id='introductionGreeting'>
+                        <?php
+                            echo $this->request['greeting'].", ".$this->object->getName();
+                        ?>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-12 col-sm-12'id='welcomeGreeting'>
+                        <p style='max-width:750px;'>Welcome to the Santhiapillai Family Tree Admin. Here you can add, update, or delete people as well
+                        as their relatives. Watch the video tutorial on how to update the admin for more information.</p>
+                    </div>  
+                </div>
+                <div class='row'>
+                    <div class='col-md-3 col-sm-3' id='linksChart'>
+                    
+                        <ul>
+                            <ul>Members:
+                                <li>Add Member</li>
+                                <li>Edit Members</li>
+                            </ul>
+                            <ul>Users:
+                                <li>Add User</li>
+                                <li>Edit Users</li>
+                            </ul>
+                            <ul>Admin:
+                                <li>Settings</li>
+                                <li>Generate Images</li>
+                            </ul>
+                        </ul>
+                    </div>
+                    <div class='col-md-9 col-sm-9' style='margin-bottom:200px;padding-top:0px;' id='familyTreeAdminTutorial'>
+                        <video width="700" height="470" controls>
+                            <source src='videos/familyTreeAdminTutorial.mp4' type='video/mp4'>
+                        </video>
+                    </div>
+                </div>
+            </div> 
+        <?php
+        }
         else if($this->req == "generateImages"){
             $files = $this->ImageHandler->getFilesFromDefault();
             $title ="Generate Images:";

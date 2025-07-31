@@ -48,6 +48,12 @@ class Config{
     public static $TABLE_USER = "UserForm";
     public static $TABLE_SELECT_USER = "selectUserForm";
     public static $APP_INFO = "app";
+    public static $RECAPTCHA_SECRET_KEY = "recaptchaSecretKey";
+
+    public static function getRecaptchaSecretKey(){
+        self::$config_file = parse_ini_file("config/config_form.php",true);
+        return self::$config_file[self::$APP_INFO][self::$RECAPTCHA_SECRET_KEY];
+    }
     public static function getUserForm(){
         self::$config_file = parse_ini_file("config/config_form.php",true);
         return self::$config_file[self::$TABLE_USER][self::$TABLE_SELECT_USER];

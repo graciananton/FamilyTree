@@ -9,6 +9,7 @@ abstract class View{
     protected static $MENU_NAME='Menu';
     protected ImageHandler $ImageHandler;
     public function __construct($request,$object){
+        
         $this->object = $object;
         $this->request = $request;
         if(is_array($this->request)){
@@ -21,5 +22,17 @@ abstract class View{
     protected function renderTemplate(string $template):void{
         include "templates/$template.php";
     }
+    public function setFooter(){
+        ?>
+            <div class='container-fluid' style='position:relative;bottom:0;box-shadow: 0 -5px 10px -5px #7F4444;'>
+                <div class='row' id='footer'>
+                    <p style="text-align: center; font-size: 14px; color: black;padding-top:15px;">
+                        © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our <a href="/gracian/familyTree/index.php?req=termsofuse" style='text-decoration:underline;color:#7F4444;'>Terms of Use</a> & <a href="/gracian/familyTree/index.php??req=privacynotice" style='color:#7F4444;text-decoration:underline;'>Privacy Notice</a>
+                    </p>
+                </div>
+            </div>
+        <?php
+    }
+
     abstract public function render();// an abstract function is simply declared by is replaced by the drive class's function
 }

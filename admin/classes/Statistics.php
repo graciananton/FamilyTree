@@ -3,7 +3,7 @@ class Statistics{
     private $DatabaseManager;
     private $numberOfIndividuals;
     private $numberOfFamilies;
-    private $hour;
+    private $greeting;
     public function __construct(){
         $this->DatabaseManager = new DatabaseManager('');
     }
@@ -38,12 +38,25 @@ class Statistics{
         return $latestDate;
 
     }
-    public function findHour(){
+    public function setGreeting(){
         date_default_timezone_set("America/Toronto");
-        $this->hour = (int) date("H");
+        $hour = (int) date("H");
 
+        if($hour > 5 && $hour <12){
+            $this->greeting = "Good Morning";
+        }
+        else if($hour >=12 && $hour <15){
+            $this->greeting = "Good Afternoon";
+        }
+        else if($hour >=15 && $hour <= 20){
+            $this->greeting = "Good Evening";
+        }
+        else{
+            $this->greeting = "Good Night";
+        }
+        
     }
-    public function getHour(){
-        return (int) $this->hour;
+    public function getGreeting(){
+        return  $this->greeting;
     }
 }

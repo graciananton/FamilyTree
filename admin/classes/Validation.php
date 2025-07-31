@@ -29,5 +29,34 @@ class Validation{
             return false;
         }
     }
+    public function validateEmail(){
+        $errors = "";
+        $recaptchaSecret = Config::getRecaptchaSecretKey();
+        
+        $recaptchaResponse = $this->request['g-recaptcha-response'];
+
+        $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
+        
+        $response = file_get_contents($verifyURL . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+            
+        echo $response.'<br/>';
+        $responseData = json_decode($response);
+
+        if (!$responseData->success) {
+            $errors = "Recaptcha not clicked, ";
+        }
+        else{
+            $errors = "";
+        }
+        foreach($this->request as $key=>$value){
+            if(!preg_match('/[\$\%\^\*\<\>]/', $key) && !preg_match('/[\$\%\^\*\<\>]/', $value)){
+
+            }
+            else{
+                $errors = $errors. ucfirst($key)." field contains errors, ";
+            }
+        }
+        return $errors;
+    }
 }
 

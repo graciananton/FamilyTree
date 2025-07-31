@@ -18,7 +18,6 @@ class Contact{
 
         $email = $this->request['email'];
 
-
         $headers = "From: $email";
         
         if(mail($to,$subject,$txt,$headers)){

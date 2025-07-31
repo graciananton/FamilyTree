@@ -51,6 +51,7 @@ $AdminView->setMenu();
 $adminController = new AdminController($request,$activeUser);
 $adminController->process();
 
+$AdminView->setFooter();
 ?>
 </body>
 </html>

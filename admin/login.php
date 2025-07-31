@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $_SESSION['username'] = $request['username'];
         $activeUser = new ActiveUser($request);
         if($activeUser->verify()){
-            echo '<meta http-equiv="refresh" content="0;url=index.php?req=pf-insert_person">';          
+            echo '<meta http-equiv="refresh" content="0;url=index.php?req=home">';          
         }
         else{
             echo "Password or Username is incorrect";
@@ -46,3 +46,10 @@ $AdminView->setMenu();
         <input type='hidden' name='submit_form' value='submit_form'/>
     </form>
 </div>
+    <div class='container-fluid' style='position:absolute;bottom:0;box-shadow: 0 -5px 10px -5px #7F4444;'>
+        <div class='row'>
+            <p style="text-align: center; font-size: 14px; color: black;padding-top:15px;">
+                © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our <a href="/gracian/familyTree/index.php?req=termsofuse" style='text-decoration:underline;color:#7F4444;'>Terms of Use</a> & <a href="/gracian/familyTree/index.php??req=privacynotice" style='color:#7F4444;text-decoration:underline;'>Privacy Notice</a>
+            </p>
+        </div>
+    </div>

@@ -56,18 +56,48 @@ class Controller{
 
         else if($this->req == "contact"){
             $contact = new Contact($this->request);
-            $errorMessage = "";
-            if($contact->send()){
-                $this->request['successMessage'] = true;
-            }
-            else{
-                $this->request['successMessage'] = false;
-                $Validation = new Validation($this->request);
 
-            }
+            $validation = new Validation($this->request);
+
+                $errors  =  $validation->validateEmail();
+                if($errors == ""){
+
+                    $contact->send();
+                    
+                    $this->request['successMessage'] = 1;
+                    $this->request['req'] = "searchForm";
+                    $this->request['pageType'] ="";
+
+                    
+                    $HomeView = new HomeView($this->request,"");
+
+                    $HomeView->setMainLinksNavMenu();
+
+                    $HomeView->render();
+
+                    $HomeView->setFooter();
+
+                    return;
+                }
+                else{
+                    $this->request['successMessage'] = 0;
+                    $this->request['errors'] = $errors;
+                    $this->request['pageType'] = "";
+                    $this->request['req'] = "searchForm";
+                    
+                    
+                    $HomeView = new HomeView($this->request,"");
+                    $HomeView->setMainLinksNavMenu();
+
+                    $HomeView->render();
+
+                    $HomeView->setFooter();
+
+                    return;
+                }
             $form = "";
-        }
 
+        }
         else if(stripos($this->request['pageType'],"page_") !== false){
             $PageService = new PageService($this->request,"");
             $PageService->renderContent();

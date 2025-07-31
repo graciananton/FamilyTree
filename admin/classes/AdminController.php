@@ -33,6 +33,16 @@ class AdminController extends Controller{
         }
     }
     public function process(){
+        if($this->req == "home"){
+            $statistics = new Statistics();
+            $statistics->setGreeting();
+            $greeting = $statistics->getGreeting();
+
+            $this->request['greeting'] = $greeting;
+
+            $this->AdminView = new AdminView($this->request,$this->activeUser);
+            $this->AdminView->render();
+        }
         if($this->req == "uf-table" && $this->role == "admin"){
             $this->AdminView = new AdminView($this->request,"");
             $this->AdminView->render();

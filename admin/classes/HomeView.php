@@ -1,39 +1,13 @@
 <?php
 class HomeView extends View{
     public function render(){
-
         $homeDropdownImagePath = $this->SettingService->getSettingValueByName("homeDropdownImagePath");
         $homeDropdownImagePath = new Setting($homeDropdownImagePath);
         $homeErrorImagePath = $this->SettingService->getSettingValueByName("homeErrorImagePath");
         $homeErrorImagePath = new Setting($homeErrorImagePath);
-        
 
-         if($this->req == "termsofuse" || $this->req == "privacynotice"){
+        if($this->req == "termsofuse" || $this->req == "privacynotice"){
             $this->renderTemplate($this->req);
-        }
-        else if($this->req == "contact"){
-            ?>
-            <div class='container-fluid' style='padding-top:110px;padding-bottom:470px;'>
-                <div class='row' style='font-weight:bold;display:inline-block;color:#7F4444;font-size:30px;padding-left:20px;'>
-                    <?php if($this->request['successMessage'] == true){ ?>
-                        Success:
-                    <?php }
-                    else{?>
-                        Error:
-                    <?php } ?>
-                </div>
-                <div class='row'><br/>
-                    <div class='col-sm-8 col-md-8' style='font-size:15px;padding-left:20px;'>
-                        <?php if($this->request['successMessage'] == true) { ?>
-                            Successfully Transfered the mail. Click <a href='index.php?req=searchForm' style='text-decoration:underline;'>here</a> to be redirected to the main page
-                        <?php }
-                        else{?>
-                            Mail Was Not Transferred. Click <a href='index.php?req=searchForm' style='text-decoration:underline;'>here</a> to be redirected to the main page.
-                        <?php } ?>
-                    </div>
-                </div>
-            </div>
-            <?php
         }
         else if($this->req == "page_profile"){
             echo "<div style='padding-top:105px;'>".$this->object."</div>";
@@ -43,6 +17,7 @@ class HomeView extends View{
         }
 
         else if($this->request['req'] == "searchForm"){
+
             if(array_key_exists('personName',$this->request)){$personName = $this->request['personName'];}
             else{$personName = "Search for family tree persons";}
 
@@ -51,7 +26,6 @@ class HomeView extends View{
             $individuals = $statistics->findNumberOfIndividuals();
             $families = ceil(($statistics->findNumberOfFamilies()));
 
-            
             ?>
             <section class="preloader">
                 <div class="spinner">
@@ -206,14 +180,14 @@ class HomeView extends View{
             </section>
         </div>
             <!-- Optional Results Section -->
-            <?php if (array_key_exists("display_type", $this->request) || array_key_exists("pageType", $this->request)) { ?>
+            <?php if (array_key_exists("display_type", $this->request) || (array_key_exists("pageType", $this->request) && !array_key_exists("successMessage",$this->request))) { ?>
                 <section data-stellar-background-ratio="0.5" id="result">
                     <div class="container">
                         <div class="row"><a href="#home"><img src="img/scrollUp.png" alt=""/></a></div>
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="section-title">
-                                    <h2 style="color:#7F4444;font-weight:bold;">Search Value: <?php echo $this->request['personName']; ?></h2>
+                                    <h2 style="color:#7F4444;font-weight:bold;">Search Value: <?php if(array_key_exists("personName",$this->request)){echo $this->request['personName'];}else{echo "";}; ?></h2>
                                 </div>
                             </div>
                             <div class="col-md-12 col-sm-12">
@@ -224,37 +198,71 @@ class HomeView extends View{
                 </section>
             <?php } ?>
 
-
+            
             <section id="contact" data-stellar-background-ratio="0.5">
-                <div class="container">
-                    <div class="row">
-
-                            <div class="col-md-offset-1 col-md-10 col-sm-12">
-                                <form id="contact-form" role="form" action="" method="post">
-                                    <div class="section-title">
-                                        <h1>Report Errors On The Family Tree</h1>
-                                        <div style='font-size:18px;'> Use the following form to report any errors in the family tree(e.g. incorrect relationshps,
-                                        bio information, etc)</div>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-4">
-                                        <input type="text" class="form-control" placeholder="Full name" name="name" required="">
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <input type="email" class="form-control" placeholder="Email address" name="email" required="">
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <input type="submit" id='submitMessage' class="form-control" name="send-message" value="Send Message">
-                                    </div>
-                                    <div class="col-md-12 col-sm-12">
-                                        <textarea class="form-control" rows="8" placeholder="Error Message" name="message" required=""></textarea>
-                                    </div>
-                                    <input type='hidden' name='req' value='contact'/>
-                                </form>
+                <?php if($this->request['successMessage'] == true){ ?>
+                    <div class='container-fluid' id='submitMessage-wrapper'>
+                       <div class='col-sm-3 col-sm-3' id='submitMessage'>
+                            <div id='submitMessage-img'>
+                                <img src='img/checkMark.png' alt=''/>
                             </div>
-
+                            <div id='submitMessage-title' >
+                                Submission Successfull!
+                            </div>  
+                            <div id='submitMessage-message'>
+                                Thank you for your submission. We have received your information and will process it shortly.
+                                You will receive a confirmation email within the next few minutes.
+                            </div>
+                            <div id='submitMessage-button'>
+                                <button type='button' onclick="window.location.href='index.php?req=searchForm';">Back to Home</button>
+                            </div>
+                       </div>
                     </div>
-                </div>
+                <?php }
+                else{ ?>
+                    <div class="container">
+                        <div class="row">
+
+                                <div class="col-md-offset-1 col-md-10 col-sm-12">
+                                    <form id="contact-form" role="form" method="GET">
+                                        <div class="section-title">
+                                            <h1>Report Errors On The Family Tree</h1>
+                                            <div style='font-size:18px;'>Use the following form to report any errors in the family tree (e.g. incorrect relationships, bio information, etc)</div>
+                                        </div>
+                                        <div style='font-size:13px;color:red;text-align:left;'><?php echo $this->request['errors']; ?></div>
+
+                                        <div class="col-md-6 col-sm-6">
+                                            <input type="text" class="form-control" placeholder="Full name" name="name" 
+                                                value="<?php echo array_key_exists('name', $this->request) ? $this->request['name'] : ''; ?>" required>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input type="email" class="form-control" placeholder="Email address" name="email" 
+                                                value="<?php echo array_key_exists('email', $this->request) ? $this->request['email'] : ''; ?>" required>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12" style='margin-left:10px;'>
+                                            <textarea class="form-control" rows="8" placeholder="Error Message" name="message" required><?php echo array_key_exists('message', $this->request) ? $this->request['message'] : ''; ?></textarea>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-4" style='margin-left:20px;'>
+                                            <div class="g-recaptcha" data-sitekey="6Lf0-pUrAAAAALToG7Pss0k1liYphAH4trea6rvB"></div>
+
+                                            <input 
+                                                type="submit" 
+                                                id="submitMessage" 
+                                                class="form-control mt-2" 
+                                                name="send-message" 
+                                                value="Send Message"
+                                            />
+                                        </div>
+
+                                        <input type='hidden' name='req' value='contact'/>
+                                    </form>
+
+                                    <script src="https://www.google.com/recaptcha/api.js"></script>
+                                </div>
+                        </div>
+                    </div>
+                <?php } ?>
             </section>       
 
             <!-- Status Footer -->
@@ -272,6 +280,12 @@ class HomeView extends View{
             <script src="js/smoothscroll.js"></script>
             <script src="js/custom.js"></script>
         <?php
+            if(array_key_exists("successMessage",$this->request)){
+                
+                echo '<script>window.location.hash = "#contact";</script>';
+
+            }
+
         }
     }
     public function setTermsLinksNavMenu(){
@@ -308,7 +322,6 @@ class HomeView extends View{
     }
     public function setMainLinksNavMenu(){ 
         ?>
-
             <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
                 <div class="container">
 
@@ -321,7 +334,6 @@ class HomeView extends View{
 
                             <a href="index.php?req=searchForm" class="navbar-brand" id='brand'>Family Tree</a>
                     </div>
-
                     <div class="collapse navbar-collapse" id='headerLinks'>
                             <ul class="nav navbar-nav" >
                                 <li><a href="#home" class="smoothScroll" >Home</a></li>
@@ -337,19 +349,6 @@ class HomeView extends View{
 
                 </div>
             </section>
-
-
-        <?php
-    }
-    public function setFooter(){
-        ?>
-        <div class='container-fluid' style='box-shadow: 0 -5px 10px -5px #7F4444;'>
-            <div class='row' id='footer'>
-                <p style="text-align: center; font-size: 14px; color: black; margin-top: 20px;margin-bottom:20px;">
-                    © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our <a href="?req=termsofuse" style='text-decoration:underline;color:#7F4444;'>Terms of Use</a> & <a href="?req=privacynotice" style='color:#7F4444;text-decoration:underline;'>Privacy Notice</a>
-                </p>
-            </div>
-        </div>
         <?php
     }
 }

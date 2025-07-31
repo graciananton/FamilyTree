@@ -1,3 +1,11 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+html{
+    scrollbar-color:#7F4444 white;
+}
+
 a.btn:hover {
      -webkit-transform: scale(0.9);
      -moz-transform: scale(0.9);
@@ -40,9 +48,6 @@ table thead tr th{
 }
 
 
-html{
-    scrollbar-color:#7F4444 white;
-}
 #duringDropdown{
     display:none;
 }
@@ -86,4 +91,41 @@ input:focus{
 }
 td,tr,th,table{
     border:1px solid black;
+}
+#introductionGreeting{
+    font-size:2rem;
+    color:#7F4444;
+    padding-top:20px;
+    padding-left:10px;
+    font-weight:bold;
+}
+.dropdown-toggle::after {
+    display: none !important;
+}
+.dropdown-item:hover{
+    color:#7F4444 !important;
+}
+.dropdown-item:active{
+    background-color:#DF8C8C !important;
+}
+#welcomeGreeting{
+    padding-top:15px;
+    padding-left:25px;
+    font-size:1.2rem;
+    color:black;
+    display:flex;
+    justify-content:flex-start;
+    align-items:flex-start;
+}
+#linksChart ul li{
+    padding-left:15px;
+    list-style-type:none;
+    color:black;
+    font-weight:normal;
+    font-size:1rem;
+}
+#linksChart ul{
+    color:#7F4444;
+    font-weight:bold;
+    font-size:1.2rem;
 }

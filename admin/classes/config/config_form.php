@@ -18,11 +18,13 @@ timezone = "UTC"
 uploadLocation = "img/people"
 uploadDefaultLocation = "img/people/default"
 imagePrefix = ph
+recaptchaSecretKey = "6Lf0-pUrAAAAALToG7Pss0k1liYphAH4trea6rvB"
+
 
 [navLinksMenuUser]
-navLinksMenuOptionsUser = "Add Member=>pf-insert_person,Edit Members=>pf-display_persons"
+navLinksMenuOptionsUser = "Home=>home,Members=>(Add Member->pf-insert_person;Edit Members->pf-display_persons)"
 [navLinksMenuAdmin]
-navLinksMenuOptionsAdmin = "Add Member=>pf-insert_person,Edit Members=>pf-display_persons,Add User=>uf-table,Users =>ut-table,Settings=>es-table,Generate Images=>generateImages"
+navLinksMenuOptionsAdmin = "Home=>home,Members=>(Add Member->pf-insert_person;Edit Members->pf-display_persons),Users=>(Add User->uf-table;Edit Users ->ut-table),Admin=>(Edit Settings->es-table;Generate Images->generateImages)"
 
 
 [RelationshipForm]
