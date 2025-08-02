@@ -71,11 +71,8 @@ html{
 }
 .nodeText:hover{
   box-shadow:5px 5px 5px #7F4444;
-  transform:scale(1.001);
-  font-size:16px;
-  font-weight:bold;
+  font-size:14px;
   transition-duration:.2s;
-  padding-bottom:4px;
 }
 
 

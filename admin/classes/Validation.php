@@ -32,22 +32,21 @@ class Validation{
     public function validateEmail(){
         $errors = "";
         $recaptchaSecret = Config::getRecaptchaSecretKey();
-        
-        $recaptchaResponse = $this->request['g-recaptcha-response'];
+        $recaptchaResponse = $this->request['g-recaptcha-response'] ?? '';
 
-        $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
-        
-        $response = file_get_contents($verifyURL . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
-            
-        echo $response.'<br/>';
-        $responseData = json_decode($response);
+        if (empty($recaptchaResponse)) {
+                $errors = "Please complete the reCAPTCHA.";
+        } else {
+                $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
+                $response = file_get_contents($verifyURL . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+                $responseData = json_decode($response, true);
+                if (isset($responseData['success']) && $responseData['success'] === true) {
+                    $errors = "reCAPTCHA failed. Please try again.";
+                } else {
+                    $errors = "";
+                }
+        }
 
-        if (!$responseData->success) {
-            $errors = "Recaptcha not clicked, ";
-        }
-        else{
-            $errors = "";
-        }
         foreach($this->request as $key=>$value){
             if(!preg_match('/[\$\%\^\*\<\>]/', $key) && !preg_match('/[\$\%\^\*\<\>]/', $value)){
 

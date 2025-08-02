@@ -17,7 +17,30 @@ class HomeView extends View{
         }
 
         else if($this->request['req'] == "searchForm"){
+        ?>
+            <script>
+                function showSectionFromHash() {
+                    const hash = window.location.hash;
+                    document.getElementById('termsofuse').style.display = 'none';
+                    document.getElementById('privacynotice').style.display = 'none';
 
+                    if (hash === '#termsofuse') {
+                        document.getElementById('termsofuse').style.display = 'block';
+                        window.location.hash = "#termsofuse";
+
+                    } else if (hash === '#privacynotice') {
+                        document.getElementById('privacynotice').style.display = 'block';
+                        window.location.hash = "#privacynotice";
+                    }
+                }
+
+                // Run when page first loads
+                window.addEventListener('DOMContentLoaded', showSectionFromHash);
+
+                // Run when hash changes dynamically
+                window.addEventListener('hashchange', showSectionFromHash);
+            </script>
+        <?php
             if(array_key_exists('personName',$this->request)){$personName = $this->request['personName'];}
             else{$personName = "Search for family tree persons";}
 
@@ -221,12 +244,13 @@ class HomeView extends View{
                 <?php }
                 else{ ?>
                     <div class="container">
-                        <div class="row">
-
+                        <div class='row' style='font-size:2.7rem;text-align:left;padding-bottom:35px;padding-left:10px;'>
+                            Contact Us:
+                        </div>
+                        <div class="row" style=''>
                                 <div class="col-md-offset-1 col-md-10 col-sm-12">
-                                    <form id="contact-form" role="form" method="GET">
+                                    <form id="contact-form" role="form" method="POST">
                                         <div class="section-title">
-                                            <h1>Report Errors On The Family Tree</h1>
                                             <div style='font-size:18px;'>Use the following form to report any errors in the family tree (e.g. incorrect relationships, bio information, etc)</div>
                                         </div>
                                         <div style='font-size:13px;color:red;text-align:left;'><?php echo $this->request['errors']; ?></div>
@@ -244,7 +268,7 @@ class HomeView extends View{
                                         </div>
 
                                         <div class="col-md-4 col-sm-4" style='margin-left:20px;'>
-                                            <div class="g-recaptcha" data-sitekey="6Lf0-pUrAAAAALToG7Pss0k1liYphAH4trea6rvB"></div>
+                                            <div class="g-recaptcha" data-sitekey="<?php echo Config::getRecaptchaSecretKey(); ?>"></div>
 
                                             <input 
                                                 type="submit" 
@@ -265,13 +289,20 @@ class HomeView extends View{
                 <?php } ?>
             </section>       
 
+            <section id='termsofuse' style='display:none;'>
+                <?php  echo $this->renderTemplate("termsofuse"); ?>
+            </section>
+
+            <section id='privacynotice' style='display:none;'>
+                <?php echo $this->renderTemplate("privacynotice"); ?>
+            </section>
+
             <!-- Status Footer -->
             <section id="statusBar">
                 <div>Last Modified: <?php echo $statistics->getLatestDate(); ?></div>
-                <div>v.1.0.0</div>
+                <div>v.1.0</div>
             </section>
 
-            
             <!-- Scripts -->
             <script src="js/jquery.js"></script>
             <script src="js/bootstrap.min.js"></script>
@@ -281,12 +312,12 @@ class HomeView extends View{
             <script src="js/custom.js"></script>
         <?php
             if(array_key_exists("successMessage",$this->request)){
-                
                 echo '<script>window.location.hash = "#contact";</script>';
-
             }
-
+        ?>
+        <?php
         }
+
     }
     public function setTermsLinksNavMenu(){
     ?>  

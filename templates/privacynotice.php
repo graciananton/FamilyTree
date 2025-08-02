@@ -1,6 +1,5 @@
-<section>
-  <div class="privacy-container" style='padding-left:25px;'>
-    <h3>Privacy Notice</h3>
+  <div class="privacy-container" style='margin:auto;width:77%;'>
+    <div style='font-size:2.7rem;padding-bottom:35px;'>Privacy Notice:</div>
 
     <p><strong>Owner:</strong> Gracian Anton<br>
     <strong>Website:</strong> <a href="https://family.gracian.ca" target="_blank">family.gracian.ca</a></p>
@@ -59,4 +58,3 @@
     <p>Gracian Anton<br>Email: gracian.anton@gmail.com</p>
 
   </div>
-</section>

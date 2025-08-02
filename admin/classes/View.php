@@ -27,7 +27,9 @@ abstract class View{
             <div class='container-fluid' style='position:relative;bottom:0;box-shadow: 0 -5px 10px -5px #7F4444;'>
                 <div class='row' id='footer'>
                     <p style="text-align: center; font-size: 14px; color: black;padding-top:15px;">
-                        © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our <a href="/gracian/familyTree/index.php?req=termsofuse" style='text-decoration:underline;color:#7F4444;'>Terms of Use</a> & <a href="/gracian/familyTree/index.php??req=privacynotice" style='color:#7F4444;text-decoration:underline;'>Privacy Notice</a>
+                        © <?php echo date("Y"); ?> Family Tree. All rights reserved. Please view our 
+                        <a href="index.php?req=searchForm#termsofuse" style='text-decoration:underline;color:#7F4444;'>Terms of Use</a> 
+                      & <a href="index.php?req=searchForm#privacynotice" style='color:#7F4444;text-decoration:underline;'>Privacy Notice</a>
                     </p>
                 </div>
             </div>
