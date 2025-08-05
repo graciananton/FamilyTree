@@ -17,7 +17,6 @@ import py_classes.config as config
 
 if __name__ == "__main__":
 
-    
     config.setup_api_key()
 
 

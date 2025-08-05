@@ -10,12 +10,11 @@ class HomeView extends View{
             $this->renderTemplate($this->req);
         }
         else if($this->req == "page_profile"){
-            echo "<div style='padding-top:105px;'>".$this->object."</div>";
+            echo "<div  id='personProfile'>".$this->object."</div>";
         }
         else if($this->request['pageType'] == "page_error"){
             echo $this->object;
         }
-
         else if($this->request['req'] == "searchForm"){
         ?>
             <script>
@@ -62,7 +61,7 @@ class HomeView extends View{
 
             <!-- Main Home Section -->
         <div style='position:relative;'>
-            <section data-stellar-background-ratio="1" id="home">
+            <section data-stellar-background-ratio="1" id="home" >
                 <div style="width:25%; float:left;"></div>
 
                 <div style="width:50%; float:left;">
@@ -136,10 +135,23 @@ class HomeView extends View{
 
 
                 <!-- Chat Container -->
-                <div style="width:21%;display:none;z-index:1001;" id='chatbox'>
-                    <div class="container-fluid">
-                        <div id="chat-container">
-                            <div class="col-md-12 col-sm-12">
+                <div style="display: none;
+                            position: fixed;
+                            bottom: 80px;
+                            right: 10px;
+                            background-color: white;
+                            z-index: 9999;
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                            border-radius: 10px;
+                            padding:0;
+                            margin-right:67px;
+                            margin-top:60px;
+                            margin-bottom:20px;
+                            " 
+                            id='chatbox' >
+                    <div class="container-fluid" style='padding:0;margin:0;'>
+                        <div id="chat-container" style='padding:0;margin:0;'>
+                            <div class="col-md-12 col-sm-12" style='padding:0;margin:0;'>
                                 <div id="header">
                                     <div id="image"><img src="img/person.png" alt=""/></div>
                                     <div id="text" style="text-align:left;">
@@ -185,7 +197,12 @@ class HomeView extends View{
                         </div>
                     </div>
                 </div>
-                <div id='chatbox-button' style='margin-right:0px;' onclick='displayChatbox()'>
+                <div id='chatbox-button' style='
+                                        position: fixed;
+                                        bottom: 20px;
+                                        right: 75px;
+                                        z-index: 10000;
+                                        cursor: pointer;' onclick='displayChatbox()'>
                     
                         <img src='img/chatbox-icon.png' alt=''/>
                 </div>
@@ -213,9 +230,28 @@ class HomeView extends View{
                                     <h2 style="color:#7F4444;font-weight:bold;">Search Value: <?php if(array_key_exists("personName",$this->request)){echo $this->request['personName'];}else{echo "";}; ?></h2>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-12">
-                                <?php echo $this->object; ?>
+
+
+                            <div id="viewport">
+                                <div id="zoomableContent">
+                                    <div class="content-box" >
+                                        <?php echo $this->object; ?>
+                                    </div>
+                                </div>
                             </div>
+
+                            <?php
+                            if(!array_key_exists("pageType",$this->request)){
+                                ?>
+                                <div class="controls">
+                                    <button onclick="zoom('in')">Zoom In</button>
+                                    <button onclick="zoom('out')">Zoom Out</button>
+                                </div>
+                                <script src='js/zoom.js'></script>
+                                <?php
+                            }
+                            ?>
+                            </script>
                         </div>
                     </div>
                 </section>
@@ -244,7 +280,7 @@ class HomeView extends View{
                 <?php }
                 else{ ?>
                     <div class="container">
-                        <div class='row' style='font-size:2.7rem;text-align:left;padding-bottom:35px;padding-left:10px;'>
+                        <div class='row' id='sectionTitle' style='font-size:2.7rem;text-align:left;padding-bottom:35px;padding-left:10px;'>
                             Contact Us:
                         </div>
                         <div class="row" style=''>
@@ -351,35 +387,33 @@ class HomeView extends View{
             </section>
     <?php
     }
-    public function setMainLinksNavMenu(){ 
-        ?>
-            <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
-                <div class="container">
+    public function setMainLinksNavMenu() {
+    ?>
+    <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+        <div class="container">
 
-                    <div class="navbar-header">
-                            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="icon icon-bar"></span>
-                                <span class="icon icon-bar"></span>
-                                <span class="icon icon-bar"></span>
-                            </button>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headerLinks">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-                            <a href="index.php?req=searchForm" class="navbar-brand" id='brand'>Family Tree</a>
-                    </div>
-                    <div class="collapse navbar-collapse" id='headerLinks'>
-                            <ul class="nav navbar-nav" >
-                                <li><a href="#home" class="smoothScroll" >Home</a></li>
-                            </ul>
-                            <ul class="nav navbar-nav" >
-                                <li><a href="#contact" class="smoothScroll" >Contact</a></li>
-                            </ul>
+                <a href="index.php?req=searchForm" class="navbar-brand" id="brand">Family Tree</a>
+            </div>
 
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="admin/login.php" target = "_blank" class='smoothScroll'>Login</a></li>
-                            </ul>
-                    </div>
+            <div class="collapse navbar-collapse" id="headerLinks">
+                <ul class="nav navbar-nav">
+                    <li><a href="#home" class="smoothScroll">Home</a></li>
+                    <li><a href="#contact" class="smoothScroll">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="admin/login.php" target="_blank" class="smoothScroll">Login</a></li>
+                </ul>
+            </div>
 
-                </div>
-            </section>
-        <?php
-    }
+        </div>
+    </section>
+    <?php
+}
 }

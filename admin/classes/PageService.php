@@ -14,6 +14,7 @@ class PageService{
     private $personPropertyList = [];
     public function __construct($request,$activeUser){
         $this->request = $request;
+        print_r($this->request);
         //$this->req = $request['req'];
         $this->req = $request['pageType'];
         
@@ -63,11 +64,17 @@ class PageService{
             foreach($this->tags as $tag){
                 foreach($personPropertyList as $property){
                     if(trim($property) == trim($tag)){    
+
+                        
                         $method = "set".ucfirst($property);
+
                         if(method_exists($this,$method)){
                             $this->contentText = str_replace("#".$tag."#",$this->$method(),$this->contentText);
                         }
                     }
+                    $this->contentText = str_replace("#select#",$this->setSelect(),$this->contentText);
+                    $this->contentText = str_replace("#displayType#",$this->setDisplayType(),$this->contentText);
+
                 }
             }
         }
@@ -77,7 +84,7 @@ class PageService{
                     if(trim($tag) != "UAPIDPerson" & trim($tag) != "ActionHistory"){
                         $method = "set".ucfirst($tag);
                         if(method_exists($this,$method)){
-                        
+
                             $this->contentText = str_replace("#".$tag."#",$this->$method(),$this->contentText);
                         }
                     }
@@ -87,9 +94,10 @@ class PageService{
                     }
                 }
                 else{
+                        //echo $tag."<br/>";
                         $method = "set".ucfirst($tag);
+
                         if(method_exists($this,$method)){
-                        
                             $this->contentText = str_replace("#".$tag."#",$this->$method(),$this->contentText);
                         }
                     
@@ -100,6 +108,21 @@ class PageService{
             $this->contentText = $this->DatabaseManager->getPage("error")['content'];
         }
     }
+
+
+
+    public function setSelect(){
+        return $this->request['pid'];
+    }
+    public function setPid(){
+        return $this->request['pid'];
+    }
+    public function setDisplayType(){
+        return $this->request['display_type'];
+    }
+
+
+
     public function setFirstName(){
         return $this->person->getFirstName();
 

@@ -113,12 +113,8 @@ class Controller{
 
 
         echo "<div id='navbar'>";
-            if($this->request['req'] == "termsofuse" || $this->request['pageType'] == "page_error" || $this->request['req'] == "privacynotice"){
-                $HomeView->setTermsLinksNavMenu();
-            }
-            else{
                 $HomeView->setMainLinksNavMenu();
-            }
+        
         echo "</div>";
 
 

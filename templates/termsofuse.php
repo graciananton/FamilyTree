@@ -1,5 +1,5 @@
   <div class="terms-container" style='margin:auto;width:77%;'>
-    <div style='font-size:2.7rem;padding-bottom:35px;'>Terms of Use:</div>
+    <div style='font-size:2.7rem;padding-bottom:35px;' id='sectionTitle'>Terms of Use:</div>
 
     <p><strong>Owner:</strong> Gracian Anton<br>
     <strong>Website:</strong> <a href="https://family.gracian.ca" target="_blank">family.gracian.ca</a></p>

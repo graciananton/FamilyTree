@@ -94,7 +94,7 @@ class FamilyBuilderImpl implements Builder{
 
     public function generateTree(string $pid, string $select, array $request): string {
             $jsonPayload = "[{\n" . $this->build($pid, $select, $request) . "\n}]";
-            $tree = '<div id="graph" style="transform:scale(1.3,1.3);"></div>';
+            $tree = '<div id="graph" style="transform:scale(1.0,1.0);"></div>';
             ?>
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
