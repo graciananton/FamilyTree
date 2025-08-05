@@ -4,7 +4,7 @@
         <div class='container-fluid mt-1'>
             <div class='row fw-bold shadow-lg' style='color:#7F4444;background-color:#ffffff;'>
                 <nav class='navbar navbar-expand-lg navbar-light '>
-                    <div class='container-fluid'>
+                    <div class='container-fluid' >
                         <a href='../index.php?req=searchForm' style='font-weight:500;text-decoration:none;font-size:25px;color:#7F4444;padding-left:10px;' target='_blank'>
                             Family Tree
                         </a>
@@ -14,7 +14,7 @@
                         </button>
 
                         <div class='collapse navbar-collapse ms-4 mt-2' id='hamburgerIcon'>
-                            <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+                            <ul class='navbar-nav me-auto mb-2 mb-lg-0' style='width:90%;'>
                                 <?php
                                 for($i=0;$i<count($navLinksMenuAdmin);$i++){
                                     $navLinkMenuItem = $navLinksMenuAdmin[$i];
@@ -56,12 +56,16 @@
                                     }
                                 }
                                 ?>
-                                <li class='nav-item'>
-                                    <a class='nav-link' href='logout.php' style='color:#7F4444'>Logout</a>
+                                <li class='nav-item' style='margin-left:auto;list-style-type:none;'>
+                                        <a class='nav-link' href='logout.php' style='color:#7F4444'>Logout</a>
                                 </li>
+
                             </ul>
                         </div>
+
+
                     </div>
+
                 </nav>
             </div>
         </div>
