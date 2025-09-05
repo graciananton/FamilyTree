@@ -95,7 +95,7 @@ class HomeView extends View{
                             for (let i = 0; i < totalNumberOfFamilies; i++) {
                                 setTimeout(() => {
                                     document.getElementById('numberOfFamilies').innerHTML = i + 1;
-                                }, i * 100);
+                                }, i * 300);
                             }
                         });
                     </script>
@@ -137,7 +137,7 @@ class HomeView extends View{
                 <!-- Chat Container -->
                 <div style="display: none;
                             position: fixed;
-                            bottom: 80px;
+                            bottom: 100px;
                             right: 10px;
                             background-color: white;
                             z-index: 9999;
@@ -199,8 +199,8 @@ class HomeView extends View{
                 </div>
                 <div id='chatbox-button' style='
                                         position: fixed;
-                                        bottom: 20px;
-                                        right: 75px;
+                                        bottom: 50px;
+                                        right: 90px;
                                         z-index: 10000;
                                         cursor: pointer;' onclick='displayChatbox()'>
                     

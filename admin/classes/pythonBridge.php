@@ -1,11 +1,12 @@
 <?php
 class pythonBridge{
     private $request;
-
-
-    private $python_path = "C:\\Users\\16134\\AppData\\Local\\Programs\\Python\\Python313\\python.exe";
-    private $sql_RAG = "C:\\DEV\\Gracian\\familyTree\\chatbox.py";
-
+//python3 /kunden/homepages/3/d1017242952/htdocs/projects/python/
+    //private $python_path = "C:\\Users\\16134\\AppData\\Local\\Programs\\Python\\Python313\\python.exe";
+    //private $sql_RAG = "C:\\DEV\\Gracian\\familyTree\\chatbox.py";
+    private $python_path = "python3";
+    private $sql_RAG = "/kunden/homepages/3/d1017242952/htdocs/familyTree/chatbox.py";
+    
     //private $sql_RAG = "/kunden/homepages/3/d1017242952/htdocs/familyTree/chatbox.py";
 
     public function __construct($request){
@@ -27,7 +28,7 @@ class pythonBridge{
         
 
         if($output == ""){
-            $output = "I am sorry, I do not have enough information to answer that.";
+           $output = "I do not have enough information to answer that.";
         }
 
         echo $output;

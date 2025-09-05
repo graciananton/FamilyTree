@@ -13,7 +13,7 @@
                         </button>
 
                         <div class='collapse navbar-collapse ms-4 mt-2' id='hamburgerIcon'>
-                            <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+                            <ul class='navbar-nav me-auto mb-2 mb-lg-0' style='width:90%;'>
                                 <?php
                                 for($i=0;$i<count($navLinksMenuUser);$i++){
                                     $navLinkMenuItem = $navLinksMenuUser[$i];
@@ -55,7 +55,7 @@
                                     }
                                 }
                                 ?>
-                                <li class='nav-item'>
+                                <li class='nav-item' style='margin-left:auto;'>
                                     <a class='nav-link' href='logout.php' style='color:#7F4444'>Logout</a>
                                 </li>
                             </ul>

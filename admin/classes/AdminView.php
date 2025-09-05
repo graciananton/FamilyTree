@@ -184,7 +184,7 @@ class AdminView extends View{
                             </ul>
                         </ul>
                     </div>
-                    <div  id='familyTreeAdminTutorial' class='col-md-9 col-sm-9'>
+                    <div  id='familyTreeAdminTutorial' class='col-md-9 col-sm-9' style='margin-bottom:50px;'>
                         <video controls style='width:100%;height:auto;display:block;'>
                             <source src='videos/familyTreeAdminTutorial.mp4' type='video/mp4'>
                         </video>

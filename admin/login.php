@@ -13,7 +13,6 @@ include "classes/User.php";
 include "classes/Setting.php";
 include "classes/SettingService.php";
 include "classes/SettingServiceImpl.php";
-include "classes/Home.php";
 include "classes/ImageHandler.php";
 $activeUser = "";
 if($_SERVER['REQUEST_METHOD'] == "POST"){
