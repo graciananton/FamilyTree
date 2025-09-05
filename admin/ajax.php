@@ -3,7 +3,9 @@ include 'classes/DatabaseManager.php';
 include 'classes/Config.php';
 include 'classes/QueryBuilder.php';
 include "classes/ImageHandler.php";
+include "classes/pythonBridge.php";
 $request = $_REQUEST;
+
 if(array_key_exists("req",$request)){
     $req = $request['req'];
 }
@@ -19,6 +21,23 @@ else if($req == "sf-generateImages"){
     $files = $ImageHandler->getFilesFromDefault();
     $ImageHandler->moveFilesToFolders($files,$folderType);
 }   
+else if($req == "sf-generateAIBiography"){
+    $DatabaseManager = new DatabaseManager($request);
+
+    $request['host'] = $_SERVER['HTTP_HOST'];
+    $pythonBridge = new pythonBridge($request);
+    $person_biographies = $pythonBridge->process();
+
+    for($i=0;$i<count($person_biographies);$i++){
+        $person_biography = $person_biographies[$i];
+        $result = $DatabaseManager->insertIntoPerson("AIBiography",$person_biography);
+    }
+}
+else if($req == "eachAiBio"){
+    $DatabaseManager = new DatabaseManager($request);
+    $persons = $DatabaseManager->getPersons();
+    print_r(json_encode($persons));
+}
 else if($req == "father" || $req =="mother" || $req == "partner"){
     $DatabaseManager = new DatabaseManager($request);
 

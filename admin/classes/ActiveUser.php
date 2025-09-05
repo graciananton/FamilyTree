@@ -18,9 +18,8 @@ class ActiveUser{
     public function verify(){
 
         $this->user = $this->DatabaseManager->checkUserLoginInfo($this->request);
-
-        $this->user = new user($this->user);
-        if(is_object($this->user)){
+        if(is_array($this->user)){
+            $this->user = new user($this->user);
             $this->store();
             $this->DatabaseManager->addDateToActiveUser();
             return true;

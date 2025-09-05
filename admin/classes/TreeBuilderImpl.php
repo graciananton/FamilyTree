@@ -8,7 +8,7 @@ class TreeBuilderImpl implements Builder{
         $this->DatabaseManager = new DatabaseManager("");
         $this->SettingService = new SettingServiceImpl($this->DatabaseManager);
     }
-    private function build(string $pid,string $select, array $request):string{
+    public function build(string $pid,string $select, array $request):string{
         $response = $this->SettingService->getSettingValueByName("homeTreeImagePath");
         $Setting = new Setting($response);
         $person = $this->DatabaseManager->getPersonByPid($pid);
@@ -54,20 +54,20 @@ class TreeBuilderImpl implements Builder{
 
 
 
-                            $html .= "<a href='?pid={$person->pid}&pageType=page_profile&display_type=vertical&req=searchForm'><img style='' src='admin/img/people/ph_20/" . $person->psid . ".png' id='treePerson' value='" . $person->psid . "' alt=''></a>";
+                            //$html .= "<a href='?pid={$person->pid}&pageType=page_profile&display_type=vertical&req=searchForm'><img style='' src='img/people/ph_20/ft_" . $person->psid . "_ft.png' id='treePerson' value='" . $person->psid . "' alt=''></a>";
 
 
 
 
                         }
                         else{
-                            $html .=  " & ".$partner->firstName . " " . $partner->lastName;
+                            $html .=  " & ".$partner->firstName . " " . $partner->lastName."<br/>";
                         }
                     }
                     $html .= <<<HTML
-                    <br/><a href='?pid={$person->pid}&pageType=page_profile&display_type=vertical&req=searchForm' style='margin-right:6px;'>
+                    <a href='?pid={$person->pid}&pageType=page_profile&display_type=vertical&req=searchForm' style='margin-right:6px;'>
                         <img 
-                            src='admin/img/people/ph_20/{$person->pid}.png' 
+                            src='img/people/ph_20/ft_{$person->pid}_ft.png' 
                             id='treePerson'  
                             onerror='this.onerror=null; this.src="admin/img/man.png";'  
                             value='{$person->pid}' 
@@ -78,7 +78,7 @@ class TreeBuilderImpl implements Builder{
                     $html .= <<<HTML
                     <a href='?pid={$partner->pid}&pageType=page_profile&display_type=vertical&req=searchForm'>
                         <img 
-                            src='admin/img/people/ph_20/{$partner->pid}.png' 
+                            src='img/people/ph_20/ft_{$partner->pid}_ft.png' 
                             id='treePerson'  
                             onerror='this.onerror=null; this.src="admin/img/man.png";'  
                             value='{$partner->pid}' 
@@ -117,7 +117,7 @@ class TreeBuilderImpl implements Builder{
                 $html .= <<<HTML
                 <a href='?pid={$person->pid}&pageType=page_profile&display_type=vertical&req=searchForm'>
                     <img 
-                        src='admin/img/people/ph_20/{$person->pid}.png' 
+                        src='img/people/ph_20/ft_{$person->pid}_ft.png' 
                         id='treePerson'  
                         onerror='this.onerror=null; this.src="admin/img/man.png";'  
                         value='{$person->pid}' 

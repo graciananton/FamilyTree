@@ -4,12 +4,32 @@
                                                       font-size: 18px;
                                                       font-weight: bold;
                                                       padding: 4px 12px;
-                                                      background-color: #5e3333;
                                                       border-radius: 4px;
                                                       transition: background-color 0.2s ease-in-out;
+
+                                                      background-color:#7F4444;
+}
+.back-to-home-btn:hover{
+                                                          color: white;
+                                                      text-decoration: none;
+                                                      font-size: 18px;
+                                                      font-weight: bold;
+                                                      padding: 4px 12px;
+                                                      border-radius: 4px;
+                                                      transition: background-color 0.2s ease-in-out;
+
+                                                      background-color:#7F4444;
+
+    box-shadow:5px 5px 5px #7F4444;
 }
 .back-to-home-wrapper{
     padding: 15px;
-                                  display: flex;
-                                  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
+}
+#biography a{
+    color:#7F4444;
+}
+#biography a:hover{
+    text-decoration:underline !important;
 }

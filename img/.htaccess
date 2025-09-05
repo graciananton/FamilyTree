@@ -1,0 +1,8 @@
+# --- SAFETY GUARD: do not rewrite or redirect real files/dirs
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# --- Explicitly stop rules from touching the images path
+RewriteRule ^familyTree/img/people/ - [L]

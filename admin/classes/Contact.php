@@ -11,20 +11,28 @@ class Contact{
     }   
     public function send(){
 
-        $to = "gracian.anton@gmail.com";
-        $subject = "Error in Family Tree";
 
-        $txt = $this->request['message'];
 
         $email = $this->request['email'];
 
         $headers = "From: $email";
+
+        $to      = 'gracian.anton@gmail.com'; // use a real mailbox you can read
+        $subject = 'Error in Family Tree';
+        $body    = $this->request['message']."\n\n\n".$email;
+        $headers = "From: noreply@gracian.ca\r\n".
+                "Reply-To: noreply@gracian.ca\r\n".
+                "MIME-Version: 1.0\r\n".
+                "Content-Type: text/plain; charset=UTF-8\r\n";
+
         
-        if(mail($to,$subject,$txt,$headers)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        $ok = mail($to, $subject, $body, $headers, '-fnoreply@gracian.ca');
+
+            /*if(mail($to,$subject,$txt,$headers)){
+                echo "true";
+            }
+            else{
+                echo "false";
+            }*/
     }
 }

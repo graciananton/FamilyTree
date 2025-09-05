@@ -1,3 +1,6 @@
+$homeDropdownImagePath = $this->SettingService->getSettingValueByName("homeDropdownImagePath");
+$homeDropdownImagePath = new Setting($homeDropdownImagePath);
+<script>
                 $(document).ready(function() {
                     $(document).on("keyup", "#searchdynamic", function(event) {
                         var sValue = $(this).val();
@@ -35,7 +38,7 @@
                                         dropdown +=     '<input type="hidden" name="display_type" value="' +selectedDisplayType + '"/>';
                                         
                                         dropdown +=     '<input type="hidden" name="req" value="searchForm">';
-
+                                        
 
                                         dropdown +=     '<button type="submit" id="searchOption" style="text-align: left; border: 0px solid red; padding: 8px;">';
                                             dropdown +=     '<img src="<?php echo $homeDropdownImagePath->getValue();?>' + person['pid'] + '.png" onerror="this.onerror=null; this.src=\'admin/img/man.png\';" style="height: 20px; margin-right: 8px;" />' + name;
@@ -62,3 +65,4 @@
                         $("#pid").val(pid)
                     });
                 });
+</script>

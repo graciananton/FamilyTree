@@ -15,16 +15,19 @@ include "classes/SettingService.php";
 include "classes/SettingServiceImpl.php";
 include "classes/ImageHandler.php";
 $activeUser = "";
+$request = array();
+
 if($_SERVER['REQUEST_METHOD'] == "POST"){
     $request = $_REQUEST;
-        $_SESSION['password'] = $request['password'];
-        $_SESSION['username'] = $request['username'];
         $activeUser = new ActiveUser($request);
         if($activeUser->verify()){
+            $_SESSION['password'] = $request['password'];
+            $_SESSION['username'] = $request['username'];
+
             echo '<meta http-equiv="refresh" content="0;url=index.php?req=home">';          
         }
         else{
-            echo "Password or Username is incorrect";
+            $request['loggedIn'] = false;
         }
 }
 $AdminView = new AdminView("", $activeUser);
@@ -33,13 +36,18 @@ $AdminView->setMenu();
 ?>
 <div class='ml-10 p-5'>
     <form action="" enctype='multipart/form-data' id='login' method='post'>
+        <?php 
+            if(array_key_exists("loggedIn",$request) && $request['loggedIn'] == false){
+                    echo "<div style='color:red;font-size:15px;'>Password or Username is incorrect.</div>";
+            }
+        ?>
         <div class='form-group'>
             <label for='username' class='form-label'>Username:</label>
-            <input type='input' id='username' class='form-control w-25' name='username' value='basil_anton@yahoo.ca'/>
+            <input type='input' id='username' class='form-control w-25' name='username' value='<?php if(array_key_exists('username',$request)){echo $request['username'];} else{echo "";} ?>'/>
         </div>
         <div class='form-group'>
             <label for='password' class='form-label'>Password:</label>
-            <input type='input' id='password' class='form-control w-25 mb-3' name='password' value='2008'/>
+            <input type='password' id='password' class='form-control w-25 mb-3' value='<?php if(array_key_exists('password',$request)){echo $request['password'];} else{echo "";} ?>' name='password'/>
         </div>
         <input type='submit' id='submit' value='Submit' name='submit'/>
         <input type='hidden' name='submit_form' value='submit_form'/>

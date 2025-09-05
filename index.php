@@ -3,6 +3,7 @@
     <script src="admin/dTree.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
 <?php
+
 if(!array_key_exists("req",$_REQUEST)){
     $_REQUEST['req'] = "searchForm";
 }
@@ -31,12 +32,10 @@ include "admin/classes/QueryBuilder.php";
   <div style="width: 100%;height:100%;">
     <?php   
         $request = $_REQUEST;
-
         $validation = new Validation($request);
         if(!$validation->validate()){
             $request['pageType'] = "page_error";
         }
-
         $Controller = new Controller($request);
         $Controller->process();
 

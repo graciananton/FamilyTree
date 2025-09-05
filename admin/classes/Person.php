@@ -9,6 +9,8 @@ class Person {
     private $address='';
     private $image='';
     private $biography='';
+    private $AIBiography ='';
+    private $AIEnabled='';
     private $deathDate='';
     private $role = '';
     
@@ -24,7 +26,10 @@ class Person {
 
     private $pid='';
     private $req ='';
+    private $DatabaseManager;
     public function __construct(array $request){
+
+        $this->DatabaseManager = new DatabaseManager($this->request);
         $this->request = $request;
         $this->setPerson();
         $this->setRelationships();
@@ -45,6 +50,9 @@ class Person {
                 $this->image = $this->request['image']['name'];
             }
             $this->biography = $this->request['biography'];
+            $this->AIBiography = $this->request['AIBiography'];
+            $this->AIEnabled = $this->request['AIEnabled'];
+
             if(array_key_exists('deathDate',$this->request)){
                 $this->deathDate = $this->request['deathDate'];
             }
@@ -114,8 +122,11 @@ class Person {
     public function getImage(){
         return $this->image;
     }
+    public function getAIEnabled(){
+        return $this->AIEnabled;
+    }
     public function getBiography(){
-        return $this->biography;
+            return $this->AIBiography;
     }
     public function getDeathDate(){
         return $this->deathDate;

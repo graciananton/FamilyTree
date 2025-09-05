@@ -49,7 +49,6 @@ class Controller{
                 else{
                     $Builder = new FamilyBuilderImpl();
                 }
-
                 $form = $Builder->generateTree($this->pid,$this->select,$this->request);
             }
         }
@@ -61,7 +60,6 @@ class Controller{
 
                 $errors  =  $validation->validateEmail();
                 if($errors == ""){
-
                     $contact->send();
                     
                     $this->request['successMessage'] = 1;
@@ -102,7 +100,6 @@ class Controller{
             $PageService = new PageService($this->request,"");
             $PageService->renderContent();
             $form = $PageService->getContentText();
-
         }
 
         else if($this->req == "termsofuse" || $this->req == "privacynotice"){
@@ -110,7 +107,6 @@ class Controller{
         } 
         
         $HomeView = new HomeView($this->request,$form);
-
 
         echo "<div id='navbar'>";
                 $HomeView->setMainLinksNavMenu();

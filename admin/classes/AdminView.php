@@ -193,6 +193,117 @@ class AdminView extends View{
             </div> 
         <?php
         }
+        else if($this->req == "generateAIBiography"){
+            $title ="Generate AI Biography";
+            $this->renderHeadingInfo("generateAIBiography",$title);
+            $persons = $this->DatabaseManager->getPersons();
+        ?>
+        <div class='container-fluid pt-3'>
+            <div class='row'>
+                <div style='width:2%;'></div>
+                <div class='col-md-3 col-sm-3'>
+                    The following persons are in the database:<br/>
+                    <ul>
+                    <?php
+                        for($i=0;$i<count($persons);$i++){
+                            $person = $persons[$i];
+                            if(!empty($person->firstName) && !empty($person->lastName)){
+                                ?>
+                                <li><?php echo $person->firstName." ".$person->lastName; ?></li>
+                                <?php
+                            }
+                        }
+                    ?>
+                    </ul>
+                </div>
+                <div class='col-md-6 col-sm-6'>
+                    <div class='col-md-12 col-sm-12'>Which level do you want to set for the AI biography.</div>
+                    <div class='col-md-4 col-sm-4'>
+                    <form id="aiBioForm" enctype="multipart/form-data" action="" method="POST">
+                        <label for="level" class="form-label">Level:</label>
+                        <select class="form-select" name="level">
+                            <option value="">-- Choose a level --</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <label for='type'>Type:</label>
+                        <select class="form-select" name="type" id='updateType'>
+                            <option value="">Choose a type of updating</option>
+                            <option value='emptyAiBios'>Update all empty AI bios</option>
+                            <option value='allAiBios'>Update all AI bios</option>
+                            <option value='eachAiBio'>Update each AI bio</option>
+                        </select>
+                        <div id='personDropdown'></div>
+                        <div id='prompt'></div>
+                        <input 
+                            type="submit" 
+                            id="AIBiographySubmit" 
+                            name="submit" 
+                            style="margin-left:15px;margin-top:10px;" 
+                            value="Generate AI Biography"
+                        />
+                        <marquee behavior="alternate" direction="right" style="margin-left:50px;margin-top:15px;width:100px; background:#ddd; border-radius:5px;">
+                            <div id='loader' style="background:#7F4444; border-radius:5px;"></div>
+                        </marquee>
+                        <input type="hidden" value="sf-generateAIBiography" name="req"/>
+                    </form>
+
+                    <script>
+                    document.getElementById("updateType").addEventListener("change",function(){
+                        let selected = this.value;
+                        if(selected == "eachAiBio"){
+                            document.getElementById("personDropdown").style.display='block';
+                            $.ajax({
+                                url: "ajax.php",
+                                method: "POST",
+                                data: {
+                                    req:selected
+                                },
+                                success:function(persons){
+                                    persons = JSON.parse(persons);
+                                    let dropdown = "<label for='selectedPerson'>Select Person:</label>";
+                                    dropdown += "<select id='selectedPerson' name='selectedPerson' class='form-select'>";
+                                    
+                                    persons.forEach(function(person){
+                                        if(person.firstName != ""){
+                                            dropdown += "<option value= '"+person.pid+"'>"+person.firstName + " " + person.lastName+"</option>";
+                                        }
+                                    }); 
+
+                                    dropdown += "</select>";
+
+                                    $("#personDropdown").html(dropdown);
+                                }
+                            })
+                        }
+                        else{
+                            document.getElementById("personDropdown").style.display='none';
+                        }
+                    })
+                    $("#aiBioForm").on("submit", function(e) {
+                        e.preventDefault();
+                        document.getElementById("AIBiographySubmit").style.display='none';
+                        document.getElementById("loader").style.width='15px';
+                        document.getElementById("loader").style.height ='8px';
+                        document.getElementById("prompt").innerHTML = "<i style='font-size:12px;'>Will take up to 3 minutes to finish. Do not exit tab <br/>until process completes</i>";
+                        $.ajax({
+                            url: "ajax.php",
+                            type: "POST",
+                            data: $(this).serialize(),
+                            success: function(response) {
+                                console.log(response);
+                                document.getElementById("loader").style.width='0px';
+                                document.getElementById("loader").style.height ='0px';
+                                document.getElementById("prompt").innerHTML = "Successfully Added Bio";
+                                $("#response").html("Biographies generated successfully");
+                            }
+                        });
+                    });
+                    </script>
+        </div>
+        <?php
+        }
         else if($this->req == "generateImages"){
             $files = $this->ImageHandler->getFilesFromDefault();
             $title ="Generate Images:";
@@ -219,15 +330,17 @@ class AdminView extends View{
                                 <label for='folder' class='form-label'>Folder:</label>
                                 <select name='folder' id='folder' class='form-control'>
                                     <option value='Choose an option' disabled readonly>Select option</option>
-                                <?php 
-                                    $folders = $this->ImageHandler->getFoldersFromDirectory("img/people"); 
-                                    for($i=0;$i<count($folders);$i++){
-                                        ?>
-                                        <option value="<?php echo $folders[$i]; ?>"><?php echo $folders[$i]; ?></option>
-                                        <?php
-                                    }
-                                ?>
-                                <option value="all" selected>All Listed</option>
+                                    <?php 
+                                        
+                                        $folders = $this->ImageHandler->getFoldersFromDirectory("../img/people"); 
+                                        for($i=0;$i<count($folders);$i++){
+                                            ?>
+                                            <option value="<?php echo $folders[$i]; ?>"><?php echo $folders[$i]; ?></option>
+                                            <?php
+                                        }
+                                    ?>
+                                    <option value="all" selected>All Listed</option>
+                                </select>
                             </div>
                             <div class='form-group' >
                                 <input type='submit' name='resize' style='margin-top:10px;' value='Resize Files'/>
@@ -463,7 +576,7 @@ class AdminView extends View{
                                 const pid = "<?php echo $pid; ?>";
                                 console.log(pid);
                                 if(pid !== ""){
-                                    document.getElementById('preview').innerHTML = "<img src='img/people/ph_50/" + pid + ".png'>";
+                                    document.getElementById('preview').innerHTML = "<img src='../img/people/ph_50/ft_" + pid + "_ft.png'>";
                                 }
 
                                 document.getElementById('imageInput').addEventListener('change', function(event) {
@@ -614,12 +727,12 @@ class AdminView extends View{
                                             html +="<tr>";
                                             
                                             var imagePath = "<?php echo $personImagePath->getValue(); ?>"; // PHP executes on server
-                                            html += "<td class='text-center' >"+(i)+"</td><td class='text-center'>" + person.firstName + "</td>" +
+                                            html += "<td class='text-center' >"+(i+1)+"</td><td class='text-center'>" + person.firstName + "</td>" +
                                                     "<td class='text-center'>" + person.lastName + "</td>" +
                                                     "<td class='text-center'>" + person.birthDate + "</td>" +
                                                     "<td class='text-center'>" + person.gender + "</td>" +
                                                     "<td class='text-center d-flex justify-content-center align-items-center' id='img'>" +
-                                                        "<img src='" + imagePath + person.pid  + "' onerror=\"this.onerror=null; this.src='<?php echo  $adminErrorImagePath->getValue(); ?>';\" />"
+                                                        "<img src='../" + imagePath + "ft_"+person.pid+"_ft.png"  + "' onerror=\"this.onerror=null; this.src='<?php echo  $adminErrorImagePath->getValue(); ?>';\" />"
                                             html += "</td>";
                                             relationshipExists = false;
                                             for(j=0;j<relationships.length;j++){
@@ -888,9 +1001,9 @@ class AdminView extends View{
     }
     private function resolveMenuPath():String{
         $navLinksMenuUser = explode(",",Config::getNavLinksMenuUser());
-        if(is_object($this->object)){
+        if(is_object($this->object) && ($this->object->getRole() == "admin" || $this->object->getRole() == "user")){
             $file = $this->object->getRole();
-        }
+        }   
         else{
             $file = "login";
         }

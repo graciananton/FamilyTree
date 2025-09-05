@@ -15,8 +15,8 @@ dbname = "familytree"
 [app]
 debug = 1
 timezone = "UTC"
-uploadLocation = "img/people"
-uploadDefaultLocation = "img/people/default"
+uploadLocation = "../img/people"
+uploadDefaultLocation = "../img/people/default"
 imagePrefix = ph
 recaptchaSecretKey = "6Lf0-pUrAAAAALToG7Pss0k1liYphAH4trea6rvB"
 
@@ -24,7 +24,7 @@ recaptchaSecretKey = "6Lf0-pUrAAAAALToG7Pss0k1liYphAH4trea6rvB"
 [navLinksMenuUser]
 navLinksMenuOptionsUser = "Home=>home,Members=>(Add Member->pf-insert_person;Edit Members->pf-display_persons)"
 [navLinksMenuAdmin]
-navLinksMenuOptionsAdmin = "Home=>home,Members=>(Add Member->pf-insert_person;Edit Members->pf-display_persons),Users=>(Add User->uf-table;Edit Users ->ut-table),Admin=>(Edit Settings->es-table;Generate Images->generateImages)"
+navLinksMenuOptionsAdmin = "Home=>home,Members=>(Add Member->pf-insert_person;Edit Members->pf-display_persons),Users=>(Add User->uf-table;Edit Users ->ut-table),Admin=>(Edit Settings->es-table;Generate Images->generateImages;Generate AI Biography->generateAIBiography)"
 
 
 [RelationshipForm]

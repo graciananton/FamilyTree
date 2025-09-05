@@ -14,7 +14,6 @@ class PageService{
     private $personPropertyList = [];
     public function __construct($request,$activeUser){
         $this->request = $request;
-        print_r($this->request);
         //$this->req = $request['req'];
         $this->req = $request['pageType'];
         
@@ -136,7 +135,7 @@ class PageService{
         $this->SettingService = new SettingServiceImpl($this->DatabaseManager);
         $personImagePath = $this->SettingService->getSettingValueByName("profile_pic");
         $personImagePath = new Setting($personImagePath);
-        $personImagePath = $personImagePath->getValue().$this->person->getPid().".png";
+        $personImagePath = $personImagePath->getValue()."/ft_".$this->person->getPid()."_ft.png";
         return $personImagePath;
     }
     public function setBirthDate(){

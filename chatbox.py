@@ -1,138 +1,124 @@
-with open('pythonLog.txt','w') as file:
-    file.write("beginning of execution\n")
-
-
+import os
 import sys
 
 
-with open('pythonLog.txt','a') as file:
-    file.write("\n".join(sys.path)+"\n")
+if sys.argv[2] != "localhost":
+    sys.path.insert(0, "/kunden/homepages/3/d1017242952/htdocs/.local/lib/python3.9/site-packages")
 
 
-# ✅ 1. Tell Python where your external modules are
-sys.path.insert(0, "/kunden/homepages/3/d1017242952/htdocs/familyTree/python_modules")
 
-# ✅ 2. Tell Python where to find your own package: py_classes/
-sys.path.insert(0, "/kunden/homepages/3/d1017242952/htdocs/familyTree")
 
-                                                              
-with open('pythonLog.txt','a') as file:
-    file.write("installing everything")
+#from typing_extensions import TypedDict, Annotated
+from typing import TypedDict, Annotated
 
-import os
+from langchain.chat_models import init_chat_model
 
-"""
-dir_path = "/kunden/homepages/3/d1017242952/htdocs/familyTree/python_modules"
+from langchain_core.prompts import ChatPromptTemplate
 
-if os.path.exists(dir_path):
-    with open("pythonLog.txt",'a') as file:
-        file.write("Directory exists for python_modules")
+from langchain_community.utilities import SQLDatabase
+from langchain_community.tools.sql_database.tool import QuerySQLDatabaseTool
+
+if sys.argv[2] == 'localhost':
+    db = SQLDatabase.from_uri("mysql+mysqlconnector://root:@localhost:3306/familytree")
 else:
-    with open("pythonLog.txt",'a') as file:
-        file.write("Directory DNE for python_modules")
-
-"""
-
-with open("pythonLog.txt",'a') as file:
-    file.write("\n".join(os.listdir("/kunden/homepages/3/d1017242952/htdocs/familyTree/python_modules"))+"\n")
+    db = SQLDatabase.from_uri("mysql+mysqlconnector://dbu5691915:FamilyTree123%23@db5017690433.hosting-data.io/dbs14144770")
 
 
 
-import ast
-import json
-import warnings
-import re
+#db = SQLDatabase.from_uri("mysql+pymysql://USER:PASS@db5017690433.hosting-data.io/dbs14144770")
 
-warnings.filterwarnings("ignore")
-
-with open('pythonLog.txt','a') as file:
-        file.write("after importing")
-
-try:
-    from pydantic import BaseModel
-    with open('pythonLog.txt', 'a') as file:
-        file.write("✅ Successfully imported pydantic\n")
-        
-    from langchain_community.utilities.sql_database import SQLDatabase
-    from langchain.chat_models import init_chat_model
-    from langchain_core.prompts import PromptTemplate
-    from langchain_core.runnables import RunnableSequence
-
-    import py_classes.classes as classes
-    import py_classes.config as config
-
-    with open('pythonLog.txt','a') as file:
-        file.write("imported successfully")
-
-except  ImportError as e:
-
-    with open('pythonLog.txt','a') as file:
-        file.write("error in importing module " + str(e)+"\n")
-
-
-if __name__ == "__main__":
-
-    config.setup_api_key()
-
-
-    llm = init_chat_model("gemini-2.0-flash", model_provider="google_genai")
-
-    #servername = "localhost"
-    #username   = "root"
-    #password   = ""
-    #dbname     = "familytree"
-
-    servername = "db5017690433.hosting-data.io"
-    username = "dbu5691915"
-    password = "FamilyTree123#"
-    dbname = "dbs14144770"
-
-
-    uri = f"mysql+mysqlconnector://{username}:{password}@{servername}/{dbname}"
-
-    db = SQLDatabase.from_uri(
-        uri,
-        include_tables = ['person','relation']
-    )
     
 
-    table_description = classes.DatabaseManager()
-    table_description = (table_description.getSetting("table_description"))[0][2]
+os.environ["GOOGLE_API_KEY"] = "AIzaSyA26EG1w4Ac-CAQautdio8h-D8iv7m4RqQ"
+
+llm = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
+
+class State(TypedDict):
+    question: str # the question in natural language
+    query: str # the sql query from the natural language
+    result: str # the result when the sql query is run
+    answer: str # formats the sql query in a natural language format
+
+system_message = """
+Given an input question, create a syntactically correct {dialect} query to
+run to help find the answer. Unless the user specifies in his question a
+specific number of examples they wish to obtain, always limit your query to
+at most {top_k} results. You can order the results by a relevant column to
+return the most interesting examples in the database.
+
+Never query for all the columns from a specific table, only ask for the
+few relevant columns given the question.
+
+Pay attention to use only the column names that you can see in the schema
+description. Be careful to not query for columns that do not exist. Also,
+pay attention to which column is in which table.
+
+Only use the following tables:
+{table_info}
+"""
+
+user_prompt = "Question: {input}"
 
 
-    table_info = table_description + db.get_table_info()
+query_prompt_template = ChatPromptTemplate(
+    [("system", system_message), ("user", user_prompt)]
+)
 
-    #question = sys.argv[1]
+class QueryOutput(TypedDict):
+    query: Annotated[str, ..., "Syntactically valid SQL query."]
 
-    question  = "Who is the father of Gracian"
+def write_query(state: State):
+    prompt = query_prompt_template.invoke({
+        "dialect": db.dialect,
+        "top_k": 10,
+        "table_info": db.get_table_info(["person", "relation"]),
+        "input": state["question"],
+    })
+    structured_llm = llm.with_structured_output(QueryOutput)
+    result = structured_llm.invoke(prompt)
+    return {"query": result["query"]}
 
-    prompt = PromptTemplate.from_template(
-    "Write a MySQL query to answer the question using only these tables:\n\n{table_info}\n\nQuestion: {question}"
+def execute_query(state: State):
+    execute_query_tool = QuerySQLDatabaseTool(db=db)
+    return {"result": execute_query_tool.invoke(state["query"])}
+
+def generate_answer(state: State):
+    prompt = (
+        "Given the following user question, corresponding SQL query, "
+        "and SQL result, answer the user question\n\n"
+        f"Question: {state['question']}\n"
+        f"SQL Query: {state['query']}\n"
+        f"SQL Result: {state['result']}"
     )
+    response = llm.invoke(prompt)
+    return {"answer": response.content}
 
-    chain = prompt | llm
+# --- STEP 9: RUN EVERYTHING
 
-    sql_response = chain.invoke({"question": question, "table_info": table_info})
+state: State = {
+    "question": sys.argv[1],
+    "query": "",
+    "result": "",
+    "answer": ""
+}
 
-    sql_query = sql_response.content
+# Generate query
+query_result = write_query(state)
+state["query"] = query_result["query"]
 
-    match = re.findall(r"```(?:sql|mysql)\s*(.*?)```", sql_query, re.DOTALL | re.I)
+# Run query
+execution_result = execute_query(state)
+state["result"] = execution_result["result"]
 
-    #runs the sql statement
-    results = db.run(match[0])
-    # makes the results into a list from a string
-    results = ast.literal_eval(results)
-    string = ""
-    tracker = 0
-    for result in results:
-        tracker = tracker + 1
-        if len(results) == 1:
-            string += result[0]
-        else:
-            if tracker == len(results):
-                string += result[0]
-            else:
-                string += result[0] + ", "
+# Get final answer
+answer_result = generate_answer(state)
+state["answer"] = answer_result["answer"]
 
-    print(json.dumps(string))
+with open("log.txt",'w',encoding='utf-8') as file:
+    file.write(state['answer'])
+    
+print(state['answer'])
+
+
+
 

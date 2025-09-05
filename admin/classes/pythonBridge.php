@@ -1,36 +1,94 @@
 <?php
-class pythonBridge{
+class PythonBridge {
     private $request;
-//python3 /kunden/homepages/3/d1017242952/htdocs/projects/python/
-    //private $python_path = "C:\\Users\\16134\\AppData\\Local\\Programs\\Python\\Python313\\python.exe";
-    //private $sql_RAG = "C:\\DEV\\Gracian\\familyTree\\chatbox.py";
-    private $python_path = "python3";
-    private $sql_RAG = "/kunden/homepages/3/d1017242952/htdocs/familyTree/chatbox.py";
-    
-    //private $sql_RAG = "/kunden/homepages/3/d1017242952/htdocs/familyTree/chatbox.py";
+    private $python_path;
+    private $AIBiography;
+    private $systemInterpreter;
+    private $sqlRAG;
 
-    public function __construct($request){
+    public function __construct($request) {
         $this->request = $request;
     }
-    public function process(){
 
-        $question = escapeshellarg($this->request['message']);
+    public function process() {
+        $host = $this->request['host'];
 
-        $sql_RAG = $this->sql_RAG;
+        if (array_key_exists("req", $this->request) && $this->request['req'] === "sf-generateAIBiography") {
+            $level = $this->request['level'];
+            $type = $this->request['type'];
+            $selectedPerson = $this->request['selectedPerson'] ?? "";
+            
+            if ($host == "localhost") {
+                $this->python_path = "C:\\Users\\16134\\AppData\\Local\\Programs\\Python\\Python313\\python.exe";
+                $this->AIBiography = "C:\\DEV\\Gracian\\familyTree\\AIBiography.py";
 
-        $cmd = "\"$this->python_path\" \"$this->sql_RAG\" $question 2>&1";
+                $cmd = sprintf(
+                    '"%s" "%s" %s %s %s 2>&1',
+                    $this->python_path,
+                    $this->AIBiography,
+                    escapeshellarg($level),
+                    escapeshellarg($type),
+                    escapeshellarg($selectedPerson)
+                );
+            } else {
 
-        //$cmd =  "python3 /kunden/homepages/3/d1017242952/htdocs/familyTree/chatbox.py $question 2>&1";
+                $this->python_path       = "/kunden/homepages/3/d1017242952/htdocs/familyTree/python_modules";
+                $this->systemInterpreter = "/usr/bin/python3";
+                $this->AIBiography            = "/kunden/homepages/3/d1017242952/htdocs/familyTree/AIBiography.py";
 
-        $output = shell_exec($cmd);
+                $cmd = sprintf(
+                    'PYTHONPATH=%s:$PYTHONPATH %s %s %s %s %s 2>&1',
+                    escapeshellarg($this->python_path),
+                    $this->systemInterpreter,
+                    escapeshellarg($this->AIBiography),
+                    escapeshellarg($level),
+                    escapeshellarg($type),
+                    escapeshellarg($selectedPerson)
+                );
+            }
+            $person_biographies = shell_exec($cmd);
+            echo "<pre>";
+            print_r($person_biographies);
+            echo "</pre>";
+            
+            $person_biographies = json_decode($person_biographies, true);
 
-        $output = json_decode($output,true);
-        
+            
+            return $person_biographies;
 
-        if($output == ""){
-           $output = "I do not have enough information to answer that.";
+        } else {
+            $question = $this->request['message'];
+
+            if ($host == "localhost") {
+                $this->python_path = "C:\\Users\\16134\\AppData\\Local\\Programs\\Python\\Python313\\python.exe";
+                $this->sqlRAG = "C:\\DEV\\Gracian\\familyTree\\chatbox.py";
+
+                $cmd = sprintf(
+                    '"%s" "%s" %s %s 2>&1',
+                    $this->python_path,
+                    $this->sqlRAG,
+                    escapeshellarg($question),
+                    escapeshellarg($host)
+                );
+            } else {
+                $question = escapeshellarg($question);
+
+                $this->python_path       = "/kunden/homepages/3/d1017242952/htdocs/familyTree/python_modules";
+                $this->systemInterpreter = "/usr/bin/python3";
+                $this->sqlRAG            = "/kunden/homepages/3/d1017242952/htdocs/familyTree/chatbox.py";
+
+                $cmd = sprintf(
+                    'PYTHONPATH=%s:$PYTHONPATH %s %s %s %s 2>&1',
+                    escapeshellarg($this->python_path),
+                    escapeshellarg($this->systemInterpreter),
+                    escapeshellarg($this->sqlRAG),
+                    $question,
+                    $host
+                );
+            }
+
+            $output = shell_exec($cmd);
+            return $output;
         }
-
-        echo $output;
     }
 }

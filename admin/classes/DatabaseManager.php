@@ -348,6 +348,18 @@ class DatabaseManager{
         }
         else{return false;}
     }
+    public function insertIntoPerson($param,$list){
+        if($param == "AIBiography"){
+            $query = $this->queryBuilder->buildQuery('insertIntoPerson','AIBiography',$list);
+        }
+        $result = mysqli_query($this->con,$query);
+    }
+    public function getAIEnabled(){
+        $query = $this->queryBuilder->buildQuery("getAIEnabled",'','');
+        $result = mysqli_query($this->con,$query);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    }
     public function getUserInfo(){
         $query = $this->queryBuilder->buildQuery('getUserInfo','','');
         $result = mysqli_query($this->con,$query);

@@ -11,7 +11,7 @@ class ImageHandler{
         $folders = $this->getFoldersFromDirectory("img/people");
         for($i=0;$i<count($folders);$i++){
             $folder = $folders[$i];
-            $file = "img/people/".$folder."/".$this->pid.".png";
+            $file = "../img/people/".$folder."/ft_".$this->pid."_ft.png";
             
             
             if(file_exists($file)){
@@ -22,7 +22,7 @@ class ImageHandler{
             }
             else{
             }
-            $file = "img/people/default/".$this->pid.".png";
+            $file = "../img/people/default/ft_".$this->pid."_ft.png";
 
             if(file_exists($file)){
                 unlink($file);
@@ -31,7 +31,7 @@ class ImageHandler{
 
         }
     }
-    public function getFoldersFromDirectory($targetDir){
+    public function getFoldersFromDirectory($targetDir){        
         $folders = [];
         $items = scandir($targetDir);
         foreach($items as $item){
@@ -66,6 +66,10 @@ class ImageHandler{
 
         $defaultDir = $targetBaseDir ."/default/";
         $originalTargetFile = $defaultDir . $pid. ".png";
+
+        $originalTargetFile = '../img/people/default/'.$pid. ".png";
+
+        echo $originalTargetFile;
         if(move_uploaded_file($tmp_file_path,$originalTargetFile)){
         }
         else{
@@ -73,7 +77,6 @@ class ImageHandler{
         return $originalTargetFile;
     }
     public function moveFilesByDimensions($originalTargetFile) {
-
 
         $originalTargetFileInfo = pathinfo(basename($originalTargetFile));
         $originalTargetFileInfoName = $originalTargetFileInfo['filename'];
@@ -85,16 +88,29 @@ class ImageHandler{
 
         $folders = $this->getFoldersFromDirectory($targetBaseDir);
         $dimensionFolders = [];
+
         foreach($folders as $folder){
             $folder = str_replace('ph_','',$folder);
             array_push($dimensionFolders,$folder);
             $newWidth = (int) $folder;
             $newHeight = (int) $folder;
             $thumb = imagecreatetruecolor($newWidth,$newHeight);
-            $source = imagecreatefrompng($originalTargetFile);
+
+            if($this->image['type'] == "image/jpeg"){
+                $source = imagecreatefromjpeg($originalTargetFile);
+            }
+            else{
+                $source = imagecreatefrompng($originalTargetFile);
+            }
+
             imagecopyresized($thumb,$source,0,0,0,0,$newWidth,$newHeight,$width,$height);
-            $newFileLocation = "img/people/ph_".$folder."/".$originalTargetFileInfoName.".png";
-            imagejpeg($thumb,$newFileLocation);
+            $newFileLocation = "../img/people/ph_".$folder."/ft_".$originalTargetFileInfoName."_ft.png";
+            
+            //echo $newFileLocation.'<br/>';
+
+            //imagejpeg($thumb,$newFileLocation);
+            imagepng($thumb,$newFileLocation);
+
             imagedestroy($thumb);
             imagedestroy($source);
         }
@@ -102,7 +118,7 @@ class ImageHandler{
     public function moveFilesToFolders($files,$folderType){
         for($i=0;$i<count($files);$i++){
             $file = (string) $files[$i];
-            $file = "img/people/default/".$file;
+            $file = "../img/people/default/".$file;
             $originalTargetFileInfo = pathinfo(basename($file));
             $originalTargetFileInfoName = $originalTargetFileInfo['filename'];
 
@@ -113,6 +129,7 @@ class ImageHandler{
 
             $dimensionFolders = [];
             $folders = $this->getFoldersFromDirectory($targetBaseDir);
+
             if($folderType == "all"){
                 foreach($folders as $folder){
                     $folder = str_replace("ph_","",$folder);
@@ -129,7 +146,7 @@ class ImageHandler{
                         $source = imagecreatefrompng($file);
                     }
                     imagecopyresized($thumb,$source,0,0,0,0,$newWidth,$newHeight,$width,$height);
-                    $newFileLocation = "img/people/ph_".$folder."/".$originalTargetFileInfoName.".png";
+                    $newFileLocation = "../img/people/ph_".$folder."/ft_".$originalTargetFileInfoName."_ft.png";
 
                     if ($extension === "jpg" || $extension === "jpeg") {                    
                         imagejpeg($thumb,$newFileLocation);
@@ -143,9 +160,11 @@ class ImageHandler{
             }
             else if($folderType == "ph_20" 
                     || $folderType == "ph_100" 
+                    || $folderType == "ph_35"
                     || $folderType == "ph_150" 
                     || $folderType == "ph_200" 
                     || $folderType == "ph_50"
+                    || $folderType == "ph_27"
                    )
             {
                     $folder = $folderType;
@@ -164,7 +183,7 @@ class ImageHandler{
                         $source = imagecreatefrompng($file);
                     }
                     imagecopyresized($thumb,$source,0,0,0,0,$newWidth,$newHeight,$width,$height);
-                    $newFileLocation = "img/people/ph_".$folder."/".$originalTargetFileInfoName.".png";
+                    $newFileLocation = "../img/people/ph_".$folder."/ft_".$originalTargetFileInfoName."_ft.png";
 
                     if ($extension === "jpg" || $extension === "jpeg") {                    
                         imagejpeg($thumb,$newFileLocation);
@@ -174,7 +193,6 @@ class ImageHandler{
                     }
                     imagedestroy($thumb);
                     imagedestroy($source);
-
             }
         }
     }

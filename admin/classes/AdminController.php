@@ -8,6 +8,8 @@ class AdminController extends Controller{
     public function __construct(array $request,object $activeUser){
         $this->request = $request;
         $this->activeUser = $activeUser;
+
+
         $this->role = $activeUser->getRole();
         $this->UAPID = $activeUser->getUAPID();
         $this->req = $request['req'];
@@ -47,12 +49,12 @@ class AdminController extends Controller{
             $this->AdminView = new AdminView($this->request,"");
             $this->AdminView->render();
         }
-        else if($this->req == 'ut-table'){
+        else if($this->req == 'ut-table' && $this->role == "admin"){
             $userInfo = $this->DatabaseManager->getUserInfo();
             $this->AdminView = new AdminView($this->request,$userInfo);
             $this->AdminView->render();
         }
-        else if($this->req == "es-table"){
+        else if($this->req == "es-table" && $this->role == "admin"){
             $this->DatabaseManager = new DatabaseManager("");// send to SettingServiceImpl.php
             $this->SettingService = new SettingServiceImpl($this->DatabaseManager);
             $records = $this->SettingService->getRecords("","");
@@ -115,10 +117,8 @@ class AdminController extends Controller{
             else{
                 $this->AdminView->renderErrorMessage();
             }
-
-
         }
-        else if($this->req == "generateImages"){
+        else if($this->req == "generateImages" && $this->role == "admin"){
             $this->AdminView = new AdminView($this->request,$this->activeUser);
             $this->AdminView->render();
            /* $imageLocation = Config::getImageLocation();            
@@ -126,6 +126,10 @@ class AdminController extends Controller{
             $defaultFiles = $this->imageHandler->getFilesFromDefault();
             $this->imageHandler->resizeImages($defaultFiles);
           */
+        }
+        else if($this->req == "generateAIBiography" && $this->role == "admin"){
+            $this->AdminView = new AdminView($this->request,$this->activeUser);
+            $this->AdminView->render();
         }
         else if($this->req == "ufs-table" && $this->role == "admin"){
             $this->AdminView = new AdminView("",$this->activeUser);
@@ -228,7 +232,6 @@ class AdminController extends Controller{
                 $ImageHandler = new ImageHandler($this->aPerson->getImage(),$pid);
                 $originalTargetFile = $ImageHandler->moveImageToDefault(); 
                 $ImageHandler->moveFilesByDimensions($originalTargetFile);   
-
             }   
         }
     }

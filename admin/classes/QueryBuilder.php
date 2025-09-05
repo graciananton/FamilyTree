@@ -25,6 +25,13 @@ class queryBuilder{
 
             $sql = "INSERT INTO person($columns_string) VALUES($values_string)";
         }   
+        else if($queryName == "getAIEnabled"){
+            $sql = "SELECT AIEnabled FROM person WHERE pid=0";
+        }
+        else if($queryName == "insertIntoPerson"){
+            $sql = "UPDATE person SET $criterion = \"" . $param['AIBiography'] . "\" WHERE pid = " . $param['pid'];
+        }
+
         else if($queryName == "updateRecord"){
             $sql = "UPDATE setting SET 
                 name = '" . addslashes($param->getName()) . "', 
@@ -150,6 +157,7 @@ class queryBuilder{
 
             $columns = implode(",",$columns);
             $values = implode(",",$values);
+
             $sql = "INSERT INTO relation($columns) VALUES($values)";
         }
         else if($queryName == "editRelation"){

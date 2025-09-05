@@ -10,13 +10,11 @@ class FamilyBuilderImpl implements Builder{
         $this->SettingService = new SettingServiceImpl($this->DatabaseManager);
     }
     private function build(string $pid, string $select, array $request): string{
+
     // 1) load person
     $this->imagePath = $this->SettingService->getSettingValueByName("homeTreeImagePath")['value'];
-
-
     $personData = $this->DatabaseManager->getPersonAndRelationship($pid);
     $person     = new Person($personData);
-
     // 2) write the person block
     $this->html .= $this->buildPerson($person);
 
@@ -91,15 +89,14 @@ class FamilyBuilderImpl implements Builder{
             "               \"fpid\":". $person->getFpid() ."\n".
             "           \n}";
     }
-
     public function generateTree(string $pid, string $select, array $request): string {
             $jsonPayload = "[{\n" . $this->build($pid, $select, $request) . "\n}]";
+
             $tree = '<div id="graph" style="transform:scale(1.0,1.0);"></div>';
             ?>
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                    const treeData = <?= $jsonPayload ?>;
-                    console.log(treeData);
+                    var treeData = <?= $jsonPayload ?>;
 
                         dTree.init(treeData,
                                     {
@@ -118,27 +115,38 @@ class FamilyBuilderImpl implements Builder{
                                             },*/
                                             textRenderer: function(name, extra, textClass) {
                                             if (extra && extra.pid) {
-                                                if(extra.pid == "<?php echo $select; ?>"){
-                                                    string = "<p align='center' class='" + textClass + "' id='node'>"
-                                                    + name
-                                                    + "<br/>"
-                                                    + "<a href='?pid=" + extra.pid + "&pageType=page_profile&display_type=horizontal&req=searchForm'>"
-                                                    + "<img id='person_image' src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
-                                                    + "onerror=\"this.onerror=null; this.src='admin/img/man.png';\"/>"
-                                                    + "</a>"
-                                                    + "</p>";
+                                                //let imageUrl = "<?php// echo $this->imagePath; ?>" + "ft_" + extra.pid + "_ft.png";
+                                            
+                                                const treeData = <?= $jsonPayload ?>;
 
+                                                var url = "<?php echo $this->imagePath; ?>" + "ft_" + extra.pid + "_ft.png";
+                                                
+                                                
+                                                if(extra.pid == "<?php echo $select; ?>"){
+                                                    let string =
+                                                    "<p align='center' class='" + textClass + "' id='node'>" +
+                                                        name + "<br/>" +
+                                                        "<a href='?pid=" + extra.pid + "&pageType=page_profile&display_type=horizontal&req=searchForm'>";
+                                                                                                            
+                                                    string += "<img src='" + url + "' onerror=\"this.onerror=null; this.src='admin/img/man.png';\" />";                                                    
+                                                    string +=    "</a></p>";
+
+                                                    
                                                     return string;
+                                                    
                                                 }
                                                 else{
-                                                    string = "<a href='?pid="+extra.pid+"&pageType=page_profile&display_type=horizontal&req=searchForm'><p align='center' class='" + textClass + "'>"
-                                                            + name
-                                                            + "<br/>"
-                                                            + "<img id='person_image'  src='<?php echo $this->imagePath; ?>" + extra.pid + ".png' "
-                                                            +     "onerror=\"this.onerror=null; this.src='admin/img/man.png';\" "
-                                                            + "/>"
-                                                            +""
-                                                        + "</p></a>";
+                                                    let string =
+                                                    "<a href='?pid=" + extra.pid + "&pageType=page_profile&display_type=horizontal&req=searchForm'>" +
+                                                        "<p align='center' class='" + textClass + "'>" +
+                                                        name + "<br/>";
+                                                                                                        
+                                                    string += "<img src='" + url + "' onerror=\"this.onerror=null; this.src='admin/img/man.png';\" />";
+
+
+                                                    string +=  "</p></a>";
+
+
                                                     return string;
                                                 }
                                             }
