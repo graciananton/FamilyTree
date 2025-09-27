@@ -1,6 +1,6 @@
 <?php 
 class AdminView extends View{
-    public function renderSuccessMessage(){
+    public function renderSuccessMessage():void{
         ?>
         <div class='container'>
             <div class='row' style='display:flex;justify-content:flex-start;align-items:flex-start;margin-top:50px;height:100vh;'>
@@ -18,7 +18,7 @@ class AdminView extends View{
         </div>
         <?php
     }
-    public function renderErrorMessage(){
+    public function renderErrorMessage():void{
                 ?>
         <div class='container'>
             <div class='row' style='display:flex;justify-content:flex-start;align-items:flex-start;margin-top:50px;height:100vh;'>
@@ -37,7 +37,7 @@ class AdminView extends View{
         <?php
 
     }
-    public function render(){
+    public function render():void{
         $personImagePath = $this->SettingService->getSettingValueByName("personImagePath");
         $personImagePath = new Setting($personImagePath);
         $adminErrorImagePath = $this->SettingService->getSettingValueByName("adminErrorImagePath");
@@ -220,13 +220,6 @@ class AdminView extends View{
                     <div class='col-md-12 col-sm-12'>Which level do you want to set for the AI biography.</div>
                     <div class='col-md-4 col-sm-4'>
                     <form id="aiBioForm" enctype="multipart/form-data" action="" method="POST">
-                        <label for="level" class="form-label">Level:</label>
-                        <select class="form-select" name="level">
-                            <option value="">-- Choose a level --</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
                         <label for='type'>Type:</label>
                         <select class="form-select" name="type" id='updateType'>
                             <option value="">Choose a type of updating</option>
@@ -996,7 +989,7 @@ class AdminView extends View{
             </div>
     <?php
     }
-    public function setMenu() {
+    public function setMenu():void {
         $this->renderTemplate($this->resolveMenuPath());
     }
     private function resolveMenuPath():String{

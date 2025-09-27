@@ -10,7 +10,6 @@ class Person {
     private $image='';
     private $biography='';
     private $AIBiography ='';
-    private $AIEnabled='';
     private $deathDate='';
     private $role = '';
     
@@ -50,8 +49,10 @@ class Person {
                 $this->image = $this->request['image']['name'];
             }
             $this->biography = $this->request['biography'];
-            $this->AIBiography = $this->request['AIBiography'];
-            $this->AIEnabled = $this->request['AIEnabled'];
+            
+            if(array_key_exists("AIBiography",$this->request)){
+                $this->AIBiography = $this->request['AIBiography'];
+            }
 
             if(array_key_exists('deathDate',$this->request)){
                 $this->deathDate = $this->request['deathDate'];
@@ -122,11 +123,11 @@ class Person {
     public function getImage(){
         return $this->image;
     }
-    public function getAIEnabled(){
-        return $this->AIEnabled;
-    }
     public function getBiography(){
-            return $this->AIBiography;
+        return $this->biography;
+    }
+    public function getAIBiography(){
+        return $this->AIBiography;
     }
     public function getDeathDate(){
         return $this->deathDate;

@@ -14,34 +14,29 @@ class PythonBridge {
         $host = $this->request['host'];
 
         if (array_key_exists("req", $this->request) && $this->request['req'] === "sf-generateAIBiography") {
-            $level = $this->request['level'];
             $type = $this->request['type'];
             $selectedPerson = $this->request['selectedPerson'] ?? "";
             
             if ($host == "localhost") {
                 $this->python_path = "C:\\Users\\16134\\AppData\\Local\\Programs\\Python\\Python313\\python.exe";
-                $this->AIBiography = "C:\\DEV\\Gracian\\familyTree\\AIBiography.py";
-
+                $this->AIBiography = "C:\\DEV\\Gracian\\familytree\\AIBiography.py";
                 $cmd = sprintf(
-                    '"%s" "%s" %s %s %s 2>&1',
+                    '"%s" "%s" %s %s 2>&1',
                     $this->python_path,
                     $this->AIBiography,
-                    escapeshellarg($level),
                     escapeshellarg($type),
                     escapeshellarg($selectedPerson)
                 );
             } else {
-
-                $this->python_path       = "/kunden/homepages/3/d1017242952/htdocs/familyTree/python_modules";
+                $this->python_path       = "/kunden/homepages/3/d1017242952/htdocs/familytree/python_modules";
                 $this->systemInterpreter = "/usr/bin/python3";
-                $this->AIBiography            = "/kunden/homepages/3/d1017242952/htdocs/familyTree/AIBiography.py";
+                $this->AIBiography            = "/kunden/homepages/3/d1017242952/htdocs/familytree/AIBiography.py";
 
                 $cmd = sprintf(
-                    'PYTHONPATH=%s:$PYTHONPATH %s %s %s %s %s 2>&1',
+                    'PYTHONPATH=%s:$PYTHONPATH %s  %s %s %s 2>&1',
                     escapeshellarg($this->python_path),
                     $this->systemInterpreter,
                     escapeshellarg($this->AIBiography),
-                    escapeshellarg($level),
                     escapeshellarg($type),
                     escapeshellarg($selectedPerson)
                 );
@@ -61,7 +56,7 @@ class PythonBridge {
 
             if ($host == "localhost") {
                 $this->python_path = "C:\\Users\\16134\\AppData\\Local\\Programs\\Python\\Python313\\python.exe";
-                $this->sqlRAG = "C:\\DEV\\Gracian\\familyTree\\chatbox.py";
+                $this->sqlRAG = "C:\\DEV\\Gracian\\familytree\\chatbox.py";
 
                 $cmd = sprintf(
                     '"%s" "%s" %s %s 2>&1',
@@ -73,9 +68,9 @@ class PythonBridge {
             } else {
                 $question = escapeshellarg($question);
 
-                $this->python_path       = "/kunden/homepages/3/d1017242952/htdocs/familyTree/python_modules";
+                $this->python_path       = "/kunden/homepages/3/d1017242952/htdocs/familytree/python_modules";
                 $this->systemInterpreter = "/usr/bin/python3";
-                $this->sqlRAG            = "/kunden/homepages/3/d1017242952/htdocs/familyTree/chatbox.py";
+                $this->sqlRAG            = "/kunden/homepages/3/d1017242952/htdocs/familytree/chatbox.py";
 
                 $cmd = sprintf(
                     'PYTHONPATH=%s:$PYTHONPATH %s %s %s %s 2>&1',

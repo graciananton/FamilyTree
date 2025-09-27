@@ -290,19 +290,23 @@ class HomeView extends View{
                 </script>
             </section>
         </div>
-            <!-- Optional Results Section -->
             <?php if (array_key_exists("display_type", $this->request) || (array_key_exists("pageType", $this->request) && !array_key_exists("successMessage",$this->request))) { ?>
                 <section data-stellar-background-ratio="0.5" id="result">
                     <div class="container">
                         <div class="row"><a href="#home"><img src="img/scrollUp.png" alt=""/></a></div>
                         <div class="row">
+                            <?php if(array_key_exists("personName",$this->request)){ ?>
                             <div class="col-md-12 col-sm-12">
                                 <div class="section-title">
-                                    <h2 style="color:#7F4444;font-weight:bold;">Search Value: <?php if(array_key_exists("personName",$this->request)){echo $this->request['personName'];}else{echo "";}; ?></h2>
+                                    <h2 style="color:#7F4444;font-weight:bold;">Search Value: <?php echo $this->request['personName'];?></h2>
                                 </div>
                             </div>
-
-
+                            <?php } 
+                            else{
+                            ?>
+                            <div class='col-md-12 col-sm-12' style='height:50px;'>
+                            </div>
+                            <?php } ?>
                             <div id="viewport">
                                 <div id="zoomableContent">
                                     <div class="content-box" >

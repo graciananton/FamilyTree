@@ -151,7 +151,12 @@ class PageService{
         return $this->person->getGender();
     }
     public function setBiography(){
-        return $this->person->getBiography();
+        if($this->person->getBiography() == ""){
+            return $this->person->getAIBiography();
+        }
+        else{
+            return $this->person->getBiography();
+        }
     }
     public function setEmail(){
         return $this->person->getEmail();

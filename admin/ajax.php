@@ -25,9 +25,10 @@ else if($req == "sf-generateAIBiography"){
     $DatabaseManager = new DatabaseManager($request);
 
     $request['host'] = $_SERVER['HTTP_HOST'];
+    
     $pythonBridge = new pythonBridge($request);
     $person_biographies = $pythonBridge->process();
-
+    print_r($person_biographies);
     for($i=0;$i<count($person_biographies);$i++){
         $person_biography = $person_biographies[$i];
         $result = $DatabaseManager->insertIntoPerson("AIBiography",$person_biography);

@@ -2,11 +2,9 @@
 import sys
 import os
 import re, json
-
 from admin.py_classes.Config import Config
 
 sys.path.insert(0, Config.SITE_PACKAGES_LOCATION)
-
 
 from langchain.chat_models import init_chat_model
 from langchain.prompts import ChatPromptTemplate
@@ -16,9 +14,8 @@ import mysql.connector
 from admin.py_classes.DatabaseService import DatabaseService
 
 
-level = sys.argv[1]
-type = sys.argv[2]
-selectedPerson = sys.argv[3]
+type = sys.argv[1]
+selectedPerson = sys.argv[2]
 
 db = DatabaseService()
 
@@ -34,24 +31,37 @@ llm = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
 
 prompt = ChatPromptTemplate.from_messages([
     ("system",
-     "Output must always be valid JSON in this format: "
-    "[{{\"pid\": \"...\", \"AIBiography\": \"...\"}}, ...] "
-    "- Do NOT invent any people. Only use entries that exist in {persons} and {relations}. "
-    "Example output: "
-    "[{{\"pid\": \"1151\", \"AIBiography\": \"Joycian Anton (M), born on October 15, 2010 (age 14). "
-    "He is the son of <a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Basil Anton</a> "
-    "and <a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Premala Anton</a>. "
-    "His siblings are <a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Gracia Anton</a>, "
-    "<a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Joycia Anton</a>, "
-    "and <a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Gracian Anton</a>. "
-    "On his paternal side, his grandparents are <a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Fernando Anton Anton</a> "
-    "and <a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Pushpum Anton</a>. "
-    "On his maternal side, his grandparents are <a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Santhiapillai Anton</a> "
-    "and <a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>Mary Anton</a>.\"}}] "
+    "You are an expert genealogical AI that generates structured biographies.\n\n"
+    "⚠️ Output Rules:\n"
+    "- Output must ALWAYS be valid JSON in this format:\n"
+    "[{{\"pid\": \"...\", \"AIBiography\": \"...\"}}, ...]\n"
+    "- Output ONLY JSON. Do not add explanations, comments, or extra text.\n"
+    "- Do not invent any people who are not in the input data.\n"
+    "- All biographies must include as much relational detail as possible.\n"
+    "- Use full sentences for biographies (third person).\n"
+    "- Wrap every relative name in an <a> tag like this:\n"
+    "- Put information in the present tense.\n"
+    "<a href='?pid={{pid}}&pageType=page_profile&display_type=horizontal&req=searchForm#result'>{{firstName}} {{lastName}}</a>\n\n"
+    "📖 Relationship Mapping Rules:\n"
+    "- Parents: From relation.fpid and relation.mid.\n"
+    "- Spouse: From relation.psid.\n"
+    "- Children: Any person X is a child of Y if relation.fpid=Y.pid or relation.mid=Y.pid.\n"
+    "- Grandchildren: Any person X is a child of one of this person's children.\n"
+    "- Grandparents: Parents of this person's parents (fpid/mid of the father/mother).\n\n"
+    "- Siblings: children of the fpid(or mid) of the person X"
+    "📝 Biography Content:\n"
+    "- Always start with the person's full name, gender (M/F), and birth/death dates if present.\n"
+    "- Include spouse(s).\n"
+    "- List parents (if any).\n"
+    "- List children (if any).\n"
+    "- List grandchildren (if any).\n"
+    "- List grandparents (if any).\n\n"
+    " - List siblings (if any).\n\n"
+    "Do not leave placeholders like 'Unknown' — omit the section if no relatives exist."
     ),
     ("human",
-     "Persons:\n{persons}"
-     "Relations:\n{relations}"
+     "Persons:\n{persons}\n\n"
+     "Relations:\n{relations}\n\n"
      "Generate the biographies now.")
 ])
 
