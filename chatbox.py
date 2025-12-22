@@ -1,9 +1,9 @@
 import os
 import sys
-
+from admin.py_classes.Config import Config
 
 if sys.argv[2] != "localhost":
-    sys.path.insert(0, "/kunden/homepages/3/d1017242952/htdocs/.local/lib/python3.9/site-packages")
+    sys.path.insert(0, Config.PythonSitePackages())
 
 
 
@@ -11,27 +11,25 @@ if sys.argv[2] != "localhost":
 #from typing_extensions import TypedDict, Annotated
 from typing import TypedDict, Annotated
 
-from langchain.chat_models import init_chat_model
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from langchain_core.prompts import ChatPromptTemplate
 
 from langchain_community.utilities import SQLDatabase
 from langchain_community.tools.sql_database.tool import QuerySQLDatabaseTool
+from dotenv import load_dotenv
+from pathlib import Path
+#if sys.argv[2] == 'localhost':
+#    db = SQLDatabase.from_uri("mysql+mysqlconnector://root:@localhost:3306/familytree")
+#else:
+#    db = SQLDatabase.from_uri("mysql+mysqlconnector://dbu5691915:FamilyTree123%23@db5017690433.hosting-data.io/dbs14144770")
 
-if sys.argv[2] == 'localhost':
-    db = SQLDatabase.from_uri("mysql+mysqlconnector://root:@localhost:3306/familytree")
-else:
-    db = SQLDatabase.from_uri("mysql+mysqlconnector://dbu5691915:FamilyTree123%23@db5017690433.hosting-data.io/dbs14144770")
+db = SQLDatabase.from_uri(Config.MySQLConnectionUrl(sys.argv[2]))
 
+load_dotenv(Path(".env"))
+os.getenv("GOOGLE_API_KEY")
 
-
-#db = SQLDatabase.from_uri("mysql+pymysql://USER:PASS@db5017690433.hosting-data.io/dbs14144770")
-
-    
-
-os.environ["GOOGLE_API_KEY"] = "AIzaSyA26EG1w4Ac-CAQautdio8h-D8iv7m4RqQ"
-
-llm = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 
 class State(TypedDict):
     question: str # the question in natural language
@@ -69,7 +67,7 @@ class QueryOutput(TypedDict):
 
 def write_query(state: State):
     prompt = query_prompt_template.invoke({
-        "dialect": db.dialect,
+        "dialect": "mysql",
         "top_k": 10,
         "table_info": db.get_table_info(["person", "relation"]),
         "input": state["question"],

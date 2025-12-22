@@ -12,6 +12,9 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.utilities import SQLDatabase
 import mysql.connector
 from admin.py_classes.DatabaseService import DatabaseService
+from dotenv import load_dotenv
+from pathlib import Path
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 type = sys.argv[1]
@@ -19,15 +22,16 @@ selectedPerson = sys.argv[2]
 
 db = DatabaseService()
 
-
 persons = db.executeQuery(type,"persons",selectedPerson)
 relations = db.executeQuery(type,"relations",selectedPerson)
 
 db = SQLDatabase.from_uri(Config.DB_CONNECTION)
 
-os.environ["GOOGLE_API_KEY"] = Config.GEMINI_API_KEY
 
-llm = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
+load_dotenv(Path(".env"))
+os.getenv("GOOGLE_API_KEY")
+
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 
 prompt = ChatPromptTemplate.from_messages([
     ("system",
